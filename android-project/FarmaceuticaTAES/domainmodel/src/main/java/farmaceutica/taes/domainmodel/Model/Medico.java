@@ -1,7 +1,147 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by felix on 25/04/15.
  */
+
+@DatabaseTable(tableName = Medico.TABLE)
 public class Medico {
+    //Tabla
+    public static final String TABLE = "medico";
+
+    //Campos
+    public static final String ID = "_id";
+    public static final String NUMCORRELATIVO = "num_correlativo";
+    public static final String NOMBRE = "nombre";
+    public static final String APELLIDOS = "apellidos";
+    public static final String TELEFONO = "telefono";
+    public static final String EMAIL = "email";
+    public static final String INFORMACIONADICIONAL = "info_adicional";
+    public static final String VISITABLE = "visitable";
+    public static final String TIPOCLIENTE = "tipo_cliente";
+
+    //Atributos
+    @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
+    private int id;
+
+    @DatabaseField(columnName = NUMCORRELATIVO, useGetSet = true, canBeNull = false)
+    private int numCorrelativo;
+
+    @DatabaseField(columnName = NOMBRE, useGetSet = true, canBeNull = false)
+    private String nombre;
+
+    @DatabaseField(columnName = APELLIDOS, useGetSet = true, canBeNull = false)
+    private String apellidos;
+
+    @DatabaseField(columnName = TELEFONO, useGetSet = true)
+    private String telefono;
+
+    @DatabaseField(columnName = EMAIL, useGetSet = true)
+    private String email;
+
+    @DatabaseField(columnName = INFORMACIONADICIONAL, useGetSet = true)
+    private String informacionAdicional;
+
+    @DatabaseField(columnName = VISITABLE, useGetSet = true, canBeNull = false)
+    private boolean visitable;
+
+    @DatabaseField(columnName = TIPOCLIENTE, useGetSet = true, canBeNull = false)
+    private TipoCliente tipoCliente;
+
+    public Medico() {
+    }
+
+    public Medico(int numCorrelativo, String nombre, String apellidos, boolean visitable, TipoCliente tipoCliente) {
+        this.numCorrelativo = numCorrelativo;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.visitable = visitable;
+        this.tipoCliente = tipoCliente;
+    }
+
+    public Medico(int numCorrelativo, String nombre, String apellidos, String telefono, String email, String informacionAdicional, boolean visitable, TipoCliente tipoCliente) {
+        this.numCorrelativo = numCorrelativo;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
+        this.informacionAdicional = informacionAdicional;
+        this.visitable = visitable;
+        this.tipoCliente = tipoCliente;
+    }
+
+    public boolean getVisitable() {
+        return visitable;
+    }
+
+    public void setVisitable(boolean visitable) {
+        this.visitable = visitable;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getNumCorrelativo() {
+        return numCorrelativo;
+    }
+
+    public void setNumCorrelativo(int numCorrelativo) {
+        this.numCorrelativo = numCorrelativo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getInformacionAdicional() {
+        return informacionAdicional;
+    }
+
+    public void setInformacionAdicional(String informacionAdicional) {
+        this.informacionAdicional = informacionAdicional;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
 }
