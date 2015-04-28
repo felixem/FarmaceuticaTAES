@@ -1,6 +1,8 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -17,6 +19,8 @@ public class Producto {
     public static final String NOMBRE = "nombre";
     public static final String DESCRIPCION = "descripcion";
 
+    //Relaciones
+
     //Atributos
     @DatabaseField(columnName = ID, id = true, useGetSet = true)
     private int codNacional;
@@ -24,8 +28,12 @@ public class Producto {
     @DatabaseField(columnName = NOMBRE, useGetSet = true, unique = true, canBeNull = false)
     private String nombre;
 
-    @DatabaseField(columnName = NOMBRE, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = DESCRIPCION, useGetSet = true, canBeNull = false)
     private String descripcion;
+
+    //Relaciones
+    @ForeignCollectionField(eager = false, foreignFieldName = MaterialPromocional.PRODUCTO_CAMPO)
+    ForeignCollection<MaterialPromocional> materialesPromocionales;
 
     public Producto() {
     }
@@ -58,6 +66,17 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    //Relaciones
+
+
+    public ForeignCollection<MaterialPromocional> getMaterialesPromocionales() {
+        return materialesPromocionales;
+    }
+
+    public void setMaterialesPromocionales(ForeignCollection<MaterialPromocional> materialesPromocionales) {
+        this.materialesPromocionales = materialesPromocionales;
     }
 
     @Override

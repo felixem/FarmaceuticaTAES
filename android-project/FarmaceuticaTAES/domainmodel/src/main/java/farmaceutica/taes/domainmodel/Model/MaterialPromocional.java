@@ -19,6 +19,12 @@ public class MaterialPromocional
     public static final String DESCRIPCION = "descripcion";
     public static final String TIPOMATERIAL = "tipo_material";
 
+    //Relaciones
+    public static final String PRODUCTO = "fk_producto";
+
+    //Campos relacionados
+    public static final String PRODUCTO_CAMPO = "producto";
+
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
     private int id;
@@ -32,12 +38,17 @@ public class MaterialPromocional
     @DatabaseField(columnName = TIPOMATERIAL, useGetSet = true, canBeNull = false)
     private TipoMaterial tipoMaterial;
 
+    //Relaciones
+    @DatabaseField(columnName = PRODUCTO, foreign = true, useGetSet = true, canBeNull = false)
+    private Producto producto;
+
     public MaterialPromocional() {
     }
 
-    public MaterialPromocional(String nombre, TipoMaterial tipoMaterial) {
+    public MaterialPromocional(String nombre, TipoMaterial tipoMaterial, Producto producto) {
         this.nombre = nombre;
         this.tipoMaterial = tipoMaterial;
+        this.producto = producto;
     }
 
     public int getId() {
@@ -70,6 +81,17 @@ public class MaterialPromocional
 
     public void setTipoMaterial(TipoMaterial tipoMaterial) {
         this.tipoMaterial = tipoMaterial;
+    }
+
+    //Relaciones
+
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     @Override

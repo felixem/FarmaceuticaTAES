@@ -17,6 +17,11 @@ public class VisitaMaterial {
     public static final String ID = "_id";
     public static final String CANTIDAD = "cantidad";
 
+    //Relaciones
+    public static final String VISITA ="fk_visita";
+    public static final String MATERIALPROMOCIONAL ="fk_material";
+
+
     //Atributos
     @DatabaseField (columnName = ID, generatedId = true, useGetSet = true)
     private int id;
@@ -24,11 +29,20 @@ public class VisitaMaterial {
     @DatabaseField (columnName = CANTIDAD, useGetSet = true, canBeNull = false)
     private int cantidad;
 
+    //Relaciones
+    @DatabaseField(columnName = VISITA, foreign = true, useGetSet = true, canBeNull = false)
+    private Visita visita;
+
+    @DatabaseField(columnName = MATERIALPROMOCIONAL, foreign = true, useGetSet = true, canBeNull = false)
+    private MaterialPromocional materialPromocional;
+
     public VisitaMaterial() {
     }
 
-    public VisitaMaterial(int cantidad) {
+    public VisitaMaterial(int cantidad, Visita visita, MaterialPromocional materialPromocional) {
         this.cantidad = cantidad;
+        this.visita = visita;
+        this.materialPromocional = materialPromocional;
     }
 
     public int getId() {
@@ -46,6 +60,24 @@ public class VisitaMaterial {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public Visita getVisita() {
+        return visita;
+    }
+
+    public void setVisita(Visita visita) {
+        this.visita = visita;
+    }
+
+    public MaterialPromocional getMaterialPromocional() {
+        return materialPromocional;
+    }
+
+    public void setMaterialPromocional(MaterialPromocional materialPromocional) {
+        this.materialPromocional = materialPromocional;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

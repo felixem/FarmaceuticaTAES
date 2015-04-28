@@ -18,6 +18,10 @@ public class VisitaProducto {
     public static final String ORDEN = "orden";
     public static final String VALORACION = "valoracion";
 
+    //Relaciones
+    public static final String VISITA ="fk_visita";
+    public static final String PRODUCTO = "fk_producto";
+
     //Atributos
     @DatabaseField (columnName = ID, generatedId = true, useGetSet = true)
     private int id;
@@ -28,12 +32,21 @@ public class VisitaProducto {
     @DatabaseField(columnName = VALORACION, useGetSet = true, canBeNull = false)
     private ValoracionProducto valoracion;
 
+    //Relaciones
+    @DatabaseField(columnName = VISITA, foreign = true, useGetSet = true, canBeNull = false)
+    private Visita visita;
+
+    @DatabaseField(columnName = PRODUCTO, foreign = true, useGetSet = true, canBeNull = false)
+    private Producto producto;
+
     public VisitaProducto() {
     }
 
-    public VisitaProducto(int orden, ValoracionProducto valoracion) {
+    public VisitaProducto(int orden, ValoracionProducto valoracion, Visita visita, Producto producto) {
         this.orden = orden;
         this.valoracion = valoracion;
+        this.visita = visita;
+        this.producto = producto;
     }
 
     public int getId() {
@@ -58,6 +71,25 @@ public class VisitaProducto {
 
     public void setValoracion(ValoracionProducto valoracion) {
         this.valoracion = valoracion;
+    }
+
+    //Relaciones
+
+
+    public Visita getVisita() {
+        return visita;
+    }
+
+    public void setVisita(Visita visita) {
+        this.visita = visita;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     @Override
