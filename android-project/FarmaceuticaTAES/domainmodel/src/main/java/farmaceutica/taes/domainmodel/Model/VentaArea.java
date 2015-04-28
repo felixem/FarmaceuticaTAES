@@ -7,11 +7,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaDao;
+
 /**
  * Created by felix on 28/04/15.
  */
 
-@DatabaseTable(tableName = VentaArea.TABLE)
+@DatabaseTable(tableName = VentaArea.TABLE, daoClass = VentaAreaDao.class)
 public class VentaArea
 {
     //TABLA

@@ -7,10 +7,12 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
+import farmaceutica.taes.domainmodel.Data.Dao.ReporteGastosDao;
+
 /**
  * Created by felix on 26/04/15.
  */
-@DatabaseTable(tableName = ReporteGastos.TABLE)
+@DatabaseTable(tableName = ReporteGastos.TABLE, daoClass = ReporteGastosDao.class)
 public class ReporteGastos
 {
     //Tabla

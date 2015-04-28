@@ -3,12 +3,15 @@ package farmaceutica.taes.domainmodel.Model;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import farmaceutica.taes.domainmodel.Data.Dao.MedicoLugarTrabajoDao;
 
 /**
  * Created by felix on 28/04/15.
  */
 
-
+@DatabaseTable(tableName = MedicoLugarTrabajo.TABLE, daoClass = MedicoLugarTrabajoDao.class)
 public class MedicoLugarTrabajo
 {
     //TABLA

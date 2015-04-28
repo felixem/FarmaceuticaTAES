@@ -5,11 +5,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
+
 /**
  * Created by felix on 25/04/15.
  */
 
-@DatabaseTable(tableName = AreaHospitalaria.TABLE)
+@DatabaseTable(tableName = AreaHospitalaria.TABLE, daoClass = AreaHospitalariaDao.class)
 public class AreaHospitalaria
 {
     //Tabla

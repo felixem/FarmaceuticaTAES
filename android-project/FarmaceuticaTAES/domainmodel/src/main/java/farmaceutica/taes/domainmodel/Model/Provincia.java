@@ -5,10 +5,12 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.ProvinciaDao;
+
 /**
  * Created by felix on 25/04/15.
  */
-@DatabaseTable(tableName = Provincia.TABLE)
+@DatabaseTable(tableName = Provincia.TABLE, daoClass = ProvinciaDao.class)
 public class Provincia {
     //Tabla
     public static final String TABLE = "provincia";

@@ -3,11 +3,13 @@ package farmaceutica.taes.domainmodel.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.DiaVisitableDao;
+
 /**
  * Created by felix on 28/04/15.
  */
 
-@DatabaseTable(tableName = DiaVisitable.TABLE)
+@DatabaseTable(tableName = DiaVisitable.TABLE, daoClass = DiaVisitableDao.class)
 public class DiaVisitable {
     //Tabla
     public static final String TABLE = "dia_visitable";

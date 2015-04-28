@@ -3,11 +3,13 @@ package farmaceutica.taes.domainmodel.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaMaterialDao;
+
 /**
  * Created by felix on 28/04/15.
  */
 
-@DatabaseTable(tableName = VisitaMaterial.TABLE)
+@DatabaseTable(tableName = VisitaMaterial.TABLE, daoClass = VisitaMaterialDao.class)
 public class VisitaMaterial {
 
     //Tablas

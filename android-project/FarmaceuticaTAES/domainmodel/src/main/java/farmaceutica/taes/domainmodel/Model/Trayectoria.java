@@ -5,11 +5,13 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
+import farmaceutica.taes.domainmodel.Data.Dao.TrayectoriaDao;
+
 /**
  * Created by felix on 28/04/15.
  */
 
-@DatabaseTable(tableName = Trayectoria.TABLE)
+@DatabaseTable(tableName = Trayectoria.TABLE, daoClass = TrayectoriaDao.class)
 public class Trayectoria
 {
     //TABLA

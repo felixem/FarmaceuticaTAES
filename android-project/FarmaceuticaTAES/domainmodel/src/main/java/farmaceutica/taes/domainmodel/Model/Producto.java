@@ -5,11 +5,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.ProductoDao;
+
 /**
  * Created by felix on 26/04/15.
  */
 
-@DatabaseTable(tableName = Producto.TABLE)
+@DatabaseTable(tableName = Producto.TABLE, daoClass = ProductoDao.class)
 public class Producto {
     //Tabla
     public static final String TABLE = "producto";

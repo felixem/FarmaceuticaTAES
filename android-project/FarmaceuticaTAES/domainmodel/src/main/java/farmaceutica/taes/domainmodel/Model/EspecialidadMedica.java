@@ -3,11 +3,13 @@ package farmaceutica.taes.domainmodel.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.EspecialidadMedicaDao;
+
 /**
  * Created by felix on 25/04/15.
  */
 
-@DatabaseTable(tableName = EspecialidadMedica.TABLE)
+@DatabaseTable(tableName = EspecialidadMedica.TABLE, daoClass = EspecialidadMedicaDao.class)
 public class EspecialidadMedica {
     //Tabla
     public static final String TABLE = "especialidad_medica";

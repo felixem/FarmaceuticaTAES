@@ -5,11 +5,13 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
+import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaFechaDao;
+
 /**
  * Created by felix on 28/04/15.
  */
 
-@DatabaseTable(tableName = VentaAreaFecha.TABLE)
+@DatabaseTable(tableName = VentaAreaFecha.TABLE, daoClass = VentaAreaFechaDao.class)
 public class VentaAreaFecha {
     //TABLA
     public static final String TABLE = "venta_area_fecha";
