@@ -10,6 +10,28 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import farmaceutica.taes.domainmodel.Model.Ambulatorio;
+import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
+import farmaceutica.taes.domainmodel.Model.CentroMedico;
+import farmaceutica.taes.domainmodel.Model.ClinicaPrivada;
+import farmaceutica.taes.domainmodel.Model.DiaVisitable;
+import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
+import farmaceutica.taes.domainmodel.Model.Gasto;
+import farmaceutica.taes.domainmodel.Model.Hospital;
+import farmaceutica.taes.domainmodel.Model.MaterialPromocional;
+import farmaceutica.taes.domainmodel.Model.Medico;
+import farmaceutica.taes.domainmodel.Model.MedicoLugarTrabajo;
+import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.Provincia;
+import farmaceutica.taes.domainmodel.Model.ReporteGastos;
+import farmaceutica.taes.domainmodel.Model.Trayectoria;
+import farmaceutica.taes.domainmodel.Model.VentaArea;
+import farmaceutica.taes.domainmodel.Model.VentaAreaFecha;
+import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.domainmodel.Model.VisitaMaterial;
+import farmaceutica.taes.domainmodel.Model.VisitaProducto;
+import farmaceutica.taes.domainmodel.Model.Visitador;
+
 /**
  * Created by felix 22/04/2015.
  */
@@ -69,6 +91,27 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private void crearTablas() throws SQLException {
 
         //Crear las tablas en la bd
+        TableUtils.createTable(connectionSource, Ambulatorio.class);
+        TableUtils.createTable(connectionSource, AreaHospitalaria.class);
+        TableUtils.createTable(connectionSource, CentroMedico.class);
+        TableUtils.createTable(connectionSource, ClinicaPrivada.class);
+        TableUtils.createTable(connectionSource, DiaVisitable.class);
+        TableUtils.createTable(connectionSource, EspecialidadMedica.class);
+        TableUtils.createTable(connectionSource, Gasto.class);
+        TableUtils.createTable(connectionSource, Hospital.class);
+        TableUtils.createTable(connectionSource, MaterialPromocional.class);
+        TableUtils.createTable(connectionSource, Medico.class);
+        TableUtils.createTable(connectionSource, MedicoLugarTrabajo.class);
+        TableUtils.createTable(connectionSource, Producto.class);
+        TableUtils.createTable(connectionSource, Provincia.class);
+        TableUtils.createTable(connectionSource, ReporteGastos.class);
+        TableUtils.createTable(connectionSource, Trayectoria.class);
+        TableUtils.createTable(connectionSource, VentaArea.class);
+        TableUtils.createTable(connectionSource, VentaAreaFecha.class);
+        TableUtils.createTable(connectionSource, Visita.class);
+        TableUtils.createTable(connectionSource, Visitador.class);
+        TableUtils.createTable(connectionSource, VisitaMaterial.class);
+        TableUtils.createTable(connectionSource, VisitaProducto.class);
 
     }
 
@@ -76,6 +119,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private void borrarTablas() throws SQLException {
 
         //Borrar las tablas de la bd
+        TableUtils.dropTable(connectionSource, Ambulatorio.class, true);
+        TableUtils.dropTable(connectionSource, AreaHospitalaria.class,true);
+        TableUtils.dropTable(connectionSource, CentroMedico.class,true);
+        TableUtils.dropTable(connectionSource, ClinicaPrivada.class,true);
+        TableUtils.dropTable(connectionSource, DiaVisitable.class,true);
+        TableUtils.dropTable(connectionSource, EspecialidadMedica.class,true);
+        TableUtils.dropTable(connectionSource, Gasto.class,true);
+        TableUtils.dropTable(connectionSource, Hospital.class,true);
+        TableUtils.dropTable(connectionSource, MaterialPromocional.class,true);
+        TableUtils.dropTable(connectionSource, Medico.class,true);
+        TableUtils.dropTable(connectionSource, MedicoLugarTrabajo.class,true);
+        TableUtils.dropTable(connectionSource, Producto.class,true);
+        TableUtils.dropTable(connectionSource, Provincia.class,true);
+        TableUtils.dropTable(connectionSource, ReporteGastos.class,true);
+        TableUtils.dropTable(connectionSource, Trayectoria.class,true);
+        TableUtils.dropTable(connectionSource, VentaArea.class,true);
+        TableUtils.dropTable(connectionSource, VentaAreaFecha.class,true);
+        TableUtils.dropTable(connectionSource, Visita.class,true);
+        TableUtils.dropTable(connectionSource, Visitador.class,true);
+        TableUtils.dropTable(connectionSource, VisitaMaterial.class,true);
+        TableUtils.dropTable(connectionSource, VisitaProducto.class,true);
+
+
+
+
+
     }
 
     //Insertar datos en la bd
