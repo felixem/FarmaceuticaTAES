@@ -10,6 +10,27 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import farmaceutica.taes.domainmodel.Data.Dao.AmbulatorioDao;
+import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.CentroMedicoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.ClinicaPrivadaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.DiaVisitableDao;
+import farmaceutica.taes.domainmodel.Data.Dao.EspecialidadMedicaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.GastoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.HospitalDao;
+import farmaceutica.taes.domainmodel.Data.Dao.MaterialPromocionalDao;
+import farmaceutica.taes.domainmodel.Data.Dao.MedicoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.MedicoLugarTrabajoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.ProductoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.ProvinciaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.ReporteGastosDao;
+import farmaceutica.taes.domainmodel.Data.Dao.TrayectoriaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaFechaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaMaterialDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaProductoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitadorDao;
 import farmaceutica.taes.domainmodel.Model.Ambulatorio;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
@@ -43,6 +64,28 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     //Daos utilizados
+    private AmbulatorioDao ambulatorioDao;
+    private AreaHospitalariaDao areaHospitalariaDao;
+    private CentroMedicoDao centroMedicoDao;
+    private ClinicaPrivadaDao clinicaPrivadaDao;
+    private DiaVisitableDao diaVisitableDao;
+    private EspecialidadMedicaDao especialidadMedicaDao;
+    private GastoDao gastoDao;
+    private HospitalDao hospitalDao;
+    private MaterialPromocionalDao materialPromocionalDao;
+    private MedicoDao medicoDao;
+    private MedicoLugarTrabajoDao medicoLugarTrabajoDao;
+    private ProductoDao productoDao;
+    private ProvinciaDao provinciaDao;
+    private ReporteGastosDao reporteGastosDao;
+    private TrayectoriaDao trayectoriaDao;
+    private VentaAreaDao ventaAreaDao;
+    private VentaAreaFechaDao ventaAreaFechaDao;
+    private VisitaDao visitaDao;
+    private VisitadorDao visitadorDao;
+    private VisitaMaterialDao visitaMaterialDao;
+    private VisitaProductoDao visitaProductoDao;
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -141,10 +184,153 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.dropTable(connectionSource, VisitaMaterial.class,true);
         TableUtils.dropTable(connectionSource, VisitaProducto.class,true);
 
+    }
 
+    public AmbulatorioDao getAmbulatorioDao() throws SQLException {
+        if (ambulatorioDao == null) {
+            ambulatorioDao = getDao(Ambulatorio.class);
+        }
+        return ambulatorioDao;
+    }
 
+    public AreaHospitalariaDao getAreaHospitalariaDao() throws SQLException {
+        if (areaHospitalariaDao == null) {
+            areaHospitalariaDao = getDao(AreaHospitalaria.class);
+        }
+        return areaHospitalariaDao;
+    }
 
+    public CentroMedicoDao getCentroMedicoDao() throws SQLException {
+        if (centroMedicoDao == null) {
+            centroMedicoDao = getDao(CentroMedico.class);
+        }
+        return centroMedicoDao;
+    }
 
+    public ClinicaPrivadaDao getClinicaPrivadaDao() throws SQLException {
+        if (clinicaPrivadaDao == null) {
+            clinicaPrivadaDao = getDao(ClinicaPrivada.class);
+        }
+        return clinicaPrivadaDao;
+    }
+
+    public DiaVisitableDao getDiaVisitableDao() throws SQLException {
+        if (diaVisitableDao == null) {
+            diaVisitableDao = getDao(DiaVisitable.class);
+        }
+        return diaVisitableDao;
+    }
+
+    public EspecialidadMedicaDao getEspecialidadMedicaDao() throws SQLException {
+        if (especialidadMedicaDao == null) {
+            especialidadMedicaDao = getDao(EspecialidadMedica.class);
+        }
+        return especialidadMedicaDao;
+    }
+
+    public GastoDao getGastoDao() throws SQLException {
+        if (gastoDao == null) {
+            gastoDao = getDao(Gasto.class);
+        }
+        return gastoDao;
+    }
+
+    public HospitalDao getHospitalDao() throws SQLException {
+        if (hospitalDao == null) {
+            hospitalDao = getDao(Hospital.class);
+        }
+        return hospitalDao;
+    }
+
+    public MaterialPromocionalDao getMaterialPromocionalDao() throws SQLException {
+        if (materialPromocionalDao == null) {
+            materialPromocionalDao = getDao(MaterialPromocional.class);
+        }
+        return materialPromocionalDao;
+    }
+
+    public MedicoDao getMedicoDao() throws SQLException {
+        if (medicoDao == null) {
+            medicoDao = getDao(Medico.class);
+        }
+        return medicoDao;
+    }
+
+    public MedicoLugarTrabajoDao getMedicoLugarTrabajoDao() throws SQLException {
+        if (medicoLugarTrabajoDao == null) {
+            medicoLugarTrabajoDao = getDao(MedicoLugarTrabajo.class);
+        }
+        return medicoLugarTrabajoDao;
+    }
+
+    public ProductoDao getProductoDao() throws SQLException {
+        if (productoDao == null) {
+            productoDao = getDao(Producto.class);
+        }
+        return productoDao;
+    }
+
+    public ProvinciaDao getProvinciaDao() throws SQLException {
+        if (provinciaDao == null) {
+            provinciaDao = getDao(Provincia.class);
+        }
+        return provinciaDao;
+    }
+
+    public ReporteGastosDao getReporteGastosDao() throws SQLException {
+        if (reporteGastosDao == null) {
+            reporteGastosDao = getDao(ReporteGastos.class);
+        }
+        return reporteGastosDao;
+    }
+
+    public TrayectoriaDao getTrayectoriaDao() throws SQLException {
+        if (trayectoriaDao == null) {
+            trayectoriaDao = getDao(Trayectoria.class);
+        }
+        return trayectoriaDao;
+    }
+
+    public VentaAreaDao getVentaAreaDao() throws SQLException {
+        if (ventaAreaDao == null) {
+            ventaAreaDao = getDao(VentaArea.class);
+        }
+        return ventaAreaDao;
+    }
+
+    public VentaAreaFechaDao getVentaAreaFechaDao() throws SQLException {
+        if (ventaAreaFechaDao == null) {
+            ventaAreaFechaDao = getDao(VentaAreaFecha.class);
+        }
+        return ventaAreaFechaDao;
+    }
+
+    public VisitaDao getVisitaDao() throws SQLException {
+        if (visitaDao == null) {
+            visitaDao = getDao(Visita.class);
+        }
+        return visitaDao;
+    }
+
+    public VisitadorDao getVisitadorDao() throws SQLException {
+        if (visitadorDao == null) {
+            visitadorDao = getDao(Visitador.class);
+        }
+        return visitadorDao;
+    }
+
+    public VisitaMaterialDao getVisitaMaterialDao() throws SQLException {
+        if (visitaMaterialDao == null) {
+            visitaMaterialDao = getDao(VisitaMaterial.class);
+        }
+        return visitaMaterialDao;
+    }
+
+    public VisitaProductoDao getVisitaProductoDao() throws SQLException {
+        if (visitaProductoDao == null) {
+            visitaProductoDao = getDao(VisitaProducto.class);
+        }
+        return visitaProductoDao;
     }
 
     //Insertar datos en la bd
@@ -164,7 +350,27 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //Poner a null los daos
     public void limpiarDaos()
     {
-
+        ambulatorioDao = null;
+        areaHospitalariaDao = null;
+        centroMedicoDao = null;
+        clinicaPrivadaDao = null;
+        diaVisitableDao = null;
+        especialidadMedicaDao = null;
+        gastoDao = null;
+        hospitalDao = null;
+        materialPromocionalDao = null;
+        medicoDao = null;
+        medicoLugarTrabajoDao = null;
+        productoDao = null;
+        provinciaDao = null;
+        reporteGastosDao = null;
+        trayectoriaDao = null;
+        ventaAreaDao = null;
+        ventaAreaFechaDao = null;
+        visitaDao = null;
+        visitadorDao = null;
+        visitaMaterialDao = null;
+        visitaProductoDao = null;
     }
 
 }
