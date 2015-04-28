@@ -1,6 +1,8 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -43,6 +45,13 @@ public class Visitador {
 
     @DatabaseField(columnName = INFOADICIONAL, useGetSet = true)
     private String infoAdicional;
+
+    //Relaciones
+    @ForeignCollectionField(eager = false, foreignFieldName = ReporteGastos.VISITADOR_CAMPO)
+    private ForeignCollection<ReporteGastos> reportesGastos;
+
+    @ForeignCollectionField(eager = false, foreignFieldName = Visita.VISITADOR_CAMPO)
+    private ForeignCollection<Visita> visitas;
 
 
     public Visitador() {
@@ -111,6 +120,25 @@ public class Visitador {
 
     public void setInfoAdicional(String infoAdicional) {
         this.infoAdicional = infoAdicional;
+    }
+
+    //Relaciones
+
+
+    public ForeignCollection<ReporteGastos> getReportesGastos() {
+        return reportesGastos;
+    }
+
+    public void setReportesGastos(ForeignCollection<ReporteGastos> reportesGastos) {
+        this.reportesGastos = reportesGastos;
+    }
+
+    public ForeignCollection<Visita> getVisitas() {
+        return visitas;
+    }
+
+    public void setVisitas(ForeignCollection<Visita> visitas) {
+        this.visitas = visitas;
     }
 
     @Override

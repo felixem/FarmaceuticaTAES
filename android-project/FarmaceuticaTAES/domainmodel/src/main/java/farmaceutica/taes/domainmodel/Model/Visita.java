@@ -20,6 +20,15 @@ public class Visita {
     public static final String OBSERVACIONES = "observaciones";
     public static final String MINUTOS = "minutos";
     public static final String LUGARVISITA = "lugar_visita";
+    public static final String ACOMPANYADO = "acompanyado";
+
+    //Relaciones
+    public static final String VISITADOR = "fk_visitador";
+    public static final String MEDICO = "fk_medico";
+
+    //Campos relacionados
+    public static final String VISITADOR_CAMPO = "visitador";
+    public static final String MEDICO_CAMPO = "medico";
 
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
@@ -40,14 +49,29 @@ public class Visita {
     @DatabaseField(columnName = LUGARVISITA, useGetSet = true, canBeNull = false)
     private LugarVisita lugarVisita;
 
+    @DatabaseField(columnName = ACOMPANYADO, useGetSet = true, canBeNull = false)
+    private boolean acompanyado;
+
+    //Relaciones
+
+    @DatabaseField(columnName = VISITADOR, foreign = true, useGetSet = true ,canBeNull = false)
+    private Visitador visitador;
+
+    @DatabaseField(columnName = MEDICO, foreign = true, useGetSet = true, canBeNull = false)
+    private Medico medico;
+
+
     public Visita() {
     }
 
-    public Visita(Date fechaVisita, Date fechaReporte, Integer minutos, LugarVisita lugarVisita) {
+    public Visita(Date fechaVisita, Date fechaReporte, Integer minutos, LugarVisita lugarVisita, boolean acompanyado, Visitador visitador, Medico medico) {
         this.fechaVisita = fechaVisita;
         this.fechaReporte = fechaReporte;
         this.minutos = minutos;
         this.lugarVisita = lugarVisita;
+        this.acompanyado = acompanyado;
+        this.visitador = visitador;
+        this.medico = medico;
     }
 
     public int getId() {
@@ -96,6 +120,31 @@ public class Visita {
 
     public void setLugarVisita(LugarVisita lugarVisita) {
         this.lugarVisita = lugarVisita;
+    }
+
+    public boolean getAcompanyado() {
+        return acompanyado;
+    }
+
+    public void setAcompanyado(boolean acompanyado) {
+        this.acompanyado = acompanyado;
+    }
+
+    //Relaciones
+    public Visitador getVisitador() {
+        return visitador;
+    }
+
+    public void setVisitador(Visitador visitador) {
+        this.visitador = visitador;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     @Override

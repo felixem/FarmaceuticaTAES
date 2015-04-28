@@ -18,6 +18,12 @@ public class DiaVisitable {
     public static final String HORAINICIO = "hora_inicio";
     public static final String HORAFIN = "hora_fin";
 
+    //Relaciones
+    public static final String MEDICOLUGARTRABAJO ="fk_medico_lugar_trabajo";
+
+    //Campos relacionados
+    public static final String MEDICOLUGARTRABAJO_CAMPO= "medicoLugarTrabajo";
+
     //Atributos
     @DatabaseField(columnName = ID, useGetSet = true, generatedId = true)
     private int id;
@@ -30,6 +36,10 @@ public class DiaVisitable {
 
     @DatabaseField(columnName = HORAFIN, useGetSet = true, canBeNull = false)
     private String horaFin;
+
+    //Relaciones
+    @DatabaseField(columnName = MEDICOLUGARTRABAJO, foreign = true, canBeNull = false, useGetSet = true)
+    private MedicoLugarTrabajo medicoLugarTrabajo;
 
     public DiaVisitable() {
     }
@@ -70,6 +80,17 @@ public class DiaVisitable {
 
     public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
+    }
+
+    //Relaciones
+
+
+    public MedicoLugarTrabajo getMedicoLugarTrabajo() {
+        return medicoLugarTrabajo;
+    }
+
+    public void setMedicoLugarTrabajo(MedicoLugarTrabajo medicoLugarTrabajo) {
+        this.medicoLugarTrabajo = medicoLugarTrabajo;
     }
 
     @Override

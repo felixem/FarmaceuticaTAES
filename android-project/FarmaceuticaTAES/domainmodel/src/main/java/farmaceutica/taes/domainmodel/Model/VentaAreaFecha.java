@@ -19,6 +19,12 @@ public class VentaAreaFecha {
     public static final String FECHA = "fecha";
     public static final String CANTIDAD = "cantidad";
 
+    //Relaciones
+    public static final String VENTAAREA = "fk_venta_area";
+
+    //Campos relacionados
+    public static final String VENTAAREA_CAMPO= "ventaArea";
+
     //Propiedades
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
     private int id;
@@ -29,12 +35,16 @@ public class VentaAreaFecha {
     @DatabaseField(columnName = CANTIDAD, useGetSet = true, canBeNull = false)
     private int cantidad;
 
+    //Relaciones
+    private VentaArea ventaArea;
+
     public VentaAreaFecha() {
     }
 
-    public VentaAreaFecha(Date fecha, int cantidad) {
+    public VentaAreaFecha(Date fecha, int cantidad, VentaArea ventaArea) {
         this.fecha = fecha;
         this.cantidad = cantidad;
+        this.ventaArea = ventaArea;
     }
 
     public int getId() {
@@ -59,6 +69,17 @@ public class VentaAreaFecha {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    //Relaciones
+
+
+    public VentaArea getVentaArea() {
+        return ventaArea;
+    }
+
+    public void setVentaArea(VentaArea ventaArea) {
+        this.ventaArea = ventaArea;
     }
 
     @Override

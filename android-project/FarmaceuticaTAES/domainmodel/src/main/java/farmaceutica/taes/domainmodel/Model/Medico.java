@@ -1,6 +1,8 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -22,6 +24,14 @@ public class Medico {
     public static final String INFORMACIONADICIONAL = "info_adicional";
     public static final String VISITABLE = "visitable";
     public static final String TIPOCLIENTE = "tipo_cliente";
+
+    //Relaciones
+    public static final String COLEGIOACTUAL = "fk_colegio_actual";
+    public static final String PRIMERCOLEGIO = "fk_primer_colegio";
+
+    //Campos relacionados
+    public static final String COLEGIOACTUAL_CAMPO = "colegioActual";
+    public static final String PRIMERCOLEGIO_CAMPO = "primerColegio";
 
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
@@ -51,26 +61,27 @@ public class Medico {
     @DatabaseField(columnName = TIPOCLIENTE, useGetSet = true, canBeNull = false)
     private TipoCliente tipoCliente;
 
+    //Relaciones
+    @DatabaseField(columnName = COLEGIOACTUAL, foreign = true, useGetSet = true, canBeNull = false)
+    private Provincia colegioActual;
+
+    @DatabaseField(columnName = PRIMERCOLEGIO, foreign = true, useGetSet = true, canBeNull = false)
+    private Provincia primerColegio;
+
+    @ForeignCollectionField(eager = false, foreignFieldName = Visita.MEDICO_CAMPO)
+    private ForeignCollection<Visita> visitas;
+
     public Medico() {
     }
 
-    public Medico(int numCorrelativo, String nombre, String apellidos, boolean visitable, TipoCliente tipoCliente) {
+    public Medico(int numCorrelativo, String nombre, String apellidos, boolean visitable, TipoCliente tipoCliente, Provincia colegioActual, Provincia primerColegio) {
         this.numCorrelativo = numCorrelativo;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.visitable = visitable;
         this.tipoCliente = tipoCliente;
-    }
-
-    public Medico(int numCorrelativo, String nombre, String apellidos, String telefono, String email, String informacionAdicional, boolean visitable, TipoCliente tipoCliente) {
-        this.numCorrelativo = numCorrelativo;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.telefono = telefono;
-        this.email = email;
-        this.informacionAdicional = informacionAdicional;
-        this.visitable = visitable;
-        this.tipoCliente = tipoCliente;
+        this.colegioActual = colegioActual;
+        this.primerColegio = primerColegio;
     }
 
     public boolean getVisitable() {
@@ -135,6 +146,33 @@ public class Medico {
 
     public void setInformacionAdicional(String informacionAdicional) {
         this.informacionAdicional = informacionAdicional;
+    }
+
+    //Relaciones
+
+
+    public Provincia getColegioActual() {
+        return colegioActual;
+    }
+
+    public void setColegioActual(Provincia colegioActual) {
+        this.colegioActual = colegioActual;
+    }
+
+    public Provincia getPrimerColegio() {
+        return primerColegio;
+    }
+
+    public void setPrimerColegio(Provincia primerColegio) {
+        this.primerColegio = primerColegio;
+    }
+
+    public ForeignCollection<Visita> getVisitas() {
+        return visitas;
+    }
+
+    public void setVisitas(ForeignCollection<Visita> visitas) {
+        this.visitas = visitas;
     }
 
     public TipoCliente getTipoCliente() {

@@ -16,9 +16,19 @@ public class CentroMedico
     //Campos
     public static final String ID ="_id";
 
+    //Relaciones
+    public static final String AREAHOSPITALARIA = "fk_area_hospitalaria";
+
+    //Campos relacionados
+    public static final String AREAHOSPITALARIA_CAMPO = "areaHospitalaria";
+
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
     private int id;
+
+    //Relaciones
+    @DatabaseField(columnName = AREAHOSPITALARIA, foreign = true, useGetSet = true)
+    private AreaHospitalaria areaHospitalaria;
 
     //Constructor sin parámetros para ORMLITE
     public CentroMedico()
@@ -32,6 +42,16 @@ public class CentroMedico
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    //Relaciones
+
+    public AreaHospitalaria getAreaHospitalaria() {
+        return areaHospitalaria;
+    }
+
+    public void setAreaHospitalaria(AreaHospitalaria areaHospitalaria) {
+        this.areaHospitalaria = areaHospitalaria;
     }
 
     @Override

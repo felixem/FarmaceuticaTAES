@@ -19,6 +19,12 @@ public class Gasto
     public static final String IMGFACTURA = "img_factura";
     public static final String CONCEPTOGASTO = "concepto_gasto";
 
+    //Relaciones
+    public static final String REPORTEGASTOS = "reporte_gastos";
+
+    //Campos relacionados
+    public static final String REPORTEGASTOS_CAMPO = "reporteGastos";
+
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
     private int id;
@@ -32,12 +38,17 @@ public class Gasto
     @DatabaseField(columnName = CONCEPTOGASTO, useGetSet = true, canBeNull = false)
     private ConceptoGasto conceptoGasto;
 
+    //Relaciones
+    @DatabaseField(columnName = REPORTEGASTOS, foreign = true, useGetSet = true, canBeNull = false)
+    private ReporteGastos reporteGastos;
+
     public Gasto() {
     }
 
-    public Gasto(float coste, ConceptoGasto conceptoGasto) {
+    public Gasto(float coste, ConceptoGasto conceptoGasto, ReporteGastos reporteGastos) {
         this.coste = coste;
         this.conceptoGasto = conceptoGasto;
+        this.reporteGastos = reporteGastos;
     }
 
     public int getId() {
@@ -70,6 +81,17 @@ public class Gasto
 
     public void setConceptoGasto(ConceptoGasto conceptoGasto) {
         this.conceptoGasto = conceptoGasto;
+    }
+
+    //Relaciones
+
+
+    public ReporteGastos getReporteGastos() {
+        return reporteGastos;
+    }
+
+    public void setReporteGastos(ReporteGastos reporteGastos) {
+        this.reporteGastos = reporteGastos;
     }
 
     @Override

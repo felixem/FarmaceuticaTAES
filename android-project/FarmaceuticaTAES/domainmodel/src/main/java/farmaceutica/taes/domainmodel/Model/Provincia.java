@@ -1,6 +1,8 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -21,6 +23,16 @@ public class Provincia {
 
     @DatabaseField(columnName = NOMBRE, useGetSet = true, unique = true)
     private String nombre;
+
+    //Relaciones
+    @ForeignCollectionField(eager = false, foreignFieldName = Medico.COLEGIOACTUAL_CAMPO)
+    ForeignCollection<Medico> medicosColegioActual;
+
+    @ForeignCollectionField(eager = false, foreignFieldName = Medico.PRIMERCOLEGIO_CAMPO)
+    ForeignCollection<Medico> medicosPrimerColegio;
+
+    @ForeignCollectionField(eager=false, foreignFieldName = AreaHospitalaria.PROVINCIA_CAMPO)
+    ForeignCollection<AreaHospitalaria> areasHospitalarias;
 
     public Provincia() {
     }
@@ -44,6 +56,33 @@ public class Provincia {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    //Relaciones
+
+
+    public ForeignCollection<Medico> getMedicosColegioActual() {
+        return medicosColegioActual;
+    }
+
+    public void setMedicosColegioActual(ForeignCollection<Medico> medicosColegioActual) {
+        this.medicosColegioActual = medicosColegioActual;
+    }
+
+    public ForeignCollection<Medico> getMedicosPrimerColegio() {
+        return medicosPrimerColegio;
+    }
+
+    public void setMedicosPrimerColegio(ForeignCollection<Medico> medicosPrimerColegio) {
+        this.medicosPrimerColegio = medicosPrimerColegio;
+    }
+
+    public ForeignCollection<AreaHospitalaria> getAreasHospitalarias() {
+        return areasHospitalarias;
+    }
+
+    public void setAreasHospitalarias(ForeignCollection<AreaHospitalaria> areasHospitalarias) {
+        this.areasHospitalarias = areasHospitalarias;
     }
 
     @Override
