@@ -30,6 +30,7 @@ public class Medico {
     //Relaciones
     public static final String COLEGIOACTUAL = "fk_colegio_actual";
     public static final String PRIMERCOLEGIO = "fk_primer_colegio";
+    public static final String ESPECIALIDAD = "fk_especialidad";
 
     //Campos relacionados
     public static final String COLEGIOACTUAL_CAMPO = "colegioActual";
@@ -69,6 +70,9 @@ public class Medico {
 
     @DatabaseField(columnName = PRIMERCOLEGIO, foreign = true, useGetSet = true, canBeNull = false)
     private Provincia primerColegio;
+
+    @DatabaseField(columnName = ESPECIALIDAD, foreign = true, useGetSet = true)
+    private EspecialidadMedica especialidad;
 
     @ForeignCollectionField(eager = false, foreignFieldName = Visita.MEDICO_CAMPO)
     private ForeignCollection<Visita> visitas;
@@ -183,5 +187,13 @@ public class Medico {
 
     public void setTipoCliente(TipoCliente tipoCliente) {
         this.tipoCliente = tipoCliente;
+    }
+
+    public EspecialidadMedica getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(EspecialidadMedica especialidad) {
+        this.especialidad = especialidad;
     }
 }

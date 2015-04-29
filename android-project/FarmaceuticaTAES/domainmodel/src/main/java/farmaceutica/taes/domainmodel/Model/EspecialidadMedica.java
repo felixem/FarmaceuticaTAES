@@ -1,6 +1,8 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import farmaceutica.taes.domainmodel.Data.Dao.EspecialidadMedicaDao;
@@ -24,6 +26,9 @@ public class EspecialidadMedica {
 
     @DatabaseField(columnName = NOMBRE, unique = true, useGetSet = true, canBeNull = false)
     private String nombre;
+
+    @ForeignCollectionField(eager = false, foreignFieldName = Medico.ESPECIALIDAD)
+    private ForeignCollection<Medico> medicos;
 
     public EspecialidadMedica() {
     }
