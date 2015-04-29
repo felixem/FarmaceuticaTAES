@@ -2,6 +2,8 @@ package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -70,6 +72,22 @@ public class TrayectoriaRepository {
     {
         try {
             return mainDao.queryForAll();
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Trayectoria> getAllByMedico (Medico medico)
+    {
+        try {
+
+            QueryBuilder<Trayectoria,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(Trayectoria.MEDICO, medico);
+            builder.orderBy(Trayectoria.ID,true);
+            return builder.query();
+
         } catch (SQLException e) {
             // TODO: Exception Handling
             e.printStackTrace();
