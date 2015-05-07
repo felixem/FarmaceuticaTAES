@@ -52,5 +52,7 @@ public class VisitadorAreaHospitalaria
         this.area = area;
     }
 
-    
+
+
+
 }
