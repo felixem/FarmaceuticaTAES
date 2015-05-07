@@ -3,6 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">#3498DB</item>
+        <item name="colorPrimaryDark">#2C3E50</item>
+        <item name="colorAccent">#B455B6</item>
+        <item name="android:title">probando</item>
     </style>
 
 </resources>

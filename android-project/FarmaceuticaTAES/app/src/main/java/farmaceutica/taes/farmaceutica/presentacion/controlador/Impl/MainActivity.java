@@ -4,18 +4,17 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import farmaceutica.taes.farmaceutica.R;
+
 /**
- * Created by felix on 7/05/15.
+ * Created by john on 7/05/15.
  */
 public class MainActivity extends Activity{
-
 
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
-        TextView txt= new TextView(this);
-        txt.setText("probando");
-        setContentView(txt);
+        setContentView(R.layout.main_activity);
     }
 
 }
