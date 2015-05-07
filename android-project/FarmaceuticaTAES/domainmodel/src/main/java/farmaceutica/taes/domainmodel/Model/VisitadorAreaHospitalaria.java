@@ -3,13 +3,15 @@ package farmaceutica.taes.domainmodel.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import farmaceutica.taes.domainmodel.Data.Dao.VisitadorAreaHospitalariaDao;
+
 /**
  * Created by felix on 7/05/15.
  */
 
 //Clase que representa la relacion entre un visitador y un area hospitalaria
 
-@DatabaseTable(tableName = VisitadorAreaHospitalaria.TABLE)
+@DatabaseTable(tableName = VisitadorAreaHospitalaria.TABLE, daoClass = VisitadorAreaHospitalariaDao.class)
 public class VisitadorAreaHospitalaria
 {
     //Tabla

@@ -30,6 +30,7 @@ import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaFechaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VisitaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VisitaMaterialDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VisitaProductoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitadorAreaHospitalariaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VisitadorDao;
 import farmaceutica.taes.domainmodel.Model.Ambulatorio;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
@@ -52,6 +53,7 @@ import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Model.VisitaMaterial;
 import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 import farmaceutica.taes.domainmodel.Model.Visitador;
+import farmaceutica.taes.domainmodel.Model.VisitadorAreaHospitalaria;
 
 /**
  * Created by felix 22/04/2015.
@@ -83,6 +85,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private VentaAreaFechaDao ventaAreaFechaDao;
     private VisitaDao visitaDao;
     private VisitadorDao visitadorDao;
+    private VisitadorAreaHospitalariaDao visitadorAreaHospitalariaDao;
     private VisitaMaterialDao visitaMaterialDao;
     private VisitaProductoDao visitaProductoDao;
 
@@ -319,6 +322,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return visitadorDao;
     }
 
+    public VisitadorAreaHospitalariaDao getVisitadorAreaHospitalariaDao() throws SQLException
+    {
+        if(visitadorAreaHospitalariaDao == null)
+        {
+            visitadorAreaHospitalariaDao = getDao(VisitadorAreaHospitalaria.class);
+        }
+        return visitadorAreaHospitalariaDao;
+    }
+
     public VisitaMaterialDao getVisitaMaterialDao() throws SQLException {
         if (visitaMaterialDao == null) {
             visitaMaterialDao = getDao(VisitaMaterial.class);
@@ -369,6 +381,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         ventaAreaFechaDao = null;
         visitaDao = null;
         visitadorDao = null;
+        visitadorAreaHospitalariaDao = null;
         visitaMaterialDao = null;
         visitaProductoDao = null;
     }
