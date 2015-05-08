@@ -196,4 +196,21 @@ public class Medico {
     public void setEspecialidad(EspecialidadMedica especialidad) {
         this.especialidad = especialidad;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Medico)) return false;
+
+        Medico medico = (Medico) o;
+
+        if (id != medico.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }

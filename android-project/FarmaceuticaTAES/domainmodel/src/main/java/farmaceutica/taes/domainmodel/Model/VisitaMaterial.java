@@ -32,10 +32,10 @@ public class VisitaMaterial {
     private int cantidad;
 
     //Relaciones
-    @DatabaseField(columnName = VISITA, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = VISITA, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private Visita visita;
 
-    @DatabaseField(columnName = MATERIALPROMOCIONAL, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = MATERIALPROMOCIONAL, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private MaterialPromocional materialPromocional;
 
     public VisitaMaterial() {

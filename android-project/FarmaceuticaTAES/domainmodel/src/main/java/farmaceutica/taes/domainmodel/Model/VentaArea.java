@@ -31,10 +31,10 @@ public class VentaArea
     private int id;
 
     //Relaciones
-    @DatabaseField(columnName = AREAHOSPITALARIA, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = AREAHOSPITALARIA, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private AreaHospitalaria areaHospitalaria;
 
-    @DatabaseField(columnName = PRODUCTO, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = PRODUCTO, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private Producto producto;
 
     @ForeignCollectionField(eager = false, foreignFieldName = VentaAreaFecha.VENTAAREA_CAMPO)

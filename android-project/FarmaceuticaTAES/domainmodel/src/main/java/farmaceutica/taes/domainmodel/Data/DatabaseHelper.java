@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import farmaceutica.taes.domainmodel.Data.Dao.AmbulatorioDao;
 import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.CentroMedicoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.CitaDao;
+import farmaceutica.taes.domainmodel.Data.Dao.CitaVisitaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ClinicaPrivadaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.DiaVisitableDao;
 import farmaceutica.taes.domainmodel.Data.Dao.EspecialidadMedicaDao;
@@ -24,6 +26,7 @@ import farmaceutica.taes.domainmodel.Data.Dao.MedicoLugarTrabajoDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ProductoDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ProvinciaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ReporteGastosDao;
+import farmaceutica.taes.domainmodel.Data.Dao.RutaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.TrayectoriaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VentaAreaFechaDao;
@@ -35,6 +38,8 @@ import farmaceutica.taes.domainmodel.Data.Dao.VisitadorDao;
 import farmaceutica.taes.domainmodel.Model.Ambulatorio;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
+import farmaceutica.taes.domainmodel.Model.Cita;
+import farmaceutica.taes.domainmodel.Model.CitaVisita;
 import farmaceutica.taes.domainmodel.Model.ClinicaPrivada;
 import farmaceutica.taes.domainmodel.Model.DiaVisitable;
 import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
@@ -46,6 +51,7 @@ import farmaceutica.taes.domainmodel.Model.MedicoLugarTrabajo;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.Provincia;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
+import farmaceutica.taes.domainmodel.Model.Ruta;
 import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.VentaArea;
 import farmaceutica.taes.domainmodel.Model.VentaAreaFecha;
@@ -69,6 +75,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private AmbulatorioDao ambulatorioDao;
     private AreaHospitalariaDao areaHospitalariaDao;
     private CentroMedicoDao centroMedicoDao;
+    private CitaDao citaDao;
+    private CitaVisitaDao citaVisitaDao;
     private ClinicaPrivadaDao clinicaPrivadaDao;
     private DiaVisitableDao diaVisitableDao;
     private EspecialidadMedicaDao especialidadMedicaDao;
@@ -80,6 +88,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private ProductoDao productoDao;
     private ProvinciaDao provinciaDao;
     private ReporteGastosDao reporteGastosDao;
+    private RutaDao rutaDao;
     private TrayectoriaDao trayectoriaDao;
     private VentaAreaDao ventaAreaDao;
     private VentaAreaFechaDao ventaAreaFechaDao;
@@ -140,6 +149,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.createTable(connectionSource, Ambulatorio.class);
         TableUtils.createTable(connectionSource, AreaHospitalaria.class);
         TableUtils.createTable(connectionSource, CentroMedico.class);
+        TableUtils.createTable(connectionSource, Cita.class);
+        TableUtils.createTable(connectionSource, CitaVisita.class);
         TableUtils.createTable(connectionSource, ClinicaPrivada.class);
         TableUtils.createTable(connectionSource, DiaVisitable.class);
         TableUtils.createTable(connectionSource, EspecialidadMedica.class);
@@ -151,6 +162,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.createTable(connectionSource, Producto.class);
         TableUtils.createTable(connectionSource, Provincia.class);
         TableUtils.createTable(connectionSource, ReporteGastos.class);
+        TableUtils.createTable(connectionSource, Ruta.class);
         TableUtils.createTable(connectionSource, Trayectoria.class);
         TableUtils.createTable(connectionSource, VentaArea.class);
         TableUtils.createTable(connectionSource, VentaAreaFecha.class);
@@ -168,6 +180,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.dropTable(connectionSource, Ambulatorio.class, true);
         TableUtils.dropTable(connectionSource, AreaHospitalaria.class,true);
         TableUtils.dropTable(connectionSource, CentroMedico.class,true);
+        TableUtils.dropTable(connectionSource, Cita.class, true);
+        TableUtils.dropTable(connectionSource, CitaVisita.class, true);
         TableUtils.dropTable(connectionSource, ClinicaPrivada.class,true);
         TableUtils.dropTable(connectionSource, DiaVisitable.class,true);
         TableUtils.dropTable(connectionSource, EspecialidadMedica.class,true);
@@ -179,6 +193,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.dropTable(connectionSource, Producto.class,true);
         TableUtils.dropTable(connectionSource, Provincia.class,true);
         TableUtils.dropTable(connectionSource, ReporteGastos.class,true);
+        TableUtils.dropTable(connectionSource, Ruta.class, true);
         TableUtils.dropTable(connectionSource, Trayectoria.class,true);
         TableUtils.dropTable(connectionSource, VentaArea.class,true);
         TableUtils.dropTable(connectionSource, VentaAreaFecha.class,true);
@@ -208,6 +223,20 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             centroMedicoDao = getDao(CentroMedico.class);
         }
         return centroMedicoDao;
+    }
+
+    public CitaDao getCitaDao() throws SQLException {
+        if (citaDao == null) {
+            citaDao = getDao(Cita.class);
+        }
+        return citaDao;
+    }
+
+    public CitaVisitaDao getCitaVisitaDao() throws SQLException {
+        if (citaVisitaDao == null) {
+            citaVisitaDao = getDao(CitaVisita.class);
+        }
+        return citaVisitaDao;
     }
 
     public ClinicaPrivadaDao getClinicaPrivadaDao() throws SQLException {
@@ -285,6 +314,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             reporteGastosDao = getDao(ReporteGastos.class);
         }
         return reporteGastosDao;
+    }
+
+    public RutaDao getRutaDao() throws SQLException {
+        if (rutaDao == null) {
+            rutaDao = getDao(Ruta.class);
+        }
+        return rutaDao;
     }
 
     public TrayectoriaDao getTrayectoriaDao() throws SQLException {
@@ -365,6 +401,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         ambulatorioDao = null;
         areaHospitalariaDao = null;
         centroMedicoDao = null;
+        citaDao = null;
+        citaVisitaDao = null;
         clinicaPrivadaDao = null;
         diaVisitableDao = null;
         especialidadMedicaDao = null;
@@ -376,6 +414,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         productoDao = null;
         provinciaDao = null;
         reporteGastosDao = null;
+        rutaDao = null;
         trayectoriaDao = null;
         ventaAreaDao = null;
         ventaAreaFechaDao = null;
