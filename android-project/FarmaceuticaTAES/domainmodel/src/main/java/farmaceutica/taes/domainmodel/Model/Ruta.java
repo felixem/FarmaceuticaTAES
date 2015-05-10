@@ -67,7 +67,7 @@ public class Ruta
         this.fecha = fecha;
     }
 
-    public boolean isValidada() {
+    public boolean getValidada() {
         return validada;
     }
 

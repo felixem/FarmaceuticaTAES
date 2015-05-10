@@ -38,6 +38,7 @@ public class VentaAreaFecha {
     private int cantidad;
 
     //Relaciones
+    @DatabaseField(columnName = VENTAAREA, foreign = true, useGetSet = true, canBeNull = false)
     private VentaArea ventaArea;
 
     public VentaAreaFecha() {

@@ -35,6 +35,7 @@ public class Medico {
     //Campos relacionados
     public static final String COLEGIOACTUAL_CAMPO = "colegioActual";
     public static final String PRIMERCOLEGIO_CAMPO = "primerColegio";
+    public static final String ESPECIALIDAD_CAMPO = "especialidad";
 
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
