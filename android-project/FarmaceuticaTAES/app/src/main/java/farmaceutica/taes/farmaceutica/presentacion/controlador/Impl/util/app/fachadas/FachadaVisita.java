@@ -1,8 +1,7 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas;
 
 import android.content.Context;
-
-import java.util.ArrayList;
+import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.VisitaRepository;
@@ -12,8 +11,8 @@ import farmaceutica.taes.domainmodel.Repository.VisitaRepository;
  */
 public class FachadaVisita {
 
-    public ArrayList<Visita> obtenerVisitas(Context context){
+    public List<Visita> obtenerVisitas(Context context){
         VisitaRepository repository = new VisitaRepository(context);
-        return (ArrayList<Visita>)repository.getAll();
+        return repository.getAll();
     }
 }
