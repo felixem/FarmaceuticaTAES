@@ -101,13 +101,13 @@ public class MedicoRepository {
         return null;
     }
 
-    public String getNombreById(String id){
+    public Medico getMedicoById(int id){
 
         try{
             QueryBuilder<Medico,Integer> builder = mainDao.queryBuilder();
             builder.where().eq(Medico.ID, id);
             builder.orderBy(Medico.APELLIDOS,true);
-            return builder.query().get(0).getNombre();
+            return builder.query().get(0);
         }catch(SQLException e){
             // TODO: Exception Handling
             e.printStackTrace();
