@@ -12,7 +12,6 @@ import farmaceutica.taes.domainmodel.Repository.VisitaRepository;
  */
 public class FachadaVisita {
 
-
     public ArrayList<Visita> obtenerVisitas(Context context){
         VisitaRepository repository = new VisitaRepository(context);
         return (ArrayList<Visita>)repository.getAll();
