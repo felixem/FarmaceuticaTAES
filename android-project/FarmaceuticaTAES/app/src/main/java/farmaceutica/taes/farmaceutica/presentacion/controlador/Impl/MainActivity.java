@@ -40,8 +40,8 @@ public class MainActivity extends ActivityBase {
             transaction.commit();
         }
 
-        /*DatabaseManager dataManager = new DatabaseManager();
-        dataManager.getHelper(this).getWritableDatabase();*/
+        DatabaseManager dataManager = new DatabaseManager();
+        dataManager.getHelper(this).getWritableDatabase();
     }
 
     @Override
