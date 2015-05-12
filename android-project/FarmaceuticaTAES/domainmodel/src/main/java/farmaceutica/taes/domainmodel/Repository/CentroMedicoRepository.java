@@ -76,4 +76,15 @@ public class CentroMedicoRepository {
         }
         return null;
     }
+
+    public CentroMedico getById(int id)
+    {
+        try {
+            return mainDao.queryForId(id);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
