@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ViewAnimator;
@@ -39,8 +40,8 @@ public class MainActivity extends ActivityBase {
             transaction.commit();
         }
 
-        DatabaseManager dataManager = new DatabaseManager();
-        dataManager.getHelper(this).getWritableDatabase();
+        /*DatabaseManager dataManager = new DatabaseManager();
+        dataManager.getHelper(this).getWritableDatabase();*/
     }
 
     @Override
@@ -73,6 +74,18 @@ public class MainActivity extends ActivityBase {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void initializeLogging() {
+        // Wraps Android's native log framework.
+        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
+
+        // On screen logging via a fragment with a TextView.
+        LogFragment logFragment = (LogFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.log_fragment);
+
+        Log.i(TAG, "Ready");
     }
 }
 
