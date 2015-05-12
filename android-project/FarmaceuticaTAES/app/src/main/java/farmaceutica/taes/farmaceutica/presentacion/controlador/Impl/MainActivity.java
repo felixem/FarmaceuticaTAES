@@ -1,6 +1,10 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
 
@@ -9,7 +13,9 @@ import farmaceutica.taes.farmaceutica.R;
 /**
  * Created by john on 7/05/15.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity{
+
+    ActionBar ab;
 
     @Override
     public void onCreate(Bundle savedInstance){
@@ -18,8 +24,10 @@ public class MainActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
-        
+        ab = getSupportActionBar();
+        //ab.setNavigationMode();
         // Set an OnMenuItemClickListener to handle menu item clicks
     }
+
 
 }
