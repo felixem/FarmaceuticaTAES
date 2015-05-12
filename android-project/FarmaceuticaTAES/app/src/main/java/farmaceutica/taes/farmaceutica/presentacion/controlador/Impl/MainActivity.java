@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
 
+import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.farmaceutica.R;
 
 /**
@@ -26,6 +27,9 @@ public class MainActivity extends ActionBarActivity{
 
         ab = getSupportActionBar();
         //ab.setNavigationMode();
+
+       DatabaseManager dataManager = new DatabaseManager();
+        dataManager.getHelper(this).getWritableDatabase();
         // Set an OnMenuItemClickListener to handle menu item clicks
     }
 

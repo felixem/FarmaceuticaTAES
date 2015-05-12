@@ -55,6 +55,9 @@ public class Visitador {
     @ForeignCollectionField(eager = false, foreignFieldName = Visita.VISITADOR_CAMPO)
     private ForeignCollection<Visita> visitas;
 
+    @ForeignCollectionField(eager = false, foreignFieldName = Ruta.VISITADOR_CAMPO)
+    private ForeignCollection<Ruta> rutas;
+
 
     public Visitador() {
     }
@@ -141,6 +144,14 @@ public class Visitador {
 
     public void setVisitas(ForeignCollection<Visita> visitas) {
         this.visitas = visitas;
+    }
+
+    public ForeignCollection<Ruta> getRutas() {
+        return rutas;
+    }
+
+    public void setRutas(ForeignCollection<Ruta> rutas) {
+        this.rutas = rutas;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class ReporteGastos
         this.fecha = fecha;
     }
 
-    public boolean isEnviado() {
+    public boolean getEnviado() {
         return enviado;
     }
 

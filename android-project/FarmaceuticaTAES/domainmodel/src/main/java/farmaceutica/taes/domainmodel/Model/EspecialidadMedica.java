@@ -27,7 +27,7 @@ public class EspecialidadMedica {
     @DatabaseField(columnName = NOMBRE, unique = true, useGetSet = true, canBeNull = false)
     private String nombre;
 
-    @ForeignCollectionField(eager = false, foreignFieldName = Medico.ESPECIALIDAD)
+    @ForeignCollectionField(eager = false, foreignFieldName = Medico.ESPECIALIDAD_CAMPO)
     private ForeignCollection<Medico> medicos;
 
     public EspecialidadMedica() {

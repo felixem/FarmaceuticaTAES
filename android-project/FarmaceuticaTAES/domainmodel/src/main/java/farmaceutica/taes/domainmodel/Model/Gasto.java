@@ -1,5 +1,6 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -34,7 +35,7 @@ public class Gasto
     @DatabaseField(columnName = COSTE, useGetSet = true, canBeNull = false)
     private float coste;
 
-    @DatabaseField(columnName = IMGFACTURA, useGetSet = true)
+    @DatabaseField(columnName = IMGFACTURA, dataType = DataType.BYTE_ARRAY, useGetSet = true)
     private byte[] imgFactura;
 
     @DatabaseField(columnName = CONCEPTOGASTO, useGetSet = true, canBeNull = false)

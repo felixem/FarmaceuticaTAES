@@ -29,10 +29,10 @@ public class MedicoLugarTrabajo
     private int id;
 
     //Relaciones
-    @DatabaseField(columnName = MEDICO, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = MEDICO, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private Medico medico;
 
-    @DatabaseField(columnName = CENTROMEDICO, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = CENTROMEDICO, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private CentroMedico centroMedico;
 
     @ForeignCollectionField(eager = false, foreignFieldName = DiaVisitable.MEDICOLUGARTRABAJO_CAMPO)

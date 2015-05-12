@@ -35,10 +35,10 @@ public class VisitaProducto {
     private ValoracionProducto valoracion;
 
     //Relaciones
-    @DatabaseField(columnName = VISITA, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = VISITA, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private Visita visita;
 
-    @DatabaseField(columnName = PRODUCTO, foreign = true, useGetSet = true, canBeNull = false)
+    @DatabaseField(columnName = PRODUCTO, foreign = true, useGetSet = true, canBeNull = false, uniqueCombo = true)
     private Producto producto;
 
     public VisitaProducto() {
