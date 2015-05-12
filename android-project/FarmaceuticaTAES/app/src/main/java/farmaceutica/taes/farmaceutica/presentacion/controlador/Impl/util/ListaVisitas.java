@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
@@ -42,7 +42,7 @@ public class ListaVisitas extends ActivityBase {
         destino = null;
 
         //Creamos el adaptador para el ListView
-        ArrayList<Visita> visitas = fachadaVisita.obtenerVisitas(this);
+        List<Visita> visitas = fachadaVisita.obtenerVisitas(this);
 
 
 
