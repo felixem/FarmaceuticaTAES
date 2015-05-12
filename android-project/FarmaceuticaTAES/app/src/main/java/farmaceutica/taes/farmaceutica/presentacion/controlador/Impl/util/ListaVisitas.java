@@ -42,7 +42,7 @@ public class ListaVisitas extends ActivityBase {
         destino = null;
 
         //Creamos el adaptador para el ListView
-        ArrayList<Visita> visitas = fachadaVisita.obtenerVisitas(this, visita);
+        ArrayList<Visita> visitas = fachadaVisita.obtenerVisitas(this);
 
 
 
