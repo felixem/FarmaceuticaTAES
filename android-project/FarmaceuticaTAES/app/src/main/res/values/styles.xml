@@ -8,4 +8,9 @@
         <item name="colorAccent">#B455B6</item>
     </style>
 
+    <style name="PagerTabStrip">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
