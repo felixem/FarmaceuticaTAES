@@ -7,11 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ViewAnimator;
 
-import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.IniciarAsyncDB;
 
@@ -74,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = EjemploFragment3.newInstance();
                     break;
                 case 3:
-                    fragment = EjemploFragment4.newInstance();
+                    fragment = ListaVisitas.newInstance();
                     break;
                 case 4:
                     fragment = CentrosMedicosFragment.newInstance();
