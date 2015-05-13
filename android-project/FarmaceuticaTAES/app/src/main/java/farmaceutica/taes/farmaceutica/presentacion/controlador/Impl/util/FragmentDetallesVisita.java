@@ -5,6 +5,10 @@ import android.app.Fragment;
 import java.util.Date;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,13 +28,17 @@ public class FragmentDetallesVisita extends Fragment
     private String[] listaDetallesVisitas;
 
 
-    protected void OnCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_ver_detalles_visita);
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_ver_detalles_visita, container, false);
     }
-   // private String[] listaDatos = {};
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    // private String[] listaDatos = {};
 
     /*detallesVisita = (ListView)findViewById(R.id.listViewDetallesVisita);
     adaptador = new ArrayAdapter<String>(this,android.R.layout);*/

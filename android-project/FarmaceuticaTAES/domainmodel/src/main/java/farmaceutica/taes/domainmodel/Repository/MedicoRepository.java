@@ -90,7 +90,7 @@ public class MedicoRepository {
         try {
 
             QueryBuilder<Medico,Integer> builder = mainDao.queryBuilder();
-            builder.where().eq(Medico.ESPECIALIDAD, especialidad);
+            builder.where().eq(Medico.ESPECIALIDAD, especialidad.getId());
             builder.orderBy(Medico.APELLIDOS,true);
             return builder.query();
 
@@ -122,7 +122,7 @@ public class MedicoRepository {
             QueryBuilder<Medico,Integer> builder = mainDao.queryBuilder();
             builder.join(db.getMedicoLugarTrabajoDao().queryBuilder());
             builder.join(db.getCentroMedicoDao().queryBuilder());
-            builder.where().eq(MedicoLugarTrabajo.CENTROMEDICO, centroMedico);
+            builder.where().eq(MedicoLugarTrabajo.CENTROMEDICO, centroMedico.getId());
             builder.orderBy(Medico.APELLIDOS,true);
             return builder.query();
 
@@ -131,5 +131,16 @@ public class MedicoRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int refresh(Medico data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }

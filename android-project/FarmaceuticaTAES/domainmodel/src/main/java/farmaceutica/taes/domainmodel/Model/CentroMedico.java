@@ -17,6 +17,8 @@ public class CentroMedico
 
     //Campos
     public static final String ID ="_id";
+    public static final String NOMBRE = "nombre";
+    public static final String DIRECCION = "direccion";
 
     //Relaciones
     public static final String AREAHOSPITALARIA = "fk_area_hospitalaria";
@@ -28,6 +30,12 @@ public class CentroMedico
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
     private int id;
 
+    @DatabaseField(columnName = NOMBRE, useGetSet = true, canBeNull = false)
+    private String nombre;
+
+    @DatabaseField(columnName = DIRECCION, useGetSet = true, canBeNull = false)
+    private String direccion;
+
     //Relaciones
     @DatabaseField(columnName = AREAHOSPITALARIA, foreign = true, useGetSet = true)
     private AreaHospitalaria areaHospitalaria;
@@ -38,12 +46,33 @@ public class CentroMedico
 
     }
 
+    public CentroMedico(String nombre, String direccion) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     //Relaciones
