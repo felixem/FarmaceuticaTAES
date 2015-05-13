@@ -2,7 +2,7 @@ package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fa
 
 import android.content.Context;
 import java.util.List;
-
+import java.util.ArrayList;
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.VisitaRepository;
 
