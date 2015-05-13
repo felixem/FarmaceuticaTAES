@@ -41,7 +41,7 @@ public class ProductosFragment extends FragmentBase{
         FachadaProducto fachada= new FachadaProducto();
         List<Producto> datos= fachada.obtenerProductos(getActivity());
         BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),datos);
-        lv.setAdapter(adapter);,
+        lv.setAdapter(adapter);
     }
 
     public static ProductosFragment newInstance() {
