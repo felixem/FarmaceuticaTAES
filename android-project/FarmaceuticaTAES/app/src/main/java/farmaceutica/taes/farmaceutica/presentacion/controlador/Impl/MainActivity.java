@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = null;
+                Fragment fragment = null;
             switch (position) {
                 default:
                 case 0:
