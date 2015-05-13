@@ -48,7 +48,7 @@ public class ListaVisitas extends FragmentBase {
         //Creamos el adaptador para el ListView
         List<Visita> visitas = fachadaVisita.obtenerVisitas(getActivity());
     }
-    
+
     /*@Override
     public void onBackPressed() {
 

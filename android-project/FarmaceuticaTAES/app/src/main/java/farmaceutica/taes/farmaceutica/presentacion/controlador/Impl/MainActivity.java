@@ -13,6 +13,7 @@ import android.widget.ViewAnimator;
 
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.farmaceutica.R;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.IniciarAsyncDB;
 
 /**
  * Created by john on 7/05/15.
@@ -37,13 +38,12 @@ public class MainActivity extends ActionBarActivity {
         fpa = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(fpa);
 
-        DatabaseManager dataManager = new DatabaseManager();
-        dataManager.getHelper(this).getWritableDatabase();
+        new IniciarAsyncDB().execute(this);
     }
 
     class MainPagerAdapter extends FragmentPagerAdapter {
 
-        private String[] titles = {"Titulo1", "Titulo2", "Titulo3", "Titulo4", "Titulo5"};
+        private String[] titles = {"Productos", "Clientes", "Valoracion", "Titulo4", "Titulo5"};
 
         public MainPagerAdapter(FragmentManager fm){
             super(fm);
