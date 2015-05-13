@@ -389,9 +389,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         Hospital hospital = new Hospital("Hospital General de Alicante", "Calle del Hospital, 5");
         hospitalDao.create(hospital);
 
+        //Ambulatorios
+        AmbulatorioDao ambulatorioDao = getAmbulatorioDao();
+        Ambulatorio ambulatorio = new Ambulatorio("Ambulatorio de Babel","Calle Boyero, 12");
+        ambulatorioDao.create(ambulatorio);
+
+        //Clinicas privadas
+        ClinicaPrivadaDao clinicaPrivadaDao = getClinicaPrivadaDao();
+        ClinicaPrivada clinicaPrivada = new ClinicaPrivada("Clínica Vistahermosa", "Carretera de por Ahí, 111");
+        clinicaPrivadaDao.create(clinicaPrivada);
+
         //Provincias
         ProvinciaDao provDao = getProvinciaDao();
-        Provincia prov = new Provincia(1,"Albacete");
+        Provincia prov = new Provincia(1,"Alicante");
         provDao.create(prov);
 
         //Crear area hospitalaria
@@ -399,9 +409,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         AreaHospitalaria area = new AreaHospitalaria(3009,hospital,prov);
         areaDao.create(area);
 
-        //Vincular el hospital con el área
+        //Vincular centros médicos con el área
         hospital.setAreaHospitalaria(area);
         hospitalDao.update(hospital);
+        ambulatorio.setAreaHospitalaria(area);
+        ambulatorioDao.update(ambulatorio);
+        clinicaPrivada.setAreaHospitalaria(area);
+        clinicaPrivadaDao.update(clinicaPrivada);
 
         //Productos
         ProductoDao productoDao = getProductoDao();
