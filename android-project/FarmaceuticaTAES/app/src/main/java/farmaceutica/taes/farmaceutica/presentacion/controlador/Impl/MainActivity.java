@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
         fpa = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(fpa);
 
-        new IniciarAsyncDB().execute(this);
+        IniciarAsyncDB.iniciarDB(this);
     }
 
     class MainPagerAdapter extends FragmentPagerAdapter {
