@@ -36,14 +36,6 @@ public class MainActivity extends ActionBarActivity {
         ViewPager vp = (ViewPager) findViewById(R.id.vp_main);
         fpa = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(fpa);
-        /*if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            SlidingTabsBasicFragment fragment = new SlidingTabsBasicFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
-            transaction.commit();
-        }*/
-
-
 
         DatabaseManager dataManager = new DatabaseManager();
         dataManager.getHelper(this).getWritableDatabase();
