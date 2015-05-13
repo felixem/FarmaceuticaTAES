@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.farmaceutica.R;
@@ -21,7 +22,7 @@ import farmaceutica.taes.farmaceutica.R;
  */
 public class AdaptadorListaProductos extends BaseAdapter {
 
-    private ArrayList<Producto> productos;
+    private List<Producto> productos;
     private Context context;
 
     public int getProductosCantidad(){return productos.size();}
@@ -51,7 +52,7 @@ public class AdaptadorListaProductos extends BaseAdapter {
         TextView descripcion;
     }
 
-    public AdaptadorListaProductos(Context context, ArrayList<Producto> datos){
+    public AdaptadorListaProductos(Context context, List<Producto> datos){
         this.context=context;
         this.productos=datos;
     }
