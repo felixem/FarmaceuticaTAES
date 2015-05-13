@@ -20,6 +20,11 @@ public class FachadaMedico
         return repository.getAllByCentroMedico(centro);
     }
 
+    public List<Medico> obtenerMedicos(Context context){
+        MedicoRepository repository = new MedicoRepository(context);
+        return repository.getAll();
+    }
+
     public Medico obtenerMedico(Context context, int id)
     {
         MedicoRepository repository = new MedicoRepository(context);
