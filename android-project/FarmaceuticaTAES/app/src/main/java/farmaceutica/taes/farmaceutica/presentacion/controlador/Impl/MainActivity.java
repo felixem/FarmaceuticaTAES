@@ -43,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
 
     class MainPagerAdapter extends FragmentPagerAdapter {
 
-        private String[] titles = {"Productos", "Clientes", "Valoracion", "Titulo4", "Titulo5"};
+        private String[] titles = {"Productos", "Clientes", "Valoracion", "Reported", "Médicos"};
 
         public MainPagerAdapter(FragmentManager fm){
             super(fm);
