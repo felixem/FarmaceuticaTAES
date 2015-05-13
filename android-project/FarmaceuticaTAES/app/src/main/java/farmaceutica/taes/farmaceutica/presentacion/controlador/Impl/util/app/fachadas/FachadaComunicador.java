@@ -18,13 +18,18 @@ public class FachadaComunicador {
     }
 
     //Recupera una visita enviada en la posición 0
-    public Visita RecibirUniversidadPosicion0(){
+    public Visita RecibirVisitaPosicion0(){
         return (Visita)((Object[])Comunicador.getObject())[0];
     }
 
     public void volverAtras()
     {
         Comunicador.getObjectAnterior();
+    }
+
+    //Recupera un aray de asignaturas enviada en la posición 2
+    public Class<?> RecibirDestinoPosicionFinal(){
+        return (Class<?>)((Object[])Comunicador.getObject())[((Object[])Comunicador.getObject()).length-1];
     }
 
 }

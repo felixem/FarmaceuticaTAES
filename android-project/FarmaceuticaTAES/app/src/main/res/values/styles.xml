@@ -6,6 +6,20 @@
         <item name="colorPrimary">#3498DB</item>
         <item name="colorPrimaryDark">#2C3E50</item>
         <item name="colorAccent">#B455B6</item>
+        <item name="android:textColor">@color/Black</item>
     </style>
 
+    <!-- Estilo que defina la barra Tab -->
+    <style name="PagerTabStrip">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="indicatorColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:color">@color/Azure</item>
+    </style>
+
+    <!-- Atributo para cambiar el color del pager -->
+    <declare-styleable name="ColoredPagerTabStrip">
+        <attr name="indicatorColor" format="reference|color" />
+    </declare-styleable>
 </resources>

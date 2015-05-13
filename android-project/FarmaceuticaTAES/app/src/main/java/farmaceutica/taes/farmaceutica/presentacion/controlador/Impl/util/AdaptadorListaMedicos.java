@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
-import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.farmaceutica.R;
 
 
@@ -21,24 +21,24 @@ import farmaceutica.taes.farmaceutica.R;
  * Este clase será modoficada en función de los valores que se quieran mostrar
  * a través de la consulta a la base de datos remota
  */
-public class AdaptadorCentroMedico extends BaseAdapter {
+public class AdaptadorListaMedicos extends BaseAdapter {
 
-    private List<CentroMedico> centros;
+    private List<Medico> medicos;
     private Context context;
 
-    public int getProductosCantidad(){return centros.size();}
+    public int getMedicosCantidad(){return medicos.size();}
 
-    public CentroMedico getProducto(int posicionArray){return centros.get(posicionArray);}
+    public Medico getMedico(int posicionArray){return medicos.get(posicionArray);}
 
     @Override
     public int getCount() {
-        return centros.size();
+        return medicos.size();
     }
 
     @Override
     public Object getItem(int position)
     {
-                return centros.get(position);
+                return medicos.get(position);
     }
 
     @Override
@@ -49,11 +49,12 @@ public class AdaptadorCentroMedico extends BaseAdapter {
     //Elemento utilizado para reutilización de instancias
     static class ViewHolder {
         TextView nombre;
+        TextView especialidad;
     }
 
-    public AdaptadorCentroMedico(Context context, ArrayList<CentroMedico> datos){
+    public AdaptadorListaMedicos(Context context, List<Medico> datos){
         this.context=context;
-        this.centros=datos;
+        this.medicos=datos;
     }
 
     //Inflamos el elemento de la lista con los datos que queremos
@@ -67,7 +68,8 @@ public class AdaptadorCentroMedico extends BaseAdapter {
             holder= new ViewHolder();
             item = inflater.inflate(R.layout.listado, null);
 
-            holder.nombre=(TextView)item.findViewById(R.id.textView_nombreCentro);
+            holder.nombre=(TextView)item.findViewById(R.id.textView_nombreMedico);
+            holder.especialidad=(TextView)item.findViewById(R.id.textView_especialidadMedico);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -76,7 +78,7 @@ public class AdaptadorCentroMedico extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.nombre.setText(centros.get(position).getNombre());
+        holder.nombre.setText(medicos.get(position).getNombre());
 
         return item;
     }

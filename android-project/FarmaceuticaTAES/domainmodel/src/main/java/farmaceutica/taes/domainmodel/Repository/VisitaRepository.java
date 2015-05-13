@@ -87,7 +87,7 @@ public class VisitaRepository {
         try {
 
             QueryBuilder<Visita,Integer> builder = mainDao.queryBuilder();
-            builder.where().eq(Visita.MEDICO,medico);
+            builder.where().eq(Visita.MEDICO,medico.getId());
             builder.orderBy(Visita.ID,true);
             return builder.query();
 
@@ -103,7 +103,7 @@ public class VisitaRepository {
         try {
 
             QueryBuilder<Visita,Integer> builder = mainDao.queryBuilder();
-            builder.where().eq(Visita.VISITADOR,visitador);
+            builder.where().eq(Visita.VISITADOR,visitador.getCodigo());
             builder.orderBy(Visita.ID,true);
             return builder.query();
 
@@ -121,7 +121,7 @@ public class VisitaRepository {
             QueryBuilder<Visita,Integer> builder = mainDao.queryBuilder();
             builder.join(db.getVisitaProductoDao().queryBuilder());
             builder.join(db.getProductoDao().queryBuilder());
-            builder.where().eq(VisitaProducto.PRODUCTO, producto);
+            builder.where().eq(VisitaProducto.PRODUCTO, producto.getCodNacional());
             builder.orderBy(Visita.ID,true);
             return builder.query();
 

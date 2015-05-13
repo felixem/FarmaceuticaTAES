@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.farmaceutica.R;
 
@@ -20,24 +21,24 @@ import farmaceutica.taes.farmaceutica.R;
  * Este clase será modoficada en función de los valores que se quieran mostrar
  * a través de la consulta a la base de datos remota
  */
-public class AdaptadorListaProductos extends BaseAdapter {
+public class AdaptadorListaCentrosMedicos extends BaseAdapter {
 
-    private List<Producto> productos;
+    private List<CentroMedico> centros;
     private Context context;
 
-    public int getProductosCantidad(){return productos.size();}
+    public int getCentrosMedicosCantidad(){return centros.size();}
 
-    public Producto getProducto(int posicionArray){return productos.get(posicionArray);}
+    public CentroMedico getCentroMedico(int posicionArray){return centros.get(posicionArray);}
 
     @Override
     public int getCount() {
-        return productos.size();
+        return centros.size();
     }
 
     @Override
     public Object getItem(int position)
     {
-                return productos.get(position);
+                return centros.get(position);
     }
 
     @Override
@@ -47,14 +48,12 @@ public class AdaptadorListaProductos extends BaseAdapter {
 
     //Elemento utilizado para reutilización de instancias
     static class ViewHolder {
-        TextView codigo;
         TextView nombre;
-        TextView descripcion;
     }
 
-    public AdaptadorListaProductos(Context context, List<Producto> datos){
+    public AdaptadorListaCentrosMedicos(Context context, List<CentroMedico> datos){
         this.context=context;
-        this.productos=datos;
+        this.centros=datos;
     }
 
     //Inflamos el elemento de la lista con los datos que queremos
@@ -66,11 +65,9 @@ public class AdaptadorListaProductos extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.listado, null);
+            item = inflater.inflate(R.layout.centro_medico, null);
 
-            holder.codigo= (TextView)item.findViewById(R.id.textView_codProducto);
-            holder.nombre=(TextView)item.findViewById(R.id.textView_nombre);
-            holder.descripcion=(TextView)item.findViewById(R.id.textView_descripcion);
+            holder.nombre=(TextView)item.findViewById(R.id.textView_nombreCentro);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -79,9 +76,7 @@ public class AdaptadorListaProductos extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.codigo.setText(productos.get(position).getCodNacional());
-        holder.nombre.setText(productos.get(position).getNombre());
-        holder.descripcion.setText(productos.get(position).getDescripcion());
+        holder.nombre.setText(centros.get(position).getNombre());
 
         return item;
     }

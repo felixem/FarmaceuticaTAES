@@ -17,4 +17,8 @@ public class Ambulatorio extends CentroMedico
 
     public Ambulatorio() {
     }
+
+    public Ambulatorio(String nombre, String direccion) {
+        super(nombre, direccion);
+    }
 }

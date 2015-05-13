@@ -2,6 +2,8 @@ package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import farmaceutica.taes.domainmodel.Data.Dao.CentroMedicoDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ClinicaPrivadaDao;
 import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
+import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.ClinicaPrivada;
 
@@ -77,7 +80,24 @@ public class CentroMedicoRepository {
         return null;
     }
 
-    public CentroMedico getById(int id)
+    public List<CentroMedico> getAllByAreaHospitalaria(AreaHospitalaria area)
+    {
+        try {
+
+            QueryBuilder<CentroMedico,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(CentroMedico.AREAHOSPITALARIA, area.getCodPostal());
+            builder.orderBy(CentroMedico.NOMBRE,true);
+            return builder.query();
+
+        } catch (SQLException e) {
+            //TODO GESTION DE ERRORES
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public CentroMedico getCentroMedicoById(int id)
     {
         try {
             return mainDao.queryForId(id);
@@ -86,5 +106,16 @@ public class CentroMedicoRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int refresh(CentroMedico data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
