@@ -2,6 +2,8 @@ package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,6 +13,8 @@ import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 
 /**
  * Created by felix on 28/04/15.
@@ -76,4 +80,8 @@ public class ProductoRepository {
         }
         return null;
     }
+
+
+
+
 }
