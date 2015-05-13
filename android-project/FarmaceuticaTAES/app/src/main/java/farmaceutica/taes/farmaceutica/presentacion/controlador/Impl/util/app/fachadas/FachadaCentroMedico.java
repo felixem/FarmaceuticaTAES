@@ -18,6 +18,11 @@ public class FachadaCentroMedico
         return repository.getAllByAreaHospitalaria(area);
     }
 
+    public List<CentroMedico> obtenerCentrosMedicos(Context context){
+        CentroMedicoRepository repository = new CentroMedicoRepository(context);
+        return repository.getAll();
+    }
+
     public CentroMedico obtenerCentro(Context context, int id)
     {
         CentroMedicoRepository repository = new CentroMedicoRepository(context);

@@ -69,7 +69,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -382,7 +382,36 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     //Insertar datos en la bd
-    private void inicializarDatos() throws SQLException {
+    private void inicializarDatos() throws SQLException
+    {
+        //Hospitales
+        HospitalDao hospitalDao = getHospitalDao();
+        Hospital hospital = new Hospital("Hospital General de Alicante", "Calle del Hospital, 5");
+        hospitalDao.create(hospital);
+
+        //Provincias
+        ProvinciaDao provDao = getProvinciaDao();
+        Provincia prov = new Provincia(1,"Albacete");
+        provDao.create(prov);
+
+        //Crear area hospitalaria
+        AreaHospitalariaDao areaDao = getAreaHospitalariaDao();
+        AreaHospitalaria area = new AreaHospitalaria(3009,hospital,prov);
+        areaDao.create(area);
+
+        //Vincular el hospital con el área
+        hospital.setAreaHospitalaria(area);
+        hospitalDao.update(hospital);
+
+        //Productos
+        ProductoDao productoDao = getProductoDao();
+        Producto prod = new Producto(69,"Viagra","Ideal para venirse arriba");
+        productoDao.create(prod);
+
+        prod.setCodNacional(112);
+        prod.setNombre("Vaginesil");
+        prod.setDescripcion("Por si te pica... ya sabes... ahí");
+        productoDao.create(prod);
 
     }
 

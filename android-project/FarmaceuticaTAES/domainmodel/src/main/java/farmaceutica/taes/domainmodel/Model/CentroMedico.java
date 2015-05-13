@@ -27,7 +27,7 @@ public class CentroMedico
     public static final String AREAHOSPITALARIA_CAMPO = "areaHospitalaria";
 
     //Atributos
-    @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
+    @DatabaseField(columnName = ID, generatedId = true, allowGeneratedIdInsert = true, useGetSet = true)
     private int id;
 
     @DatabaseField(columnName = NOMBRE, useGetSet = true, canBeNull = false)
