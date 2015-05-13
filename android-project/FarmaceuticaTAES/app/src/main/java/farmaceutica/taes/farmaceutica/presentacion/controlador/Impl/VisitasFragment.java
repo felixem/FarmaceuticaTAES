@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
-import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaCentrosMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.FragmentBase;
@@ -20,7 +16,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fac
 /**
  * Created by John on 12/05/2015.
  */
-public class CentrosMedicosFragment extends FragmentBase{
+public class VisitasFragment extends FragmentBase{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,10 +36,10 @@ public class CentrosMedicosFragment extends FragmentBase{
         lv.setAdapter(adapter);
     }
 
-    public static CentrosMedicosFragment newInstance() {
+    public static VisitasFragment newInstance() {
 
         // Instantiate a new fragment
-        CentrosMedicosFragment fragment = new CentrosMedicosFragment();
+        VisitasFragment fragment = new VisitasFragment();
 
         // Save the parameters
         //Bundle bundle = new Bundle();
