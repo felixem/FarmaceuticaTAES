@@ -4,20 +4,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.farmaceutica.R;
-
+import java.util.List;
 /**
  * Created by Javi on 12/05/2015.
  */
-public class AdaptadorListaVisitas {
+public class AdaptadorListaVisitas extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Visita> visitas;
+    private List<Visita> visitas;
 
     public int getCount() {
         return visitas.size();
@@ -36,7 +37,7 @@ public class AdaptadorListaVisitas {
         TextView txtView;
     }
 
-    public AdaptadorListaVisitas(Context context, ArrayList<Visita> datos){
+    public AdaptadorListaVisitas(Context context, List<Visita> datos){
         this.context=context;
         visitas=datos;
     }
