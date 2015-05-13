@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
             switch (position) {
                 default:
                 case 0:
-                    fragment = EjemploFragment1.newInstance();
+                    fragment = ProductosFragment.newInstance();
                     break;
                 case 1:
                     fragment = EjemploFragment2.newInstance();
