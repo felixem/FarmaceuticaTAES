@@ -68,16 +68,16 @@ public class MainActivity extends ActionBarActivity {
                     fragment = EjemploFragment1.newInstance();
                     break;
                 case 1:
-                    fragment = new EjemploFragment2();
+                    fragment = EjemploFragment2.newInstance();
                     break;
                 case 2:
-                    fragment = new EjemploFragment3();
+                    fragment = EjemploFragment3.newInstance();
                     break;
                 case 3:
-                    fragment = new EjemploFragment4();
+                    fragment = EjemploFragment4.newInstance();
                     break;
                 case 4:
-                    fragment = new EjemploFragment5();
+                    fragment = EjemploFragment5.newInstance();
                     break;
             }
             return fragment;
