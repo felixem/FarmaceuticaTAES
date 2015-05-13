@@ -24,4 +24,20 @@ public class EjemploFragment2 extends FragmentBase{
         TextView txt = (TextView)view.findViewById(R.id.txt_default);
         txt.setText("Fragmen2");
     }
+
+    public static EjemploFragment2 newInstance() {
+
+        // Instantiate a new fragment
+        EjemploFragment2 fragment = new EjemploFragment2();
+
+        // Save the parameters
+        //Bundle bundle = new Bundle();
+        //bundle.putInt(BACKGROUND_COLOR, color);
+        //bundle.putInt(INDEX, index);
+        //fragment.setArguments(bundle);
+        //fragment.setRetainInstance(true);
+
+        return fragment;
+
+    }
 }
