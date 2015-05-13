@@ -5,9 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import farmaceutica.taes.farmaceutica.R;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaProductos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.FragmentBase;
 
 /**
@@ -17,13 +21,14 @@ public class EjemploFragment1 extends FragmentBase{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.plantila, container, false);
+        return inflater.inflate(R.layout.listado, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        TextView txt = (TextView)view.findViewById(R.id.txt_default);
-        txt.setText("Fragmen1");
+        ListView lv = (ListView) view.findViewById(R.id.ListView_listado);
+        BaseAdapter ad= new ArrayAdapter<String>(getActivity(), R.layout.textview_ejemplo, new String[]{"Probando1", "Probando2", "Probando3"});
+        lv.setAdapter(ad);
     }
 
     public static EjemploFragment1 newInstance() {
@@ -32,11 +37,11 @@ public class EjemploFragment1 extends FragmentBase{
         EjemploFragment1 fragment = new EjemploFragment1();
 
         // Save the parameters
-        Bundle bundle = new Bundle();
+        //Bundle bundle = new Bundle();
         //bundle.putInt(BACKGROUND_COLOR, color);
         //bundle.putInt(INDEX, index);
-        fragment.setArguments(bundle);
-        fragment.setRetainInstance(true);
+        //fragment.setArguments(bundle);
+        //fragment.setRetainInstance(true);
 
         return fragment;
 
