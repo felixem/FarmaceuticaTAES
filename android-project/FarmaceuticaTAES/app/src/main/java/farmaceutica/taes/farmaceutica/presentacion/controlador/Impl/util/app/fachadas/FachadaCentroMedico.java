@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Repository.CentroMedicoRepository;
 
@@ -12,14 +13,20 @@ import farmaceutica.taes.domainmodel.Repository.CentroMedicoRepository;
  */
 public class FachadaCentroMedico
 {
-    public List<CentroMedico> obtenerCentros(Context context){
+    public List<CentroMedico> obtenerCentrosMedicosPorArea(Context context, AreaHospitalaria area){
         CentroMedicoRepository repository = new CentroMedicoRepository(context);
-        return repository.getAll();
+        return repository.getAllByAreaHospitalaria(area);
     }
 
     public CentroMedico obtenerCentro(Context context, int id)
     {
         CentroMedicoRepository repository = new CentroMedicoRepository(context);
-        return repository.getById(id);
+        return repository.getCentroMedicoById(id);
+    }
+
+    public int refresh(Context context, CentroMedico centro)
+    {
+        CentroMedicoRepository repository = new CentroMedicoRepository(context);
+        return repository.refresh(centro);
     }
 }

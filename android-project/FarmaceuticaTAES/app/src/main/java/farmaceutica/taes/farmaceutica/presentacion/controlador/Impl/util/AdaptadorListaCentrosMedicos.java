@@ -21,14 +21,14 @@ import farmaceutica.taes.farmaceutica.R;
  * Este clase será modoficada en función de los valores que se quieran mostrar
  * a través de la consulta a la base de datos remota
  */
-public class AdaptadorCentroMedico extends BaseAdapter {
+public class AdaptadorListaCentrosMedicos extends BaseAdapter {
 
     private List<CentroMedico> centros;
     private Context context;
 
-    public int getProductosCantidad(){return centros.size();}
+    public int getCentrosMedicosCantidad(){return centros.size();}
 
-    public CentroMedico getProducto(int posicionArray){return centros.get(posicionArray);}
+    public CentroMedico getCentroMedico(int posicionArray){return centros.get(posicionArray);}
 
     @Override
     public int getCount() {
@@ -51,7 +51,7 @@ public class AdaptadorCentroMedico extends BaseAdapter {
         TextView nombre;
     }
 
-    public AdaptadorCentroMedico(Context context, ArrayList<CentroMedico> datos){
+    public AdaptadorListaCentrosMedicos(Context context, ArrayList<CentroMedico> datos){
         this.context=context;
         this.centros=datos;
     }

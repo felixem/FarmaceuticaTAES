@@ -84,7 +84,7 @@ public class TrayectoriaRepository {
         try {
 
             QueryBuilder<Trayectoria,Integer> builder = mainDao.queryBuilder();
-            builder.where().eq(Trayectoria.MEDICO, medico);
+            builder.where().eq(Trayectoria.MEDICO, medico.getId());
             builder.orderBy(Trayectoria.ID,true);
             return builder.query();
 
