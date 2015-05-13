@@ -16,4 +16,8 @@ public class Hospital extends CentroMedico
 
     public Hospital() {
     }
+
+    public Hospital(String nombre, String direccion) {
+        super(nombre, direccion);
+    }
 }

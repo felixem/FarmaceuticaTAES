@@ -52,7 +52,7 @@ public class AdaptadorListaMedicos extends BaseAdapter {
         TextView especialidad;
     }
 
-    public AdaptadorListaMedicos(Context context, ArrayList<Medico> datos){
+    public AdaptadorListaMedicos(Context context, List<Medico> datos){
         this.context=context;
         this.medicos=datos;
     }

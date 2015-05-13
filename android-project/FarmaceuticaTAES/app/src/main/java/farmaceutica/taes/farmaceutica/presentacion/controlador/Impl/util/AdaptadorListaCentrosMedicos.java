@@ -51,7 +51,7 @@ public class AdaptadorListaCentrosMedicos extends BaseAdapter {
         TextView nombre;
     }
 
-    public AdaptadorListaCentrosMedicos(Context context, ArrayList<CentroMedico> datos){
+    public AdaptadorListaCentrosMedicos(Context context, List<CentroMedico> datos){
         this.context=context;
         this.centros=datos;
     }
@@ -65,7 +65,7 @@ public class AdaptadorListaCentrosMedicos extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.listado, null);
+            item = inflater.inflate(R.layout.centro_medico, null);
 
             holder.nombre=(TextView)item.findViewById(R.id.textView_nombreCentro);
 

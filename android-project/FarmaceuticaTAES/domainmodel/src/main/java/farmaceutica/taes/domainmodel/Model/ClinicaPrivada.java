@@ -16,4 +16,8 @@ public class ClinicaPrivada extends CentroMedico
 
     public ClinicaPrivada() {
     }
+
+    public ClinicaPrivada(String nombre, String direccion) {
+        super(nombre, direccion);
+    }
 }
