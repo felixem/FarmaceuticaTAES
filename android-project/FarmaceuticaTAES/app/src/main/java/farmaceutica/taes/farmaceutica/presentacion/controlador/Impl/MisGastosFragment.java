@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -32,7 +31,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
 /**
  * Created by John on 12/05/2015.
  */
-public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerListener{
+public class MisGastosFragment extends FragmentBase implements OnSpinnerListener{
 
     SpinnerOnChangeAdapter spinnerCentrosMedicos;
     SpinnerOnChangeAdapter spinnerMedicos;
@@ -76,7 +75,7 @@ public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerList
                 new AdapterView.OnItemSelectedListener()    {
                     @Override
                     public void onItemSelected(AdapterView<?> parent,
-                                               android.view.View v, int position, long id) {
+                                               View v, int position, long id) {
 
                         //Meter en el spinner de visitas las visitas del médico
                         CentroMedico centro = (CentroMedico)parent.getItemAtPosition(position);
@@ -95,7 +94,7 @@ public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerList
                 new AdapterView.OnItemSelectedListener()    {
         @Override
         public void onItemSelected(AdapterView<?> parent,
-                android.view.View v, int position, long id) {
+                View v, int position, long id) {
 
             //Meter en el spinner de visitas las visitas del médico
             Medico medico = (Medico)parent.getItemAtPosition(position);
@@ -111,10 +110,10 @@ public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerList
 
     }
 
-    public static VisitasMedicoFragment newInstance() {
+    public static MisGastosFragment newInstance() {
 
         // Instantiate a new fragment
-        VisitasMedicoFragment fragment = new VisitasMedicoFragment();
+        MisGastosFragment fragment = new MisGastosFragment();
 
         // Save the parameters
         //Bundle bundle = new Bundle();
