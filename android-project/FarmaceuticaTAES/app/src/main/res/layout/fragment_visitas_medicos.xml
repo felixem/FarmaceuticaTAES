@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     >
 
     <TextView
@@ -21,11 +22,11 @@
         android:layout_marginTop="15dp"
         />
 
-    <Spinner
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
         android:id="@+id/spinner_centros_medicos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </Spinner>
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
     <TextView
         android:id="@+id/txt_medico"
@@ -35,11 +36,11 @@
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>/>
 
-    <Spinner
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
         android:id="@+id/spinner_medicos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </Spinner>
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
     <TextView
         android:id="@+id/txt_visita"
@@ -49,10 +50,10 @@
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
-    <Spinner
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
         android:id="@+id/spinner_visitas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </Spinner>
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
 </LinearLayout>

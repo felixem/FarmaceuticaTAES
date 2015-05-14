@@ -72,7 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 13;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -437,25 +437,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         //Crear médicos
         MedicoDao medicoDao = getMedicoDao();
-        int medico1 = 32223;
-        Medico medico = new Medico(medico1,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
+        Medico medico = new Medico(32223,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
         medicoDao.create(medico);
+        int medico1 = medico.getId();
 
-        int medico2 = 10111;
-        medico.setId(0);
-        medico.setNumCorrelativo(medico2);
+        medico.setNumCorrelativo(10111);
         medico.setNombre("Agapito");
         medico.setApellidos("Di Sousa");
         medicoDao.create(medico);
+        int medico2 = medico.getId();
 
         //Crear vinculación entre médico y lugar de trabajo
         MedicoLugarTrabajoDao medicoLugarTrabajoDao = getMedicoLugarTrabajoDao();
-        medico.setNumCorrelativo(medico1);
+        medico.setId(medico1);
         MedicoLugarTrabajo medicoLugarTrabajo = new MedicoLugarTrabajo(medico,hospital);
         medicoLugarTrabajoDao.create(medicoLugarTrabajo);
 
-        medico.setNumCorrelativo(medico1);
-        medicoLugarTrabajo.setMedico(medico);
+        medico.setId(medico2);
         medicoLugarTrabajoDao.create(medicoLugarTrabajo);
 
         //Crear visitas
