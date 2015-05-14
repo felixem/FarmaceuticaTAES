@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
 import farmaceutica.taes.farmaceutica.R;
 import java.util.List;
 /**
@@ -59,7 +60,8 @@ public class AdaptadorListaVisitas extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.txtView.setText(visitas.get(position).getFechaVisita().toString());
+        MedicoRepository repositorio;
+        holder.txtView.setText("Visita de la fecha: "+visitas.get(position).getFechaVisita().toString());
 
         return item;
     }
