@@ -7,53 +7,66 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import farmaceutica.taes.domainmodel.Model.Visita;
-import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
+import java.util.List;
+
+import farmaceutica.taes.domainmodel.Model.Gasto;
+import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.farmaceutica.R;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
+
 /**
- * Created by Javi on 12/05/2015.
+ * Created by John on 08/04/2015.
+ *
+ * Este clase será modoficada en función de los valores que se quieran mostrar
+ * a través de la consulta a la base de datos remota
  */
-public class AdaptadorListaVisitas extends BaseAdapter {
+public class AdaptadorListaGastos extends BaseAdapter {
 
+    private List<Gasto> gastos;
     private Context context;
-    private List<Visita> visitas;
 
+    public int getGastosCantidad(){return gastos.size();}
+
+    public Gasto getGasto(int posicionArray){return gastos.get(posicionArray);}
+
+    @Override
     public int getCount() {
-        return visitas.size();
+        return gastos.size();
     }
 
-    public Object getItem(int position) {
-        return visitas.get(position);
+    @Override
+    public Object getItem(int position)
+    {
+        return gastos.get(position);
     }
 
+    @Override
     public long getItemId(int position) {
         return position;
     }
 
     //Elemento utilizado para reutilización de instancias
     static class ViewHolder {
-        TextView txtView;
+        TextView gasto;
     }
 
-    public AdaptadorListaVisitas(Context context, List<Visita> datos){
+    public AdaptadorListaGastos(Context context, List<Gasto> datos){
         this.context=context;
-        visitas=datos;
+        this.gastos = datos;
     }
 
     //Inflamos el elemento de la lista con los datos que queremos
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //Optimizamos la creación del layout realizándola solo una primera vez.
         View item= convertView;
         ViewHolder holder;
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            item = inflater.inflate(R.layout.list_item_default, null);
-
             holder= new ViewHolder();
-            holder.txtView= (TextView)item.findViewById(R.id.txt_listitem_default);
+            item = inflater.inflate(R.layout.gasto, null);
+
+            holder.gasto=(TextView)item.findViewById(R.id.textView_gasto);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -62,11 +75,9 @@ public class AdaptadorListaVisitas extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
-        String date = sdf.format(visitas.get(position).getFechaVisita());
-        holder.txtView.setText("Visita a las " + date);
+        Gasto gasto = gastos.get(position);
+        holder.gasto.setText(gasto.getConceptoGasto().getNombre().toString());
 
         return item;
     }
-
 }

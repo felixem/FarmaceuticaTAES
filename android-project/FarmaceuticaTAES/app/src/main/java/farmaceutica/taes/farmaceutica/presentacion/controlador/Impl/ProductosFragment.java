@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
@@ -29,6 +32,14 @@ public class ProductosFragment extends FragmentBase{
         FachadaProducto fachada = new FachadaProducto();
         BaseAdapter adapter = new AdaptadorListaProductos(getActivity(), fachada.obtenerProductos(getActivity()));
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int cod= ((Producto)parent.getAdapter().getItem(position)).getCodNacional();
+                Bundle bd= new Bundle();
+                bd.putInt(Producto.ID,cod);
+            }
+        });
     }
 
     public static ProductosFragment newInstance() {

@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Visita;
@@ -43,7 +45,10 @@ public class ListaVisitas extends FragmentBase {
 
         txt= (TextView) view.findViewById(R.id.txt_visita_elegida);
         visita = fachadaComunicador.RecibirVisitaPosicion0();
-        txt.setText(visita.devolverFecha() +" con el doctor: " + repositorio.getMedicoById(visita.getMedico().getId()).getNombre() + " " + repositorio.getMedicoById(visita.getMedico().getId()).getApellidos());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+        String date = sdf.format(visita.getFechaVisita());
+        txt.setText(date +" con el doctor: " + repositorio.getMedicoById(visita.getMedico().getId()).getNombre() + " " + repositorio.getMedicoById(visita.getMedico().getId()).getApellidos());
 
         destino = null;
 

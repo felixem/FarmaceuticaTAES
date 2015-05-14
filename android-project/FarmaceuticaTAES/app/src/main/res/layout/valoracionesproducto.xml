@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large Text"
+            android:layout_marginLeft="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
@@ -66,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cantidad"
+            android:layout_marginLeft="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
@@ -83,6 +85,7 @@
             android:id="@+id/textView_totalPoco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="cantidad"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -101,6 +104,7 @@
             android:id="@+id/textView_totalMedio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="cantidad"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -119,6 +123,7 @@
             android:id="@+id/textView_totalMucho"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="cantidad"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
