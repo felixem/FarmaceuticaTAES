@@ -2,6 +2,8 @@ package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
 
 /**
  * Created by felix on 28/04/15.
@@ -75,5 +78,23 @@ public class ProductoRepository {
             e.printStackTrace();
         }
         return null;
+    }
+    public Producto getProductoById(int id){
+
+        try{
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(Producto.ID, id);
+            builder.orderBy(Producto.NOMBRE,true);
+            return builder.query().get(0);
+        }catch(SQLException e){
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public int getCantidadValoracionProducto(int idProducto,ValoracionProducto valoracion) throws Exception {
+
+        //TODO
+        throw new Exception("not implementet yet");
     }
 }
