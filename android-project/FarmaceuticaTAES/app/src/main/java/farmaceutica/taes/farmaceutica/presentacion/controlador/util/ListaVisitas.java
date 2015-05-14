@@ -43,7 +43,7 @@ public class ListaVisitas extends FragmentBase {
 
         txt= (TextView) view.findViewById(R.id.txt_visita_elegida);
         visita = fachadaComunicador.RecibirVisitaPosicion0();
-        txt.setText("Visita: " + visita.getFechaVisita().toString() +" con el doctor: " + repositorio.getMedicoById(visita.getMedico().getId()).getNombre() + " " + repositorio.getMedicoById(visita.getMedico().getId()).getApellidos());
+        txt.setText(visita.devolverFecha() +" con el doctor: " + repositorio.getMedicoById(visita.getMedico().getId()).getNombre() + " " + repositorio.getMedicoById(visita.getMedico().getId()).getApellidos());
 
         destino = null;
 
