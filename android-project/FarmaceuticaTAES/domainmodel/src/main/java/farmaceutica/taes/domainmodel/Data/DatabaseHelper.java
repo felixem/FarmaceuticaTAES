@@ -9,6 +9,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import farmaceutica.taes.domainmodel.Data.Dao.AmbulatorioDao;
 import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
@@ -45,6 +46,7 @@ import farmaceutica.taes.domainmodel.Model.DiaVisitable;
 import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
 import farmaceutica.taes.domainmodel.Model.Gasto;
 import farmaceutica.taes.domainmodel.Model.Hospital;
+import farmaceutica.taes.domainmodel.Model.LugarVisita;
 import farmaceutica.taes.domainmodel.Model.MaterialPromocional;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.MedicoLugarTrabajo;
@@ -52,6 +54,7 @@ import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.Provincia;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.domainmodel.Model.Ruta;
+import farmaceutica.taes.domainmodel.Model.TipoCliente;
 import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.VentaArea;
 import farmaceutica.taes.domainmodel.Model.VentaAreaFecha;
@@ -69,7 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 9;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -384,6 +387,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //Insertar datos en la bd
     private void inicializarDatos() throws SQLException
     {
+        //Crear visitador
+        VisitadorDao visitadorDao = getVisitadorDao();
+        Visitador visitador = new Visitador(1,"pass","Elvis","Sitante","613199111","elvis@sitante.es");
+        visitadorDao.create(visitador);
+
         //Hospitales
         HospitalDao hospitalDao = getHospitalDao();
         Hospital hospital = new Hospital("Hospital General de Alicante", "Calle del Hospital, 5");
@@ -426,6 +434,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         prod.setNombre("Vaginesil");
         prod.setDescripcion("Por si te pica... ya sabes... ahí");
         productoDao.create(prod);
+
+        //Crear médicos
+        MedicoDao medicoDao = getMedicoDao();
+        Medico medico = new Medico(32223,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
+        medicoDao.create(medico);
+
+        //Crear vinculación entre médico y lugar de trabajo
+        MedicoLugarTrabajoDao medicoLugarTrabajoDao = getMedicoLugarTrabajoDao();
+        MedicoLugarTrabajo medicoLugarTrabajo = new MedicoLugarTrabajo(medico,hospital);
+        medicoLugarTrabajoDao.create(medicoLugarTrabajo);
+
+        //Crear visitas
+        VisitaDao visitaDao = getVisitaDao();
+        Visita visita = new Visita(new Date(),new Date(), 5, LugarVisita.HOSPITAL, true, visitador, medico);
+        visitaDao.create(visita);
 
     }
 
