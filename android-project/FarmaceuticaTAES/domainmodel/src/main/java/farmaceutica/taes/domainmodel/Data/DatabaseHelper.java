@@ -9,6 +9,8 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import farmaceutica.taes.domainmodel.Data.Dao.AmbulatorioDao;
@@ -42,6 +44,7 @@ import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Cita;
 import farmaceutica.taes.domainmodel.Model.CitaVisita;
 import farmaceutica.taes.domainmodel.Model.ClinicaPrivada;
+import farmaceutica.taes.domainmodel.Model.ConceptoGasto;
 import farmaceutica.taes.domainmodel.Model.DiaVisitable;
 import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
 import farmaceutica.taes.domainmodel.Model.Gasto;
@@ -72,7 +75,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -460,6 +463,30 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         VisitaDao visitaDao = getVisitaDao();
         Visita visita = new Visita(new Date(),new Date(), 5, LugarVisita.HOSPITAL, true, visitador, medico);
         visitaDao.create(visita);
+
+        //Crear reporte de gastos
+        ReporteGastosDao reporteGastosDao = getReporteGastosDao();
+        ReporteGastos reporte = new ReporteGastos(new Date(),false,visitador);
+        reporteGastosDao.create(reporte);
+        int reporte1 = reporte.getId();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        String dateInString = "31-08-1982 10:20:56";
+        Date date = null;
+        try {
+            date = sdf.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        reporte.setFecha(date);
+        reporteGastosDao.create(reporte);
+        int reporte2 = reporte.getId();
+
+        //Crear gastos
+        GastoDao gastoDao = getGastoDao();
+        Gasto gasto = new Gasto(33.9f, ConceptoGasto.COMIDA,reporte);
+        gastoDao.create(gasto);
 
     }
 

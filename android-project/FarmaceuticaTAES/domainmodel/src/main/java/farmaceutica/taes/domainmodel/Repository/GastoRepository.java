@@ -11,6 +11,7 @@ import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.Gasto;
+import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 
 /**
  * Created by felix on 28/04/15.
@@ -70,6 +71,17 @@ public class GastoRepository {
     {
         try {
             return mainDao.queryForAll();
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Gasto> getAllByReporteGastos(ReporteGastos reporte)
+    {
+        try {
+            return mainDao.queryForEq(Gasto.REPORTEGASTOS, reporte.getId());
         } catch (SQLException e) {
             // TODO: Exception Handling
             e.printStackTrace();

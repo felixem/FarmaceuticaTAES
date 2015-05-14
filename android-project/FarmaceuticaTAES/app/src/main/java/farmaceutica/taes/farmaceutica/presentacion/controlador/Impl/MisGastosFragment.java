@@ -13,18 +13,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
+import farmaceutica.taes.domainmodel.Model.Gasto;
 import farmaceutica.taes.domainmodel.Model.Medico;
+import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaCentrosMedicos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaGastos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaReportes;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaReporteGastos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
@@ -33,81 +37,57 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
  */
 public class MisGastosFragment extends FragmentBase implements OnSpinnerListener{
 
-    SpinnerOnChangeAdapter spinnerCentrosMedicos;
-    SpinnerOnChangeAdapter spinnerMedicos;
-    SpinnerOnChangeAdapter spinnerVisitas;
-    TextView textView_centros;
-    TextView textView_medicos;
-    TextView textView_visitas;
+    SpinnerOnChangeAdapter spinnerReportes;
+    SpinnerOnChangeAdapter spinnerGastos;
+    TextView textView_reportes;
+    TextView textView_gastos;
     Button button_ver_detalles;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_visitas_medicos, container, false);
+        return inflater.inflate(R.layout.fragment_mis_gastos, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        spinnerCentrosMedicos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_centros_medicos);
-        spinnerMedicos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_medicos);
-        spinnerVisitas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_visitas);
-        textView_centros = (TextView) view.findViewById(R.id.txt_centro_medico);
-        textView_medicos = (TextView) view.findViewById(R.id.txt_medico);
-        textView_visitas = (TextView) view.findViewById(R.id.txt_visita);
+        spinnerReportes = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_reportes);
+        spinnerGastos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_gastos);
+        textView_reportes = (TextView) view.findViewById(R.id.txt_reporte);
+        textView_gastos = (TextView) view.findViewById(R.id.txt_gasto);
         button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
 
         //Vincular los listeners
-        spinnerCentrosMedicos.setOnSpinnerListener(this);
-        spinnerMedicos.setOnSpinnerListener(this);
-        spinnerVisitas.setOnSpinnerListener(this);
+        spinnerReportes.setOnSpinnerListener(this);
+        spinnerGastos.setOnSpinnerListener(this);
 
-        //Provisionalmente creado un área hospitalaria que será la del visitador actual
-        AreaHospitalaria area = new AreaHospitalaria();
-        area.setCodPostal(3009);
+        //Creado provisionalmente un visitador
+        Visitador visitador = new Visitador();
+        visitador.setCodigo(1);
 
-        //Vincular al spinner de centros médicos los centros médicos
-        final BaseAdapter adapter = new AdaptadorListaCentrosMedicos(getActivity(), FachadaCentroMedico.obtenerCentrosMedicosPorArea(getActivity(),area));
-        spinnerCentrosMedicos.setAdapter(adapter);
+        //Vincular al spinner de reportes los reportes
+        final BaseAdapter adapter = new AdaptadorListaReportes(getActivity(), FachadaReporteGastos.obtenerReportesGastosPorVisitador(getActivity(), visitador));
+        spinnerReportes.setAdapter(adapter);
 
         //Establecer eventos en el spinner de centros médicos
-        spinnerCentrosMedicos.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener()    {
+        spinnerReportes.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent,
                                                View v, int position, long id) {
 
-                        //Meter en el spinner de visitas las visitas del médico
-                        CentroMedico centro = (CentroMedico)parent.getItemAtPosition(position);
-                        List<Medico> medicos = FachadaMedico.obtenerMedicosPorCentroMedico(getActivity(), centro);
-                        BaseAdapter adapter = new AdaptadorListaMedicos(getActivity(), medicos);
-                        spinnerMedicos.setAdapter(adapter);
+                        //Meter en el spinner de gastos los gastos del reporte
+                        ReporteGastos reporte = (ReporteGastos) parent.getItemAtPosition(position);
+                        List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), reporte);
+                        BaseAdapter adapter = new AdaptadorListaGastos(getActivity(), gastos);
+                        spinnerGastos.setAdapter(adapter);
 
                     }
 
                     @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
                 });
-
-        //Establecer eventos en el spinner de médicos
-        spinnerMedicos.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener()    {
-        @Override
-        public void onItemSelected(AdapterView<?> parent,
-                View v, int position, long id) {
-
-            //Meter en el spinner de visitas las visitas del médico
-            Medico medico = (Medico)parent.getItemAtPosition(position);
-            List<Visita> visitas = FachadaVisita.obtenerVisitasPorMedico(getActivity(),medico);
-            BaseAdapter adapter = new AdaptadorListaVisitas(getActivity(), visitas);
-            spinnerVisitas.setAdapter(adapter);
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {}
-                });
-
     }
 
     public static MisGastosFragment newInstance() {
@@ -131,76 +111,49 @@ public class MisGastosFragment extends FragmentBase implements OnSpinnerListener
     {
         SpinnerAdapter adapter;
         //Gestionar set adapter a spinner centros médicos
-        if(v.equals(spinnerCentrosMedicos))
+        if(v.equals(spinnerReportes))
         {
-            adapter = spinnerCentrosMedicos.getAdapter();
+            adapter = spinnerReportes.getAdapter();
 
             //Comprobar si está vacío
             if(adapter.isEmpty())
             {
-                textView_centros.setVisibility(View.VISIBLE);
-                spinnerCentrosMedicos.setVisibility(View.INVISIBLE);
-                textView_centros.setText("No se encontraron centros medicos");
-                spinnerMedicos.setAdapter(new AdaptadorListaMedicos(getActivity(),new ArrayList<Medico>()));
+                textView_reportes.setVisibility(View.VISIBLE);
+                spinnerReportes.setVisibility(View.INVISIBLE);
+                textView_reportes.setText("No se encontraron reportes");
+                spinnerGastos.setAdapter(new AdaptadorListaGastos(getActivity(),new ArrayList<Gasto>()));
             }
             else
             {
-                textView_centros.setVisibility(View.VISIBLE);
-                spinnerCentrosMedicos.setVisibility(View.VISIBLE);
-                textView_centros.setText("Selecciona centro médico");
+                textView_reportes.setVisibility(View.VISIBLE);
+                spinnerReportes.setVisibility(View.VISIBLE);
+                textView_reportes.setText("Selecciona el reporte de gastos");
 
-                CentroMedico centro = (CentroMedico)spinnerCentrosMedicos.getSelectedItem();
-                List<Medico> medicos = FachadaMedico.obtenerMedicosPorCentroMedico(getActivity(), centro);
-                BaseAdapter adaptadorbase = new AdaptadorListaMedicos(getActivity(),medicos);
-                spinnerMedicos.setAdapter(adaptadorbase);
+                ReporteGastos reporte = (ReporteGastos)spinnerReportes.getSelectedItem();
+                List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), reporte);
+                BaseAdapter adaptadorbase = new AdaptadorListaGastos(getActivity(),gastos);
+                spinnerGastos.setAdapter(adaptadorbase);
             }
 
         }
         //Gestionar set adapter a spinner médicos
-        else if(v.equals(spinnerMedicos))
+        else if(v.equals(spinnerGastos))
         {
-            adapter = spinnerMedicos.getAdapter();
+            adapter = spinnerGastos.getAdapter();
 
             //Comprobar si está vacío
             if(adapter.isEmpty())
             {
-                textView_medicos.setVisibility(View.VISIBLE);
-                spinnerMedicos.setVisibility(View.INVISIBLE);
-                textView_medicos.setText("No se encontraron médicos");
-                spinnerVisitas.setAdapter(new AdaptadorListaVisitas(getActivity(),new ArrayList<Visita>()));
-            }
-            else
-            {
-                textView_medicos.setVisibility(View.VISIBLE);
-                spinnerMedicos.setVisibility(View.VISIBLE);
-                textView_medicos.setText("Selecciona médico");
-
-                Medico medico = (Medico)spinnerMedicos.getSelectedItem();
-                List<Visita> visitas = FachadaVisita.obtenerVisitasPorMedico(getActivity(), medico);
-                BaseAdapter adaptadorbase = new AdaptadorListaVisitas(getActivity(),visitas);
-                spinnerVisitas.setAdapter(adaptadorbase);
-            }
-
-        }
-
-        //Gestionar set adapter a spinner visitas
-        else if(v.equals(spinnerVisitas))
-        {
-            adapter = spinnerVisitas.getAdapter();
-
-            //Comprobar si está vacío
-            if(adapter.isEmpty())
-            {
-                textView_visitas.setVisibility(View.VISIBLE);
-                spinnerVisitas.setVisibility(View.INVISIBLE);
-                textView_visitas.setText("No se encontraron visitas");
+                textView_gastos.setVisibility(View.VISIBLE);
+                spinnerGastos.setVisibility(View.INVISIBLE);
+                textView_gastos.setText("No se encontraron gastos asociados");
                 button_ver_detalles.setVisibility(View.INVISIBLE);
             }
             else
             {
-                textView_visitas.setVisibility(View.VISIBLE);
-                spinnerVisitas.setVisibility(View.VISIBLE);
-                textView_visitas.setText("Selecciona visita");
+                textView_gastos.setVisibility(View.VISIBLE);
+                spinnerGastos.setVisibility(View.VISIBLE);
+                textView_gastos.setText("Selecciona gasto");
                 button_ver_detalles.setVisibility(View.VISIBLE);
             }
 

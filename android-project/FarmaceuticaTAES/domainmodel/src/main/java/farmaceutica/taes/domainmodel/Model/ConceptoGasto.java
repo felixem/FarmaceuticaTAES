@@ -6,9 +6,9 @@ package farmaceutica.taes.domainmodel.Model;
 public enum ConceptoGasto {
 
     //Declaración de constantes
-    A("Comida", "Consumiciones"),
-    B("Parking", "Aparcamiento"),
-    C("Transporte", "Desplazamientos");
+    COMIDA("Comida", "Consumiciones"),
+    PARKING("Parking", "Aparcamiento"),
+    TRANSPORTE("Transporte", "Desplazamientos");
 
     //Variables
     private final String nombre;
