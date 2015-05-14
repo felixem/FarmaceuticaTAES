@@ -60,8 +60,7 @@ public class AdaptadorListaVisitas extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        MedicoRepository repositorio;
-        holder.txtView.setText("Visita de la fecha: "+visitas.get(position).getFechaVisita().toString());
+        holder.txtView.setText(visitas.get(position).devolverFecha());
 
         return item;
     }
