@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.view;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

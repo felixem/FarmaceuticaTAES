@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
 
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.IniciarAsyncDB;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.IniciarAsyncDB;
 
 /**
  * Created by john on 7/05/15.

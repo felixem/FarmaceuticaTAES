@@ -6,28 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
-import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaCentrosMedicos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaMedicos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaVisitas;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.FragmentBase;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaCentroMedico;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaMedico;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaVisita;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.listeners.ListenerSpinnerCentrosMedicos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaCentrosMedicos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.listeners.ListenerSpinnerCentrosMedicos;
 
 /**
  * Created by John on 12/05/2015.

@@ -1,8 +1,7 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas;
 
 import android.content.Context;
 import java.util.List;
-import java.util.ArrayList;
 
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Visita;

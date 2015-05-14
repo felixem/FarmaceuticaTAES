@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.listeners;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.listeners;
 
 import android.content.Context;
 import android.view.View;
@@ -7,14 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Medico;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaCentrosMedicos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaMedicos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 
 /**
  * Created by felix on 13/05/15.
