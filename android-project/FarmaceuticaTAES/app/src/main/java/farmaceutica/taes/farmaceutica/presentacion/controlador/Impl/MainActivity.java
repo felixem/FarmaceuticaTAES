@@ -27,14 +27,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        IniciarAsyncDB.iniciarDB(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
         ViewPager vp = (ViewPager) findViewById(R.id.vp_main);
         fpa = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(fpa);
-
-        IniciarAsyncDB.iniciarDB(this);
     }
 
     class MainPagerAdapter extends FragmentPagerAdapter {
