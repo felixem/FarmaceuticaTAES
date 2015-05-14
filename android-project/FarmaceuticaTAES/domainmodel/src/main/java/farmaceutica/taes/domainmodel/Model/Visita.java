@@ -149,12 +149,6 @@ public class Visita {
         this.medico = medico;
     }
 
-    public String devolverFecha(){
-
-        return "Visita de la fecha: " + fechaVisita.getDay() + "/" + fechaVisita.getMonth() + "/" + fechaVisita.getYear() + " a las "
-                + fechaVisita.getHours() + "/" + fechaVisita.getMinutes();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

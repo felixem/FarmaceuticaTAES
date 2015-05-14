@@ -10,6 +10,8 @@ import android.widget.TextView;
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
 import farmaceutica.taes.farmaceutica.R;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 /**
  * Created by Javi on 12/05/2015.
@@ -60,7 +62,9 @@ public class AdaptadorListaVisitas extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.txtView.setText(visitas.get(position).devolverFecha());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+        String date = sdf.format(visitas.get(position).getFechaVisita());
+        holder.txtView.setText("Visita a las " + date);
 
         return item;
     }
