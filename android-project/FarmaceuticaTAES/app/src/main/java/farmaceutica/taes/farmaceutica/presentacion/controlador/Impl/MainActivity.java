@@ -70,12 +70,13 @@ public class MainActivity extends ActionBarActivity {
                     fragment = EjemploFragment3.newInstance();
                     break;
                 case 3:
-                    fragment = ListaVisitas.newInstance();
+                    fragment = EjemploFragment1.newInstance();
                     break;
                 case 4:
                     fragment = VisitasFragment.newInstance();
                     break;
             }
+
             return fragment;
         }
     }

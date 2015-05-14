@@ -73,11 +73,6 @@ public class ListaVisitas extends FragmentBase {
         });
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-    }
-
     /*public void onBackPressed() {
 
         fachadaComunicador.volverAtras();
