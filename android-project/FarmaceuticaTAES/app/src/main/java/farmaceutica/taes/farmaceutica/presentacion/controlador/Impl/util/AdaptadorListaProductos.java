@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.farmaceutica.R;
 
 
@@ -37,7 +38,7 @@ public class AdaptadorListaProductos extends BaseAdapter {
     @Override
     public Object getItem(int position)
     {
-                return productos.get(position);
+        return productos.get(position);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class AdaptadorListaProductos extends BaseAdapter {
     static class ViewHolder {
         TextView codigo;
         TextView nombre;
-        TextView descripcion;
+        TextView descrip;
     }
 
     public AdaptadorListaProductos(Context context, List<Producto> datos){
@@ -66,11 +67,11 @@ public class AdaptadorListaProductos extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.listado, null);
+            item = inflater.inflate(R.layout.producto, null);
 
-            holder.codigo= (TextView)item.findViewById(R.id.textView_codProducto);
+            holder.codigo=(TextView)item.findViewById(R.id.textView_codProducto);
             holder.nombre=(TextView)item.findViewById(R.id.textView_nombre);
-            holder.descripcion=(TextView)item.findViewById(R.id.textView_descripcion);
+            holder.descrip=(TextView)item.findViewById(R.id.textView_descripcion);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -79,10 +80,9 @@ public class AdaptadorListaProductos extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.codigo.setText(productos.get(position).getCodNacional());
-        holder.nombre.setText(productos.get(position).getNombre());
-        holder.descripcion.setText(productos.get(position).getDescripcion());
-
+        holder.codigo.setText("Codigo: "+ Integer.toString(productos.get(position).getCodNacional()));
+        holder.nombre.setText("Nombre: "+productos.get(position).getNombre());
+        holder.descrip.setText("Descripción: "+productos.get(position).getDescripcion());
         return item;
     }
 }
