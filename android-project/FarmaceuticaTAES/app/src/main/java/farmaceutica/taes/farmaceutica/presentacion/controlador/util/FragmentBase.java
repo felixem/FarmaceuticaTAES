@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util;
 
 import android.support.v4.app.Fragment;
 

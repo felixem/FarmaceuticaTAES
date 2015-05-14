@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
 
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.IniciarAsyncDB;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.IniciarAsyncDB;
 
 /**
  * Created by john on 7/05/15.
@@ -27,14 +27,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        IniciarAsyncDB.iniciarDB(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
         ViewPager vp = (ViewPager) findViewById(R.id.vp_main);
         fpa = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(fpa);
-
-        IniciarAsyncDB.iniciarDB(this);
     }
 
     class MainPagerAdapter extends FragmentPagerAdapter {

@@ -21,5 +21,6 @@
     <!-- Atributo para cambiar el color del pager -->
     <declare-styleable name="ColoredPagerTabStrip">
         <attr name="indicatorColor" format="reference|color" />
+        <attr name="textColor" format="reference|color" />
     </declare-styleable>
 </resources>

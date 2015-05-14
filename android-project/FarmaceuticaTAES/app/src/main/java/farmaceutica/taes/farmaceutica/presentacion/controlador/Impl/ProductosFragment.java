@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.AdaptadorListaProductos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.FragmentBase;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaProducto;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaProducto;
 
 /**
  * Created by John on 12/05/2015.

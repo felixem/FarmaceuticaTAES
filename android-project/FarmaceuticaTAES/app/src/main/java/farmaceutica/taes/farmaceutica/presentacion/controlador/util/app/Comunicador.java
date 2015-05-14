@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app;
 
 import java.util.ArrayList;
 import java.util.List;

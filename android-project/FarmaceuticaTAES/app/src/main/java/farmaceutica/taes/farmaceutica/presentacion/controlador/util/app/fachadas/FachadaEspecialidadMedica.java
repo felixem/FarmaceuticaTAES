@@ -1,13 +1,10 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas;
 
 import android.content.Context;
 
 import java.util.List;
 
-import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
-import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
-import farmaceutica.taes.domainmodel.Repository.CentroMedicoRepository;
 import farmaceutica.taes.domainmodel.Repository.EspecialidadMedicaRepository;
 
 /**

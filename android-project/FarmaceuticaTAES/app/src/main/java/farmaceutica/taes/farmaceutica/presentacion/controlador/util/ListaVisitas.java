@@ -1,9 +1,8 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.List;
-import android.widget.BaseAdapter;
-import java.util.ArrayList;
+
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaComunicador;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaVisita;
-import android.app.Activity;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaComunicador;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
 
 /**
  * Created by Javi on 12/05/2015.

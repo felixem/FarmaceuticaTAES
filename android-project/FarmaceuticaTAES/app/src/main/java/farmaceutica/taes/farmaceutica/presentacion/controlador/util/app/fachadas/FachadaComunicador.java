@@ -1,7 +1,7 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas;
 
 import farmaceutica.taes.domainmodel.Model.Visita;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.Comunicador;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.Comunicador;
 
 /**
  * Created by Javi on 12/05/2015.

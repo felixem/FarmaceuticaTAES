@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
-import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.farmaceutica.R;
 
 

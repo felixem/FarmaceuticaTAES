@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.view;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,6 +17,7 @@ public class ColoredPagerTabStrip extends PagerTabStrip {
         final TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ColoredPagerTabStrip);
         try {
             setTabIndicatorColor(array.getColor(R.styleable.ColoredPagerTabStrip_indicatorColor, R.color.Black));
+            setTextColor(array.getColor(R.styleable.ColoredPagerTabStrip_textColor, R.color.White));
         }finally {
             array.recycle();
         }
