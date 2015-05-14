@@ -18,12 +18,12 @@ public class ProductosFragment extends FragmentBase{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.listado, container, false);
+        return inflater.inflate(R.layout.fragment_listaproductos, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        ListView lv = (ListView) view.findViewById(R.id.ListView_listado);
+        ListView lv = (ListView) view.findViewById(R.id.ListView_listaProductos);
 
         //Obtener la lista de centros medicos
         FachadaProducto fachada = new FachadaProducto();

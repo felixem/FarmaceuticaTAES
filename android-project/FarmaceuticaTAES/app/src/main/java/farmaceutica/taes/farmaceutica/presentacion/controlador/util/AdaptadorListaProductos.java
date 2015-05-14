@@ -46,9 +46,7 @@ public class AdaptadorListaProductos extends BaseAdapter {
 
     //Elemento utilizado para reutilización de instancias
     static class ViewHolder {
-        TextView codigo;
         TextView nombre;
-        TextView descrip;
     }
 
     public AdaptadorListaProductos(Context context, List<Producto> datos){
@@ -67,9 +65,8 @@ public class AdaptadorListaProductos extends BaseAdapter {
             holder= new ViewHolder();
             item = inflater.inflate(R.layout.producto, null);
 
-            holder.codigo=(TextView)item.findViewById(R.id.textView_codProducto);
+
             holder.nombre=(TextView)item.findViewById(R.id.textView_nombre);
-            holder.descrip=(TextView)item.findViewById(R.id.textView_descripcion);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -78,9 +75,9 @@ public class AdaptadorListaProductos extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.codigo.setText("Codigo: "+ Integer.toString(productos.get(position).getCodNacional()));
-        holder.nombre.setText("Nombre: "+productos.get(position).getNombre());
-        holder.descrip.setText("Descripción: "+productos.get(position).getDescripcion());
+
+        holder.nombre.setText(productos.get(position).getNombre());
+
         return item;
     }
 }
