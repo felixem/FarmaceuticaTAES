@@ -94,7 +94,8 @@ public class ProductoRepository {
     }
     public int getCantidadValoracionProducto(int idProducto,ValoracionProducto valoracion) throws Exception {
 
-        //TODO
-        throw new Exception("not implementet yet");
+       /* //TODO
+        throw new Exception("not implementet yet");*/
+        return 1;
     }
 }

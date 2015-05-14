@@ -58,13 +58,14 @@ public class ValoracionesProductoFragment extends FragmentBase{
         textView_codigo = (TextView) view.findViewById(R.id.textView_cod);
         textView_nombre= (TextView) view.findViewById(R.id.textView_nombreProd);
         textView_descripcion=(TextView) view.findViewById(R.id.textView_descripcion);
-        textView_cantidad1=(TextView) view.findViewById(R.id.textView_nada);
-        textView_cantidad2=(TextView) view.findViewById(R.id.textView_poco);
-        textView_cantidad3=(TextView) view.findViewById(R.id.textView_medio);
-        textView_cantidad4=(TextView) view.findViewById(R.id.textView_mucho);
+        textView_cantidad1=(TextView) view.findViewById(R.id.textView_totalNada);
+        textView_cantidad2=(TextView) view.findViewById(R.id.textView_totalPoco);
+        textView_cantidad3=(TextView) view.findViewById(R.id.textView_totalMedio);
+        textView_cantidad4=(TextView) view.findViewById(R.id.textView_totalMucho);
 
         FachadaProducto fachada= new FachadaProducto();
-        prod=fachada.obtenerProducto(getActivity(),69);
+        Bundle bd=getArguments();
+        prod=fachada.obtenerProducto(getActivity(),bd.getInt(Producto.ID));
         textView_codigo.setText(Integer.toString(prod.getCodNacional()));
         textView_nombre.setText(prod.getNombre());
         textView_descripcion.setText(prod.getDescripcion());
@@ -72,7 +73,7 @@ public class ValoracionesProductoFragment extends FragmentBase{
         textView_cantidad1.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.NADA)));
         textView_cantidad2.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.POCO)));
         textView_cantidad3.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MEDIO)));
-        textView_cantidad1.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MUCHO)));
+        textView_cantidad4.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MUCHO)));
 
         } catch (Exception e) {
             e.printStackTrace();
