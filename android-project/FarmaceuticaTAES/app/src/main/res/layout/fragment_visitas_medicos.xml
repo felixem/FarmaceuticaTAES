@@ -56,4 +56,12 @@
         android:layout_height="wrap_content">
     </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver detalles"
+        android:id="@+id/button_ver_detalles"
+        android:layout_marginTop="15dp"/>
+
+
 </LinearLayout>

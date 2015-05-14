@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.listeners.ListenerSpinnerCentrosMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
 /**
@@ -40,6 +40,7 @@ public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerList
     TextView textView_centros;
     TextView textView_medicos;
     TextView textView_visitas;
+    Button button_ver_detalles;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerList
         textView_centros = (TextView) view.findViewById(R.id.txt_centro_medico);
         textView_medicos = (TextView) view.findViewById(R.id.txt_medico);
         textView_visitas = (TextView) view.findViewById(R.id.txt_visita);
+        button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
 
         //Vincular los listeners
         spinnerCentrosMedicos.setOnSpinnerListener(this);
@@ -193,12 +195,14 @@ public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerList
                 textView_visitas.setVisibility(View.VISIBLE);
                 spinnerVisitas.setVisibility(View.INVISIBLE);
                 textView_visitas.setText("No se encontraron visitas");
+                button_ver_detalles.setVisibility(View.INVISIBLE);
             }
             else
             {
                 textView_visitas.setVisibility(View.VISIBLE);
                 spinnerVisitas.setVisibility(View.VISIBLE);
                 textView_visitas.setText("Selecciona visita");
+                button_ver_detalles.setVisibility(View.VISIBLE);
             }
 
         }
