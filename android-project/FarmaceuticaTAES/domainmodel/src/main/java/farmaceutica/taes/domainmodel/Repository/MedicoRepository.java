@@ -120,9 +120,9 @@ public class MedicoRepository {
         try {
 
             QueryBuilder<Medico,Integer> builder = mainDao.queryBuilder();
-            builder.join(db.getMedicoLugarTrabajoDao().queryBuilder());
-            builder.join(db.getCentroMedicoDao().queryBuilder());
-            builder.where().eq(MedicoLugarTrabajo.CENTROMEDICO, centroMedico.getId());
+            QueryBuilder<MedicoLugarTrabajo,Integer> builderRelacion = db.getMedicoLugarTrabajoDao().queryBuilder();
+            builderRelacion.where().eq(MedicoLugarTrabajo.CENTROMEDICO, centroMedico.getId());
+            builder.join(builderRelacion);
             builder.orderBy(Medico.APELLIDOS,true);
             return builder.query();
 

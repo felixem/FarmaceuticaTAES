@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
+import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.farmaceutica.R;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.app.fachadas.FachadaEspecialidadMedica;
 
 
 /**
@@ -66,10 +68,9 @@ public class AdaptadorListaMedicos extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.listado, null);
+            item = inflater.inflate(R.layout.medico, null);
 
             holder.nombre=(TextView)item.findViewById(R.id.textView_nombreMedico);
-            holder.especialidad=(TextView)item.findViewById(R.id.textView_especialidadMedico);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -78,7 +79,8 @@ public class AdaptadorListaMedicos extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        holder.nombre.setText(medicos.get(position).getNombre());
+        Medico med = medicos.get(position);
+        holder.nombre.setText(med.getNombre()+" "+med.getApellidos());
 
         return item;
     }
