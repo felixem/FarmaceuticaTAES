@@ -67,6 +67,17 @@ public class GastoRepository {
         return 0;
     }
 
+    public int refresh(Gasto data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public List<Gasto> getAll()
     {
         try {
@@ -82,6 +93,17 @@ public class GastoRepository {
     {
         try {
             return mainDao.queryForEq(Gasto.REPORTEGASTOS, reporte.getId());
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Gasto getGastoPorId(int id)
+    {
+        try {
+            return mainDao.queryForId(id);
         } catch (SQLException e) {
             // TODO: Exception Handling
             e.printStackTrace();
