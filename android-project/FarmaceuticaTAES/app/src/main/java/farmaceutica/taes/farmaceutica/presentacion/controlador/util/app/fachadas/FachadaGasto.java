@@ -20,8 +20,26 @@ public class FachadaGasto
         return repository.getAllByReporteGastos(reporte);
     }
 
-    public static List<ReporteGastos> obtenerReportesGastos(Context context){
-        ReporteGastosRepository repository = new ReporteGastosRepository(context);
+    public static List<Gasto> obtenerGastos(Context context){
+        GastoRepository repository = new GastoRepository(context);
         return repository.getAll();
+    }
+
+    public static Gasto obtenerGastoPorId(Context context, int id)
+    {
+        GastoRepository repository = new GastoRepository(context);
+        return repository.getGastoPorId(id);
+    }
+
+    public static int refresh(Context context, Gasto gasto)
+    {
+        GastoRepository repository = new GastoRepository(context);
+        return repository.refresh(gasto);
+    }
+
+    public static int update(Context context, Gasto gasto)
+    {
+        GastoRepository repository = new GastoRepository(context);
+        return repository.update(gasto);
     }
 }
