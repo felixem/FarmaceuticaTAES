@@ -21,14 +21,14 @@ import java.io.File;
 import farmaceutica.taes.domainmodel.Model.Gasto;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.Utilities.ImageConverter;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 
 
 /**
  * Created by John on 12/05/2015.
  */
-public class RealizarFotoFragment extends FragmentBase {
+public class RealizarFotoFragment extends BaseFragment {
 
     //Necesitamos un Boton y un imageView
     private Button bt_hacerfoto;

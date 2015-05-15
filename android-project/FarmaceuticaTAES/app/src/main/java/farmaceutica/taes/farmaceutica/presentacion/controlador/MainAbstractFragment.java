@@ -12,18 +12,18 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 /**
  * Created by John on 15/05/2015.
  *
- * Cuando se herede de MainAbstractFragment debe implementarse la función
- * onMainLinkFragment() en la que solo se indicará en la fragment principal que
- * se cargará en esa instancia.
+ * Cuando se herede de MainAbstractFragment debe implementarse la funcion
+ * onMainLinkFragment() en la que solo se indicara en la fragment principal que
+ * se cargara en esa instancia.
  *
- * Para ello se recomienda implentar la funciónMainLinkFragment llamando
- * al atributo protected linker llamando a la función super y seleccionando
+ * Para ello se recomienda implentar la funcionMainLinkFragment llamando
+ * al atributo protected linker llamando a la funcion super y seleccionando
  * la pantalla destino.
  * ej: super.linker.Destino()
  *
  * Lo he realizado de esta manera para que se infle el layout adecuado con la ID de adecuada
- * y el atributo caché sea instancia a false la primera vez que se instancie el fragment.
- * En las siguientes instancias de linker se puede untilizar el parámetro cacheable como mejor
+ * y el atributo cache sea instancia a false la primera vez que se instancie el fragment.
+ * En las siguientes instancias de linker se puede untilizar el parametro cacheable como mejor
  * convenga.
  */
 public abstract class MainAbstractFragment extends BaseFragment {
