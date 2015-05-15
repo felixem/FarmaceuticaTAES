@@ -12,7 +12,9 @@
             android:id="@+id/textView_nombreCentro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Centro Medico"
+
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold"/>
     </LinearLayout>
