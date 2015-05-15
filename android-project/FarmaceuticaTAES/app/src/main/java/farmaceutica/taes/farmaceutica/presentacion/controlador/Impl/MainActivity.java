@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = VisitasMedicoFragment.newInstance();
                     break;
                 case 5:
-                    fragment = MisGastosFragment.newInstance();
+                    fragment = MainGastosFragment.newInstance();
             }
 
             return fragment;
