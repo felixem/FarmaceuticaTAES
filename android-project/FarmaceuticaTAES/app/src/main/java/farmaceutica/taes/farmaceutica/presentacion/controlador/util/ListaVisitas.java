@@ -23,7 +23,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas
 /**
  * Created by Javi on 12/05/2015.
  */
-public class ListaVisitas extends FragmentBase {
+public class ListaVisitas extends BaseFragment {
 
     private ListView lv;
     private TextView txt;

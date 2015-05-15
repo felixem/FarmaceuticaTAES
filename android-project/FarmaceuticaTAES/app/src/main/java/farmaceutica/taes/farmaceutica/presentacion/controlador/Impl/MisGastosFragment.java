@@ -13,29 +13,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Gasto;
-import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
-import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaGastos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaReportes;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaReporteGastos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
 /**
  * Created by John on 12/05/2015.
  */
-public class MisGastosFragment extends FragmentBase implements OnSpinnerListener{
+public class MisGastosFragment extends BaseFragment implements OnSpinnerListener{
 
     SpinnerOnChangeAdapter spinnerReportes;
     SpinnerOnChangeAdapter spinnerGastos;
@@ -88,22 +81,6 @@ public class MisGastosFragment extends FragmentBase implements OnSpinnerListener
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
-    }
-
-    public static MisGastosFragment newInstance() {
-
-        // Instantiate a new fragment
-        MisGastosFragment fragment = new MisGastosFragment();
-
-        // Save the parameters
-        //Bundle bundle = new Bundle();
-        //bundle.putInt(BACKGROUND_COLOR, color);
-        //bundle.putInt(INDEX, index);
-        //fragment.setArguments(bundle);
-        //fragment.setRetainInstance(true);
-
-        return fragment;
-
     }
 
     @Override

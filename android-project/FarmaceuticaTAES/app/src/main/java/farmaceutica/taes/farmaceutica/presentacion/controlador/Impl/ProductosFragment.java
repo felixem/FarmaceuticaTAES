@@ -11,13 +11,13 @@ import android.widget.ListView;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaProducto;
 
 /**
  * Created by John on 12/05/2015.
  */
-public class ProductosFragment extends FragmentBase{
+public class ProductosFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

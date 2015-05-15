@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 
 /**
  * Created by John on 12/05/2015.
  */
-public class EjemploFragment2 extends FragmentBase{
+public class Ejemplo3Fragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.plantila, container, false);
@@ -21,13 +21,13 @@ public class EjemploFragment2 extends FragmentBase{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         TextView txt = (TextView)view.findViewById(R.id.txt_default);
-        txt.setText("Fragmen2");
+        txt.setText("Fragmen3");
     }
 
-    public static EjemploFragment2 newInstance() {
+    public static Ejemplo3Fragment newInstance() {
 
         // Instantiate a new fragment
-        EjemploFragment2 fragment = new EjemploFragment2();
+        Ejemplo3Fragment fragment = new Ejemplo3Fragment();
 
         // Save the parameters
         //Bundle bundle = new Bundle();

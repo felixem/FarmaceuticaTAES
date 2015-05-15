@@ -64,13 +64,13 @@ public class MainActivity extends ActionBarActivity {
                     fragment = ProductosFragment.newInstance();
                     break;
                 case 1:
-                    fragment = EjemploFragment2.newInstance();
+                    fragment = Ejemplo2Fragment.newInstance();
                     break;
                 case 2:
-                    fragment = EjemploFragment3.newInstance();
+                    fragment = Ejemplo3Fragment.newInstance();
                     break;
                 case 3:
-                    fragment = EjemploFragment1.newInstance();
+                    fragment = Ejemplo1Fragment.newInstance();
                     break;
                 case 4:
                     fragment = VisitasMedicoFragment.newInstance();

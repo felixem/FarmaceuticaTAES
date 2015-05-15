@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaCentrosMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
@@ -32,7 +31,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
 /**
  * Created by John on 12/05/2015.
  */
-public class VisitasMedicoFragment extends FragmentBase implements OnSpinnerListener{
+public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerListener{
 
     SpinnerOnChangeAdapter spinnerCentrosMedicos;
     SpinnerOnChangeAdapter spinnerMedicos;

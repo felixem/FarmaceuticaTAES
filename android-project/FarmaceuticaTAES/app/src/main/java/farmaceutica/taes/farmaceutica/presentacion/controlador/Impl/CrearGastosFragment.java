@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 
 /**
  * Created by John on 15/05/2015.
  */
-public class CrearGastosFragment extends FragmentBase{
+public class CrearGastosFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

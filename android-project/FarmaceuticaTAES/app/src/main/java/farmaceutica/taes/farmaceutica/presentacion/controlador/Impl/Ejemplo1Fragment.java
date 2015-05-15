@@ -4,30 +4,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.FragmentBase;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 
 /**
  * Created by John on 12/05/2015.
  */
-public class EjemploFragment5 extends FragmentBase{
+public class Ejemplo1Fragment extends BaseFragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.plantila, container, false);
+        return inflater.inflate(R.layout.fragmen_clientes, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        TextView txt = (TextView)view.findViewById(R.id.txt_default);
-        txt.setText("Fragmen5");
+        //ListView lv = (ListView) view.findViewById(R.id.ListView_listado);
+        //BaseAdapter ad= new ArrayAdapter<String>(getActivity(), R.layout.textview_ejemplo, new String[]{"Probando1", "Probando2", "Probando3"});
+        //lv.setAdapter(ad);
     }
 
-    public static EjemploFragment5 newInstance() {
+    public static Ejemplo1Fragment newInstance() {
 
         // Instantiate a new fragment
-        EjemploFragment5 fragment = new EjemploFragment5();
+        Ejemplo1Fragment fragment = new Ejemplo1Fragment();
 
         // Save the parameters
         //Bundle bundle = new Bundle();
