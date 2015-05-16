@@ -28,12 +28,12 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
  */
 public abstract class MainAbstractDynamicFragment extends BaseFragment {
 
-    protected Linker linker = new Linker(getFragmentManager(), false);
+    protected Linker linker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dynamic, container, false);
-
+        linker = new Linker(getFragmentManager(), false);
         onMainLinkFragment();
 
         return view;
