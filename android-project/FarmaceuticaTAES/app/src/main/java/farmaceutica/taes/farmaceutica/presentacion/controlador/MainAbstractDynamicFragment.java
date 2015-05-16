@@ -26,7 +26,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
  * En las siguientes instancias de linker se puede untilizar el parametro cacheable como mejor
  * convenga.
  */
-public abstract class MainAbstractFragment extends BaseFragment {
+public abstract class MainAbstractDynamicFragment extends BaseFragment {
 
     protected Linker linker = new Linker(getFragmentManager(), false);
 
