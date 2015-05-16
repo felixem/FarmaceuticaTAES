@@ -14,6 +14,7 @@ public class Comunicador {
         return object;
     }
 
+
     public static void setObject(Object obj) {
         object = obj;
         listaComunicadores.add(obj);
