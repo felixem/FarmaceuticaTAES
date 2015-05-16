@@ -1,5 +1,6 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -163,33 +164,24 @@ public class RegistrarVisitaFragment extends BaseFragment implements OnSpinnerLi
         final int OFFSET_X = 300;
         final int OFFSET_Y = -300;
 
-        // Inflate the popup_layout.xml
-        LinearLayout viewGroup = (LinearLayout) view.findViewById(R.id.linear_layout_crear_visita_producto);
-        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.popup_crear_visita_producto, viewGroup);
+        // custom dialog
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.popup_crear_visita_producto);
+        dialog.setTitle("Añadir producto ofertado");
 
-        //Crea instancia a PopupMenu
-        PopupWindow popup = new PopupWindow(view);
-        popup.setContentView(layout);
-        popup.setWidth(popupWidth);
-        popup.setHeight(popupHeight);
-        popup.setFocusable(true);
+         //Configurar la vista
+        configurarVisitaProducto(dialog);
 
-        //Permitir que se cierre al pulsar fuera
-        popup.setBackgroundDrawable(new BitmapDrawable(getResources(), ""));
-        //Configurar la vista
-        configurarVisitaProducto(layout,popup);
+        dialog.show();
 
-        //Mostrar el popup
-        popup.showAtLocation(layout, Gravity.NO_GRAVITY,p.x+OFFSET_X,p.y+OFFSET_Y);
     }
 
     //Configurar el popup de visita producto
-    private void configurarVisitaProducto(View view, PopupWindow popup)
+    private void configurarVisitaProducto(Dialog dialog)
     {
-        SpinnerOnChangeAdapter spinnerProducto = (SpinnerOnChangeAdapter)view.findViewById(R.id.spinner_productos);
-        RatingBar ratingbar_valoracion = (RatingBar) view.findViewById(R.id.rating_bar_valoracion);
-        Button button_crear = (Button)view.findViewById(R.id.button_crear_visita_producto);
+        SpinnerOnChangeAdapter spinnerProducto = (SpinnerOnChangeAdapter)dialog.findViewById(R.id.spinner_productos);
+        RatingBar ratingbar_valoracion = (RatingBar) dialog.findViewById(R.id.rating_bar_valoracion);
+        Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_producto);
 
         //Establecer el rating bar adecuado
         ratingbar_valoracion.setNumStars(FachadaValoracionProducto.obtenerCantidadValoraciones() - 1);
@@ -200,7 +192,7 @@ public class RegistrarVisitaFragment extends BaseFragment implements OnSpinnerLi
         spinnerProducto.setAdapter(adapter);
 
         //Modificar el onclick de crear producto visitado
-        button_crear.setOnClickListener(new CrearVisitaProductoListener(spinnerProducto,ratingbar_valoracion, popup));
+        button_crear.setOnClickListener(new CrearVisitaProductoListener(spinnerProducto,ratingbar_valoracion, dialog));
 
     }
 
@@ -209,14 +201,14 @@ public class RegistrarVisitaFragment extends BaseFragment implements OnSpinnerLi
     {
         private SpinnerOnChangeAdapter spinnerProducto;
         private RatingBar rating_bar_valoracion;
-        private PopupWindow popup;
+        private Dialog dialog;
 
         //Constructor
-        public CrearVisitaProductoListener(SpinnerOnChangeAdapter spinnerProducto,RatingBar rating_bar_valoracion, PopupWindow popup)
+        public CrearVisitaProductoListener(SpinnerOnChangeAdapter spinnerProducto,RatingBar rating_bar_valoracion, Dialog dialog)
         {
             this.spinnerProducto = spinnerProducto;
             this.rating_bar_valoracion = rating_bar_valoracion;
-            this.popup = popup;
+            this.dialog = dialog;
         }
 
         @Override
@@ -234,10 +226,10 @@ public class RegistrarVisitaFragment extends BaseFragment implements OnSpinnerLi
 
             //Añadir en la lista de productos ofertados
             productosOfertados.add(visitaProd);
-            spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(),productosOfertados));
+            spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(), productosOfertados));
 
             //Cerrar el popup
-            popup.dismiss();
+            dialog.dismiss();
         }
     }
 }
