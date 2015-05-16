@@ -12,10 +12,10 @@ public class MainGastosDynamicFragment extends MainAbstractDynamicFragment {
         super.linker.MisGastos();
     }
 
-    public static MisGastosFragment newInstance() {
+    public static MainGastosDynamicFragment newInstance() {
 
         // Instantiate a new fragment
-        MisGastosFragment fragment = new MisGastosFragment();
+        MainGastosDynamicFragment fragment = new MainGastosDynamicFragment();
 
         return fragment;
 

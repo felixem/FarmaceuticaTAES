@@ -1,16 +1,19 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Gasto;
@@ -21,6 +24,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaGastos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaReportes;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaReporteGastos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
@@ -36,6 +40,10 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
     TextView textView_gastos;
     Button button_ver_detalles;
 
+    private DatePicker date_picker;
+    private int year, month, day;
+    private Button btn_reportar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_mis_gastos, container, false);
@@ -49,8 +57,9 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
         textView_reportes = (TextView) view.findViewById(R.id.txt_reporte);
         textView_gastos = (TextView) view.findViewById(R.id.txt_gasto);
         button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
+        btn_reportar = (Button) view.findViewById(R.id.btn_reportar);
 
-        //Vincular los listeners
+                //Vincular los listeners
         spinnerReportes.setOnSpinnerListener(this);
         spinnerGastos.setOnSpinnerListener(this);
 
@@ -81,6 +90,25 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+
+        //Introducimos fecha
+        //En principio inica la vista con la fecha del momento en que se instancia,
+        //pero la instanciamos para asegurarnos.
+        date_picker = (DatePicker) view.findViewById(R.id.date_picker);
+        final Calendar calendar = Calendar.getInstance();
+
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        date_picker.init(year, month, day, null);
+        btn_reportar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Linker linker = new Linker(getFragmentManager(), true);
+                linker.CrearGasto();
+            }
+        });
     }
 
     @Override

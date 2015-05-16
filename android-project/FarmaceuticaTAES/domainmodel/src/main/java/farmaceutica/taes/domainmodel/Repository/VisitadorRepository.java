@@ -2,8 +2,12 @@ package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import farmaceutica.taes.domainmodel.Data.Dao.VisitaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.VisitadorDao;
@@ -33,6 +37,17 @@ public class VisitadorRepository {
             e.printStackTrace();
         }
 
+    }
+
+
+    public Visitador getByID(int id) throws SQLException {
+        try
+        {
+            return mainDao.queryForId(id);
+        }catch (SQLException e)
+        {
+            throw e;
+        }
     }
 
     public int create(Visitador data)
@@ -75,5 +90,23 @@ public class VisitadorRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Visitador getByEMAIL(String email) throws SQLException {
+
+        try {
+
+            QueryBuilder<Visitador,Integer> builder = mainDao.queryBuilder();
+
+            builder.where().eq(Visitador.EMAIL, email);
+
+            Visitador v = builder.queryForFirst();
+            return v;
+
+        } catch (SQLException e) {
+            //TODO GESTION DE ERRORES
+            throw e;
+        }
+
     }
 }
