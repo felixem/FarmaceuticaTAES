@@ -66,6 +66,28 @@ public class MaterialPromocionalRepository {
         return 0;
     }
 
+    public int refresh(MaterialPromocional data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public MaterialPromocional getMaterialById(int id)
+    {
+        try {
+            return mainDao.queryForId(id);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<MaterialPromocional> getAll()
     {
         try {

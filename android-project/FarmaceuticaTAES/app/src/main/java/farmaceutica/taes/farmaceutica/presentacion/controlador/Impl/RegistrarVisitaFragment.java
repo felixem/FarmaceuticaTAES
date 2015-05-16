@@ -1,18 +1,13 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -166,7 +161,7 @@ public class RegistrarVisitaFragment extends BaseFragment implements OnSpinnerLi
 
         // custom dialog
         final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.popup_crear_visita_producto);
+        dialog.setContentView(R.layout.dialog_crear_visita_producto);
         dialog.setTitle("Añadir producto ofertado");
 
          //Configurar la vista
