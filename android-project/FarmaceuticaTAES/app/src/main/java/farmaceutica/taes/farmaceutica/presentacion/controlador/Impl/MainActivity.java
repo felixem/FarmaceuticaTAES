@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
     class MainPagerAdapter extends FragmentPagerAdapter {
 
-        private String[] titles = {"Productos", "Clientes", "Valoracion", "Rutas", "Visitas a Medicos", "Mis Gastos", "Realizar Foto"};
+        private String[] titles = {"Productos", "Clientes", "Valoracion", "Rutas", "Mis Gastos", "Realizar Foto", "Registrar Visita"};
 
         public MainPagerAdapter(FragmentManager fm){
             super(fm);
@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = ProductosFragment.newInstance();
                     break;
                 case 1:
-                    fragment = Ejemplo2Fragment.newInstance();
+                    fragment = ClientesFragment.newInstance();
                     break;
                 case 2:
                     fragment = Ejemplo3Fragment.newInstance();
@@ -73,13 +73,13 @@ public class MainActivity extends ActionBarActivity {
                     fragment = Ejemplo1Fragment.newInstance();
                     break;
                 case 4:
-                    fragment = VisitasMedicoFragment.newInstance();
+                    fragment =  MainGastosDynamicFragment.newInstance();
                     break;
                 case 5:
-                    fragment = MainGastosDynamicFragment.newInstance();
+                    fragment = RealizarFotoFragment.newInstance();
                     break;
                 case 6:
-                    fragment = RealizarFotoFragment.newInstance();
+                    fragment = RegistrarVisitaFragment.newInstance();
                     break;
             }
 

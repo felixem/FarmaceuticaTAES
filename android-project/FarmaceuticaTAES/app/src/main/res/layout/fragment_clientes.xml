@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ver visitas del médico"
+        android:text="Listado de Clientes"
         android:textSize="25sp"/>
 
     <TextView
@@ -46,6 +46,13 @@
         android:layout_height="wrap_content">
     </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver detalles del médico"
+        android:id="@+id/button_ver_detalles_medico"
+        android:layout_marginTop="15dp"/>
+
     <TextView
         android:id="@+id/txt_visita"
         android:layout_width="match_parent"
@@ -64,8 +71,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ver detalles"
-        android:id="@+id/button_ver_detalles"
+        android:text="Ver detalles de la visita"
+        android:id="@+id/button_ver_detalles_visita"
         android:layout_marginTop="15dp"/>
 </LinearLayout>
 </ScrollView>

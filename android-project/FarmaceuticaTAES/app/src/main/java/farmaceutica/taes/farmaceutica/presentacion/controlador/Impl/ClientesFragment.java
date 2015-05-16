@@ -31,7 +31,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
 /**
  * Created by John on 12/05/2015.
  */
-public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerListener{
+public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
 
     SpinnerOnChangeAdapter spinnerCentrosMedicos;
     SpinnerOnChangeAdapter spinnerMedicos;
@@ -39,11 +39,12 @@ public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerList
     TextView textView_centros;
     TextView textView_medicos;
     TextView textView_visitas;
-    Button button_ver_detalles;
+    Button button_ver_detalles_medico;
+    Button button_ver_detalles_visita;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_visitas_medicos, container, false);
+        return inflater.inflate(R.layout.fragment_clientes, container, false);
     }
 
     @Override
@@ -55,7 +56,8 @@ public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerList
         textView_centros = (TextView) view.findViewById(R.id.txt_centro_medico);
         textView_medicos = (TextView) view.findViewById(R.id.txt_medico);
         textView_visitas = (TextView) view.findViewById(R.id.txt_visita);
-        button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
+        button_ver_detalles_medico = (Button) view.findViewById(R.id.button_ver_detalles_medico);
+        button_ver_detalles_visita = (Button) view.findViewById(R.id.button_ver_detalles_visita);
 
         //Vincular los listeners
         spinnerCentrosMedicos.setOnSpinnerListener(this);
@@ -110,10 +112,10 @@ public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerList
 
     }
 
-    public static VisitasMedicoFragment newInstance() {
+    public static ClientesFragment newInstance() {
 
         // Instantiate a new fragment
-        VisitasMedicoFragment fragment = new VisitasMedicoFragment();
+        ClientesFragment fragment = new ClientesFragment();
 
         // Save the parameters
         //Bundle bundle = new Bundle();
@@ -164,16 +166,22 @@ public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerList
             //Comprobar si está vacío
             if(adapter.isEmpty())
             {
-                textView_medicos.setVisibility(View.VISIBLE);
+                if(spinnerCentrosMedicos.getAdapter().isEmpty())
+                    textView_medicos.setVisibility(View.INVISIBLE);
+                else
+                    textView_medicos.setVisibility(View.VISIBLE);
+
                 spinnerMedicos.setVisibility(View.INVISIBLE);
                 textView_medicos.setText("No se encontraron médicos");
                 spinnerVisitas.setAdapter(new AdaptadorListaVisitas(getActivity(),new ArrayList<Visita>()));
+                button_ver_detalles_medico.setVisibility(View.INVISIBLE);
             }
             else
             {
                 textView_medicos.setVisibility(View.VISIBLE);
                 spinnerMedicos.setVisibility(View.VISIBLE);
                 textView_medicos.setText("Selecciona médico");
+                button_ver_detalles_medico.setVisibility(View.VISIBLE);
 
                 Medico medico = (Medico)spinnerMedicos.getSelectedItem();
                 List<Visita> visitas = FachadaVisita.obtenerVisitasPorMedico(getActivity(), medico);
@@ -191,17 +199,21 @@ public class VisitasMedicoFragment extends BaseFragment implements OnSpinnerList
             //Comprobar si está vacío
             if(adapter.isEmpty())
             {
-                textView_visitas.setVisibility(View.VISIBLE);
+                if(spinnerMedicos.getAdapter().isEmpty())
+                    textView_visitas.setVisibility(View.INVISIBLE);
+                else
+                    textView_visitas.setVisibility(View.VISIBLE);
+
                 spinnerVisitas.setVisibility(View.INVISIBLE);
                 textView_visitas.setText("No se encontraron visitas");
-                button_ver_detalles.setVisibility(View.INVISIBLE);
+                button_ver_detalles_visita.setVisibility(View.INVISIBLE);
             }
             else
             {
                 textView_visitas.setVisibility(View.VISIBLE);
                 spinnerVisitas.setVisibility(View.VISIBLE);
                 textView_visitas.setText("Selecciona visita");
-                button_ver_detalles.setVisibility(View.VISIBLE);
+                button_ver_detalles_visita.setVisibility(View.VISIBLE);
             }
 
         }

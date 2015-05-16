@@ -1,9 +1,11 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas;
 
 import android.content.Context;
+import android.hardware.Camera;
 
 import java.util.List;
 
+import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
@@ -16,6 +18,11 @@ public class FachadaMedico
     public static List<Medico> obtenerMedicosPorCentroMedico(Context context, CentroMedico centro){
         MedicoRepository repository = new MedicoRepository(context);
         return repository.getAllByCentroMedico(centro);
+    }
+
+    public static List<Medico> obtenerMedicosPorAreaHospitalaria(Context context, AreaHospitalaria area){
+        MedicoRepository repository = new MedicoRepository(context);
+        return repository.getAllByAreaHospitalaria(area);
     }
 
     public static List<Medico> obtenerMedicos(Context context){
