@@ -69,6 +69,17 @@ public class ProductoRepository {
         return 0;
     }
 
+    public int refresh(Producto data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public List<Producto> getAll()
     {
         try {

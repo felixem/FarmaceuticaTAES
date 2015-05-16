@@ -33,4 +33,10 @@ public class FachadaProducto {
         return repository.getCantidadValoracionProducto(idProducto,valoracion);
 
     }
+
+    public static int refresh(Context context, Producto producto)
+    {
+        ProductoRepository repository= new ProductoRepository(context);
+        return repository.refresh(producto);
+    }
 }

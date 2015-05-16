@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear_layout_crear_visita_producto"
+    android:background="@android:color/darker_gray"
+
+    >
+
+    <TextView
+        android:id="@+id/txt_titulo_crear_visita_producto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Añadir producto ofertado"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/txt_productos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:text="Selecciona un producto"
+        android:layout_marginTop="15dp"
+        />
+
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        android:id="@+id/spinner_productos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog">
+
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <TextView
+        android:id="@+id/txt_valoracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:text="Valoración"
+        android:layout_marginTop="15dp"
+        />
+
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating_bar_valoracion" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir"
+        android:id="@+id/button_crear_visita_producto"
+        android:layout_marginTop="15dp"/>
+
+
+</LinearLayout>

@@ -17,7 +17,7 @@ import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
  */
 public class FachadaLugarVisita
 {
-    public static List<LugarVisita> obtenerLugaresVisita(Context context)
+    public static List<LugarVisita> obtenerLugaresVisita()
     {
        return new ArrayList<LugarVisita>(Arrays.asList(LugarVisita.class.getEnumConstants()));
     }

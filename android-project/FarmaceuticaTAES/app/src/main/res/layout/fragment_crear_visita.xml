@@ -113,6 +113,13 @@
         android:layout_height="wrap_content">
     </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir producto"
+        android:id="@+id/button_crear_visita_producto"
+        android:layout_marginTop="15dp"/>
+
     <TextView
         android:id="@+id/txt_materiales_entregados"
         android:layout_width="match_parent"
@@ -128,6 +135,13 @@
         style="@style/SpinnerStyle"
         android:layout_height="wrap_content">
     </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir material"
+        android:id="@+id/button_crear_material_entregado"
+        android:layout_marginTop="15dp"/>
 
     <Button
         android:layout_width="wrap_content"
