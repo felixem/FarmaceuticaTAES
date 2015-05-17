@@ -335,7 +335,7 @@ public class RegistrarVisitaFragment extends BaseFragment{
     private void crearMaterialEntregado(View view)
     {
         // custom dialog
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
         dialog.setContentView(R.layout.dialog_crear_visita_material);
         dialog.setTitle("Añadir material entregado");
 
