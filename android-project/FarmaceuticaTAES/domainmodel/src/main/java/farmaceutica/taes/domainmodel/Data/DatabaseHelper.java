@@ -58,6 +58,7 @@ import farmaceutica.taes.domainmodel.Model.Provincia;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.domainmodel.Model.Ruta;
 import farmaceutica.taes.domainmodel.Model.TipoCliente;
+import farmaceutica.taes.domainmodel.Model.TipoMaterial;
 import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.VentaArea;
 import farmaceutica.taes.domainmodel.Model.VentaAreaFecha;
@@ -75,7 +76,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 24;
+    private static final int DATABASE_VERSION = 25;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -430,13 +431,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         //Productos
         ProductoDao productoDao = getProductoDao();
-        Producto prod = new Producto(69,"Viagra","Ideal para venirse arriba");
+        int prod1 = 69;
+        Producto prod = new Producto(prod1,"Viagra","Ideal para venirse arriba");
         productoDao.create(prod);
 
-        prod.setCodNacional(112);
+        int prod2 = 112;
+        prod.setCodNacional(prod2);
         prod.setNombre("Vaginesil");
         prod.setDescripcion("Por si te pica... ya sabes... ahí");
         productoDao.create(prod);
+
+        //Material promocional
+        MaterialPromocionalDao materialDao = getMaterialPromocionalDao();
+        prod.setCodNacional(prod1);
+        MaterialPromocional material = new MaterialPromocional("Boli bic", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material);
+
+        material.setNombre("Folleto de mano");
+        material.setTipoMaterial(TipoMaterial.CATALOGO);
+        materialDao.create(material);
 
         //Crear médicos
         MedicoDao medicoDao = getMedicoDao();

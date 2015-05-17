@@ -20,6 +20,10 @@ public class VisitaProducto {
     public static final String ORDEN = "orden";
     public static final String VALORACION = "valoracion";
 
+    //Campos relacionbados
+    public static final String VISITA_CAMPO="visita";
+    public static final String PRODUCTO_CAMPO="producto";
+
     //Relaciones
     public static final String VISITA ="fk_visita";
     public static final String PRODUCTO = "fk_producto";

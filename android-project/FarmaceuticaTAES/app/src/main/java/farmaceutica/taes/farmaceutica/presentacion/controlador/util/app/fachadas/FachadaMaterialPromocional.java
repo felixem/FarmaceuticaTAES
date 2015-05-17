@@ -15,15 +15,21 @@ import farmaceutica.taes.domainmodel.Repository.ProductoRepository;
  */
 public class FachadaMaterialPromocional {
 
-    public List<MaterialPromocional> obtenerMateriales(Context context){
+    public static List<MaterialPromocional> obtenerMateriales(Context context){
 
         MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
         return repository.getAll();
 
     }
-    public MaterialPromocional obtenerMaterial(Context context,int id){
+    public static MaterialPromocional obtenerMaterial(Context context,int id){
         MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
         return repository.getMaterialById(id);
+
+    }
+
+    public static List<MaterialPromocional> obtenerMaterialesPorProducto(Context context,Producto prod){
+        MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
+        return repository.getAllByProducto(prod);
 
     }
 

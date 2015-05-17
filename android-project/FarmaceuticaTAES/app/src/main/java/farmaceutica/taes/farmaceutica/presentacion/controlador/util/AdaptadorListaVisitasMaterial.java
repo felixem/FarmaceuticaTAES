@@ -8,8 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
+import farmaceutica.taes.domainmodel.Model.MaterialPromocional;
+import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
 import farmaceutica.taes.domainmodel.Model.VisitaMaterial;
 import farmaceutica.taes.domainmodel.Model.VisitaProducto;
@@ -25,7 +29,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas
  * Este clase será modoficada en función de los valores que se quieran mostrar
  * a través de la consulta a la base de datos remota
  */
-public class AdaptadorListaVisitaMaterial extends BaseAdapter {
+public class AdaptadorListaVisitasMaterial extends BaseAdapter {
 
     private List<VisitaMaterial> visitasMaterial;
     private Context context;
@@ -52,10 +56,12 @@ public class AdaptadorListaVisitaMaterial extends BaseAdapter {
 
     //Elemento utilizado para reutilización de instancias
     static class ViewHolder {
+        TextView cantidad;
         TextView material;
+        TextView producto;
     }
 
-    public AdaptadorListaVisitaMaterial(Context context, List<VisitaMaterial> datos){
+    public AdaptadorListaVisitasMaterial(Context context, List<VisitaMaterial> datos){
         this.context=context;
         this.visitasMaterial =datos;
     }
@@ -71,7 +77,9 @@ public class AdaptadorListaVisitaMaterial extends BaseAdapter {
             holder= new ViewHolder();
             item = inflater.inflate(R.layout.visita_material, null);
 
-            holder.material =(TextView)item.findViewById(R.id.textView_visita_material);
+            holder.cantidad = (TextView)item.findViewById(R.id.textView_cantidad_entregada);
+            holder.material =(TextView)item.findViewById(R.id.textView_material);
+            holder.producto = (TextView)item.findViewById(R.id.textView_producto);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -81,8 +89,14 @@ public class AdaptadorListaVisitaMaterial extends BaseAdapter {
         }
 
         VisitaMaterial visitaMaterial = visitasMaterial.get(position);
-        FachadaMaterialPromocional.refresh(context, visitaMaterial.getMaterialPromocional());
-        holder.material.setText(visitaMaterial.getCantidad() + " " + visitaMaterial.getMaterialPromocional().getNombre());
+        MaterialPromocional materialPromocional = visitaMaterial.getMaterialPromocional();
+        FachadaMaterialPromocional.refresh(context,materialPromocional);
+        Producto prod = materialPromocional.getProducto();
+        FachadaProducto.refresh(context,prod);
+
+        holder.cantidad.setText(String.valueOf(visitaMaterial.getCantidad()));
+        holder.material.setText(materialPromocional.getNombre());
+        holder.producto.setText(prod.getNombre());
 
         return item;
     }
