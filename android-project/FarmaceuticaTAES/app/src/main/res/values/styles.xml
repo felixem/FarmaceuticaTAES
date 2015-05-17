@@ -12,6 +12,22 @@
         <item name="colorButtonNormal">?attr/colorPrimary</item>
         <item name="colorControlActivated">?attr/colorPrimaryDark</item>
         <item name="colorControlHighlight">?attr/colorAccent</item>
+        <item name="android:spinnerStyle">@style/AppTheme.Spinner</item>
+        <item name="android:dialogPreferenceStyle">@style/AppTheme.Dialog</item>
+        <item name="android:alertDialogStyle">@style/AppTheme.AlertDialog</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.Spinner" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:background">@drawable/sp_background</item>
     </style>
 
     <style name="AppTheme.Button" parent="android:Widget.Button">
@@ -33,7 +49,6 @@
     <style name="SpinnerStyle">
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_marginRight">15dp</item>
-        <item name="android:background">@color/CornflowerBlue</item>
     </style>
 
     <!-- Atributo para cambiar el color del pager -->
