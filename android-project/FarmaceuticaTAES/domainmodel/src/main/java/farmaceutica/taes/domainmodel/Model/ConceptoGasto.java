@@ -13,6 +13,7 @@ public enum ConceptoGasto {
     //Variables
     private final String nombre;
     private final String descripcion;
+    public final static int total_estados = 3;
 
     ConceptoGasto(String nombre, String descripcion)
     {

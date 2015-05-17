@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/date_picker_fecha_visita" />
 
-    <TextView
+        <TextView
         android:id="@+id/txt_duracion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
