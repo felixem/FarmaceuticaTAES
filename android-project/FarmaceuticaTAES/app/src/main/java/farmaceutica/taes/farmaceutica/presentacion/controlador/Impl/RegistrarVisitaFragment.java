@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -264,8 +265,8 @@ public class RegistrarVisitaFragment extends BaseFragment{
     {
         // custom dialog
         final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_crear_visita_producto);
-        dialog.setTitle("Añadir producto ofertado");
 
          //Configurar la vista
         configurarVisitaProducto(dialog);
@@ -336,9 +337,8 @@ public class RegistrarVisitaFragment extends BaseFragment{
     {
         // custom dialog
         final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_crear_visita_material);
-        dialog.setTitle("Añadir material entregado");
-
         //Configurar la vista
         configurarVisitaMaterial(dialog);
 
