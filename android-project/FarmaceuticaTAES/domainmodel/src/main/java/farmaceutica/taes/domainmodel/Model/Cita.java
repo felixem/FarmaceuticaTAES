@@ -25,8 +25,10 @@ public class Cita {
     public static final String HORAFIN="hora_fin";
     public static final String MINUTOFIN="minuto_fin";
 
+
     //Relaciones
     public static final String MEDICO = "fk_medico";
+    public static final String RUTA = "ruta";
 
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
@@ -59,10 +61,14 @@ public class Cita {
     @DatabaseField(columnName = MEDICO, foreign = true, useGetSet = true, canBeNull = false)
     private Medico medico;
 
+    @DatabaseField(columnName = RUTA, foreign = true, useGetSet = true, canBeNull = false)
+    private Ruta ruta;
+
+
     public Cita() {
     }
 
-    public Cita(String lugar, LugarVisita tipoLugar, String direccion, Integer horaInicio, Integer minutoInicio, Integer horaFin, Integer minutoFin, Medico medico) {
+    public Cita(String lugar, LugarVisita tipoLugar, String direccion, Integer horaInicio, Integer minutoInicio, Integer horaFin, Integer minutoFin, Medico medico, Ruta ruta) {
         this.lugar = lugar;
         this.tipoLugar = tipoLugar;
         this.direccion = direccion;
@@ -71,6 +77,7 @@ public class Cita {
         this.horaFin = horaFin;
         this.minutoFin = minutoFin;
         this.medico = medico;
+        this.ruta = ruta;
     }
 
     public int getId() {
@@ -152,6 +159,10 @@ public class Cita {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
+
+    public Ruta getRuta() {return ruta;}
+
+    public void setRuta(Ruta ruta) { this.ruta = ruta;}
 
     @Override
     public boolean equals(Object o) {
