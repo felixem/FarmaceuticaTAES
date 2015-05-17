@@ -2,6 +2,8 @@ package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Cita;
 import farmaceutica.taes.domainmodel.Model.ClinicaPrivada;
+import farmaceutica.taes.domainmodel.Model.Ruta;
 
 /**
  * Created by felix on 28/04/15.
@@ -75,5 +78,19 @@ public class CitaRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Cita> getByRuta(Ruta ruta) throws SQLException {
+        try {
+            QueryBuilder<Cita,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(Cita.RUTA, ruta);
+            builder.orderBy(Cita.HORAINICIO,true);
+            return builder.query();
+
+        } catch (SQLException e) {
+            //TODO GESTION DE ERRORES
+            throw e;
+        }
+
     }
 }

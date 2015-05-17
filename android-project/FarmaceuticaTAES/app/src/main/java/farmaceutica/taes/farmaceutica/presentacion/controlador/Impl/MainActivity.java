@@ -70,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = Ejemplo3Fragment.newInstance();
                     break;
                 case 3:
-                    fragment = Ejemplo1Fragment.newInstance();
+                    fragment = ListaRutasFragment.newInstance();
                     break;
                 case 4:
                     fragment =  MainGastosDynamicFragment.newInstance();

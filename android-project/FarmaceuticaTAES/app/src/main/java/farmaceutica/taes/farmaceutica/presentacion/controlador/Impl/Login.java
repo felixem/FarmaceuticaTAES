@@ -24,6 +24,7 @@ public class Login extends FragmentActivity {
 
     private Button btn_login;
     private Button btn_cancel;
+    private Button btn_inicio_rapido;
     private EditText et_usuario, et_password;
     private FachadaVisitador fachadaVisitador;
     private RadioButton rb_offline;
@@ -38,12 +39,26 @@ public class Login extends FragmentActivity {
 
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_cancel = (Button) findViewById(R.id.btn_cancel);
+        btn_inicio_rapido = (Button) findViewById(R.id.btn_inicio_rapido);
 
 
         et_usuario = (EditText) findViewById(R.id.username);
         et_password = (EditText) findViewById(R.id.password);
 
         fachadaVisitador = new FachadaVisitador();
+
+
+//TODO
+        btn_inicio_rapido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+
+        });
+
 
 
         btn_login.setOnClickListener(new View.OnClickListener() {
