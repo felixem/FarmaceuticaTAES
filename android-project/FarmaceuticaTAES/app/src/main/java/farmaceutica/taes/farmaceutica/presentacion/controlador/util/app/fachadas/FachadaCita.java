@@ -19,4 +19,32 @@ public class FachadaCita {
         CitaRepository repository = new CitaRepository(context);
         return repository.getByRuta(ruta);
     }
+
+
+    public void validarHoras(Cita cita) throws Exception {
+        comprobarHora(cita.getHoraInicio());
+        comprobarHora(cita.getHoraFin());
+        comprobarMinutos(cita.getMinutoInicio());
+        comprobarMinutos(cita.getMinutoFin());
+
+
+    }
+
+
+    private void comprobarHora(int hora) throws Exception {
+        if(hora<0 || hora>23)
+            throw new Exception("");
+
+    }
+
+    private void comprobarMinutos(int min) throws Exception {
+        if(min<0 || min>59)
+            throw new Exception("");
+
+    }
+
+    public void modificarCita(Context context, Cita cita) {
+        CitaRepository repository = new CitaRepository(context);
+        repository.update(cita);
+    }
 }

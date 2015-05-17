@@ -180,4 +180,21 @@ public class Cita {
     public int hashCode() {
         return id;
     }
+
+    public void setTipoLugar(long lugar) {
+        switch ((int)lugar) {
+            case 0:
+                tipoLugar=LugarVisita.HOSPITAL;
+                break;
+            case 1:
+                tipoLugar = LugarVisita.CONSULTA;
+                break;
+            case 2:
+                tipoLugar = LugarVisita.CONGRESO;
+                break;
+            default:
+                tipoLugar = LugarVisita.OTRO;
+
+        }
+    }
 }

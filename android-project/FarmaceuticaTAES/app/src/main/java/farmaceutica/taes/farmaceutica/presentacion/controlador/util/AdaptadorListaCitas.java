@@ -64,8 +64,24 @@ public class AdaptadorListaCitas extends BaseAdapter {
 
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         //String date = sdf.format(rutas.get(position).getFechaVisita());
-        holder.txtView.setText("Desde " + rutas.get(position).getHoraInicio() + ":" + rutas.get(position).getMinutoInicio() + " hasta "
-                                 + rutas.get(position).getHoraFin() + ":" + rutas.get(position).getMinutoFin());
+        int min = rutas.get(position).getMinutoInicio() ;
+        String s_min_inicio, s_min_fin;
+        if(min<10)
+            s_min_inicio = "0";
+        else
+            s_min_inicio="";
+        s_min_inicio+= min;
+
+
+        min = rutas.get(position).getMinutoFin();
+        if(min<10)
+            s_min_fin = "0";
+        else
+            s_min_fin="";
+        s_min_fin+= min;
+
+        holder.txtView.setText("Desde " + rutas.get(position).getHoraInicio() + ":" + s_min_inicio + " hasta "
+                                 + rutas.get(position).getHoraFin() + ":" + s_min_fin);
         holder.txtView.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
         return item;
