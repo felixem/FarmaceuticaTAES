@@ -59,7 +59,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
     private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios;
     private Spinner spinnerLugar;
     private EditText et_hora_inicio, et_hora_fin, et_min_inicio, et_min_fin, et_lugar, et_direccion, et_comentarios;
-    private Button btn_guardar;
+    private Button btn_guardar, btn_crear_ruta, btn_crear_cita;
 
     private FachadaMedico fachadaMedico;
 
@@ -101,6 +101,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         et_direccion = (EditText) view.findViewById(R.id.edit_text_direccion);
 
         btn_guardar = (Button) view.findViewById(R.id.button_guardar_modificaciones);
+        btn_crear_ruta = (Button) view.findViewById(R.id.button_crear_ruta);
+        btn_crear_cita = (Button) view.findViewById(R.id.button_crear_cita);
 
 
         String[] arraySpinner = new String[] {

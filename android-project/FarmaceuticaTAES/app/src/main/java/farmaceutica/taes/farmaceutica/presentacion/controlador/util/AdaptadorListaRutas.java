@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Ruta;
@@ -63,9 +67,21 @@ public class AdaptadorListaRutas extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //String date = sdf.format(rutas.get(position).getFechaVisita());
-        holder.txtView.setText("" + rutas.get(position).getFecha() );
+
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(rutas.get(position).getFecha());
+
+        SimpleDateFormat format1 = new SimpleDateFormat("EE dd-MMM-yyyy");
+
+        String formatted = format1.format(cal.getTime());
+
+
+
+        holder.txtView.setText("" + formatted);
         holder.txtView.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
         return item;
