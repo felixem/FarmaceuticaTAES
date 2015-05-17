@@ -22,4 +22,10 @@ public class FachadaVisita {
         VisitaRepository repository = new VisitaRepository(context);
         return repository.getAllByMedico(medico);
     }
+
+    public static int create(Context context, Visita visita)
+    {
+        VisitaRepository repository = new VisitaRepository(context);
+        return repository.create(visita);
+    }
 }
