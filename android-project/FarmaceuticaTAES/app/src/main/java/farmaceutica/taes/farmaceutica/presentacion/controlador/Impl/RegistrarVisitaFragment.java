@@ -336,7 +336,7 @@ public class RegistrarVisitaFragment extends BaseFragment{
     private void crearMaterialEntregado(View view)
     {
         // custom dialog
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_crear_visita_material);
         //Configurar la vista
