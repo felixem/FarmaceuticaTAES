@@ -21,8 +21,9 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="AppTheme.Dialog" parent="Base.Theme.AppCompat.Dialog">
+    <style name="AppTheme.Dialog" parent="android:Theme.DeviceDefault.Light.Dialog.Alert">
         <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="AppTheme.Spinner" parent="Base.Widget.AppCompat.Spinner">
