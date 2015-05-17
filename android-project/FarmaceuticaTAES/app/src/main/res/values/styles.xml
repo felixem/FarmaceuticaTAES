@@ -15,6 +15,7 @@
         <item name="android:spinnerStyle">@style/AppTheme.Spinner</item>
         <item name="android:dialogPreferenceStyle">@style/AppTheme.Dialog</item>
         <item name="android:alertDialogStyle">@style/AppTheme.AlertDialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
     </style>
 
     <style name="AppTheme.AlertDialog" parent="Base.Theme.AppCompat.Dialog">
