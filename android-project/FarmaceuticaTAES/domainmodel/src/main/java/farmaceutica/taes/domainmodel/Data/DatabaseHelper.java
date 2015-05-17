@@ -11,7 +11,9 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import farmaceutica.taes.domainmodel.Data.Dao.AmbulatorioDao;
 import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
@@ -76,7 +78,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 25;
+
+
+    private static final int DATABASE_VERSION = 32;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -453,29 +457,55 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         //Crear médicos
         MedicoDao medicoDao = getMedicoDao();
-        Medico medico = new Medico(32223,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
-        medicoDao.create(medico);
-        int medico1 = medico.getId();
+        Medico medico1 = new Medico(32223,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
+        medicoDao.create(medico1);
+        int med1 = medico1.getId();
 
-        medico.setNumCorrelativo(10111);
-        medico.setNombre("Agapito");
-        medico.setApellidos("Di Sousa");
-        medicoDao.create(medico);
-        int medico2 = medico.getId();
+        Medico medico2 = new Medico(10111, "Agapito", "Di Sousa", true, TipoCliente.B, prov,prov);
+        medicoDao.create(medico2);
+        int med2 = medico2.getId();
 
         //Crear vinculación entre médico y lugar de trabajo
         MedicoLugarTrabajoDao medicoLugarTrabajoDao = getMedicoLugarTrabajoDao();
-        medico.setId(medico1);
-        MedicoLugarTrabajo medicoLugarTrabajo = new MedicoLugarTrabajo(medico,hospital);
+        MedicoLugarTrabajo medicoLugarTrabajo = new MedicoLugarTrabajo(medico1,hospital);
         medicoLugarTrabajoDao.create(medicoLugarTrabajo);
 
-        medico.setId(medico2);
-        medicoLugarTrabajoDao.create(medicoLugarTrabajo);
+
+        MedicoLugarTrabajo medicoLugarTrabajo2 = new MedicoLugarTrabajo(medico2,ambulatorio);
+        medicoLugarTrabajoDao.create(medicoLugarTrabajo2);
+
+
+
 
         //Crear visitas
         VisitaDao visitaDao = getVisitaDao();
-        Visita visita = new Visita(new Date(),new Date(), 5, LugarVisita.HOSPITAL, true, visitador, medico);
+        Visita visita = new Visita(new Date(),new Date(), 5, LugarVisita.HOSPITAL, true, visitador, medico2);
         visitaDao.create(visita);
+
+
+        //Crear rutas
+        RutaDao rutaDao = getRutaDao();
+        Date fecha1 = new Date();
+        Ruta ruta1 = new Ruta(fecha1, true, visitador);
+        rutaDao.create(ruta1);
+
+
+        Calendar c1 = GregorianCalendar.getInstance();
+        c1.set(2010, Calendar.JANUARY, 14);  //January 30th 2000
+        Date fecha2 = c1.getTime();
+        Ruta ruta2 = new Ruta(fecha2, true, visitador);
+        rutaDao.create(ruta2);
+
+
+        //Crear cita
+        CitaDao citaDao = getCitaDao();
+        Cita cita1 = new Cita("Hospital de Alicante", LugarVisita.HOSPITAL, "Av. Pintor Baeza, 12, Alicante", 10, 25, 11, 05, medico1,ruta1);
+        citaDao.create(cita1);
+
+
+        Cita cita2 = new Cita("Hospital de San Juan", LugarVisita.HOSPITAL, "Ctra. Nnal. 332 Alacant-Valencia, s/n, 03550 San Juan de Alicante", 12, 45, 13, 20, medico2,ruta1);
+        citaDao.create(cita2);
+
 
         //Crear reporte de gastos
         ReporteGastosDao reporteGastosDao = getReporteGastosDao();

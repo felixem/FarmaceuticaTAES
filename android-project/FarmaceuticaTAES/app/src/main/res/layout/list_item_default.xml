@@ -11,7 +11,8 @@
     <TextView
         android:id="@+id/txt_listitem_default"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
         android:textSize="@dimen/text_size_lista"
         android:padding="5dip"
         android:textColor="@color/Black"

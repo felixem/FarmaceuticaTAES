@@ -1,12 +1,16 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -144,6 +149,35 @@ public class RegistrarVisitaFragment extends BaseFragment{
                 }
         );
 
+        //Pulsado largo del spinner de productos ofertados o de materiales entregados
+        final Handler actionHandler = new Handler();
+        final Runnable runnableProducto = new RunnableDeleteProducto();
+        final Runnable runnableMaterial = new RunnableDeleteMaterial();
+
+        spinnerProductosOfertados.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    actionHandler.postDelayed(runnableProducto, 1000);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    actionHandler.removeCallbacks(runnableProducto);
+                }
+                return false;
+            }
+        });
+
+        spinnerMaterialesEntregados.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    actionHandler.postDelayed(runnableMaterial, 1000);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    actionHandler.removeCallbacks(runnableMaterial);
+                }
+                return false;
+            }
+        });
+
         //Vincular al botón de crear visita la creación del objeto visita en la bd
         button_crear_visita.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,8 +298,9 @@ public class RegistrarVisitaFragment extends BaseFragment{
     {
         // custom dialog
         final Dialog dialog = new Dialog(RegistrarVisitaFragment.this.getActivity(), R.style.AppTheme_Dialog);
+        //final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_crear_visita_producto);
-        dialog.setTitle("Añadir producto ofertado");
 
          //Configurar la vista
         configurarVisitaProducto(dialog);
@@ -336,9 +371,8 @@ public class RegistrarVisitaFragment extends BaseFragment{
     {
         // custom dialog
         final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_crear_visita_material);
-        dialog.setTitle("Añadir material entregado");
-
         //Configurar la vista
         configurarVisitaMaterial(dialog);
 
@@ -469,6 +503,86 @@ public class RegistrarVisitaFragment extends BaseFragment{
 
             //Cerrar el popup
             dialog.dismiss();
+        }
+    }
+
+    //Clase para el evento de eliminar un item del spinner de productos ofertados
+    private class RunnableDeleteProducto implements Runnable
+    {
+        @Override
+        public void run() {
+
+            //Si el spinner está vacío no hacer nada
+            if(spinnerProductosOfertados.getAdapter().isEmpty())
+                return;
+
+            //Obtener el producto
+            final int pos = spinnerProductosOfertados.getSelectedItemPosition();
+            final VisitaProducto visitaProd = (VisitaProducto)spinnerProductosOfertados.getItemAtPosition(pos);
+
+            //Mostrar diálogo de confirmación de operación
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+            dialogo1.setTitle("Borrar elemento destacado");
+            dialogo1.setMessage("¿Desea borrar la promoción de " + visitaProd.getProducto().getNombre() + "(" + visitaProd.getOrden() + "º)?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    //Borrar producto de la lista
+                    productosOfertados.remove(pos);
+                    //Disminuir el orden de los siguientes
+                    for(int i=pos; i<productosOfertados.size(); i++)
+                    {
+                        VisitaProducto vis = productosOfertados.get(i);
+                        vis.setOrden(vis.getOrden()-1);
+                    }
+                    //Meter la lista de nuevo en el spinner
+                    spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(),productosOfertados));
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    dialogo1.dismiss();
+                }
+            });
+            dialogo1.show();
+        }
+    }
+
+    //Clase para el evento de eliminar un item del spinner de materiales entregados
+    private class RunnableDeleteMaterial implements Runnable
+    {
+        @Override
+        public void run() {
+
+            //Si el spinner está vacío no hacer nada
+            if(spinnerMaterialesEntregados.getAdapter().isEmpty())
+                return;
+
+            //Obtener el producto
+            final int pos = spinnerMaterialesEntregados.getSelectedItemPosition();
+            final VisitaMaterial visitaMat = (VisitaMaterial)spinnerMaterialesEntregados.getItemAtPosition(pos);
+            final MaterialPromocional materialPromocional = visitaMat.getMaterialPromocional();
+
+            //Mostrar diálogo de confirmación de operación
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+            dialogo1.setTitle("Borrar elemento destacado");
+            dialogo1.setMessage("¿Desea borrar la entrega de " + visitaMat.getCantidad() + " " + materialPromocional.getNombre() +
+                    " del producto " + materialPromocional.getProducto().getNombre() + "?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    //Borrar material de la lista
+                    materialesEntregados.remove(pos);
+                    //Meter la lista de nuevo en el spinner
+                    spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(),materialesEntregados));
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    dialogo1.dismiss();
+                }
+            });
+            dialogo1.show();
         }
     }
 }
