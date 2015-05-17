@@ -30,6 +30,7 @@
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        style="@style/SpinnerStyle"
         android:id="@+id/spinner_reportes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -45,6 +46,7 @@
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        style="@style/SpinnerStyle"
         android:id="@+id/spinner_gastos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

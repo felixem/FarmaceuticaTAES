@@ -8,7 +8,7 @@ import android.widget.Spinner;
 
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.AdaptadorSpinnerConceptoGasto;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorSpinnerConceptoGasto;
 
 /**
  * Created by John on 15/05/2015.

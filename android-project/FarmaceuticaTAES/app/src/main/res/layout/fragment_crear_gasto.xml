@@ -10,12 +10,12 @@
         android:text="Fecha: "
         android:gravity="center_horizontal"/>
 
-    <Spinner
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
         style="@style/SpinnerStyle"
         android:id="@+id/sp_dfault"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </Spinner>
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
     <Button
         android:layout_width="match_parent"

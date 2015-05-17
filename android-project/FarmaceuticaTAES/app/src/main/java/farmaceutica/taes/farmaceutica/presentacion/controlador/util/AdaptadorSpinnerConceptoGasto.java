@@ -1,4 +1,4 @@
-package farmaceutica.taes.farmaceutica.presentacion.controlador.util.view;
+package farmaceutica.taes.farmaceutica.presentacion.controlador.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -52,9 +52,11 @@ public class AdaptadorSpinnerConceptoGasto extends BaseAdapter{
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.item_spinner_default, null);
+            //item = inflater.inflate(R.layout.reporte, null);
+            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
 
-            holder.txt=(TextView)item.findViewById(R.id.txt_default);
+            //holder.txt=(TextView)item.findViewById(R.id.textView_reporte);
+            holder.txt = (TextView)item;
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
