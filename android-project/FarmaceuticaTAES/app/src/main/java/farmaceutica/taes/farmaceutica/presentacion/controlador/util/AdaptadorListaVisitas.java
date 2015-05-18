@@ -50,10 +50,12 @@ public class AdaptadorListaVisitas extends BaseAdapter {
         ViewHolder holder;
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            item = inflater.inflate(R.layout.list_item_default, null);
+            //item = inflater.inflate(R.layout.list_item_default, null);
 
             holder= new ViewHolder();
-            holder.txtView= (TextView)item.findViewById(R.id.txt_listitem_default);
+            //holder.txtView= (TextView)item.findViewById(R.id.txt_listitem_default);
+            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
+            holder.txtView = (TextView)item;
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);

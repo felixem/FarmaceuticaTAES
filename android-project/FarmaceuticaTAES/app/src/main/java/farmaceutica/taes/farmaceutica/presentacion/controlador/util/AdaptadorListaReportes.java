@@ -65,9 +65,11 @@ public class AdaptadorListaReportes extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.reporte, null);
+            //item = inflater.inflate(R.layout.reporte, null);
+            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
 
-            holder.reporte=(TextView)item.findViewById(R.id.textView_reporte);
+            //holder.reporte=(TextView)item.findViewById(R.id.textView_reporte);
+            holder.reporte = (TextView) item;
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);

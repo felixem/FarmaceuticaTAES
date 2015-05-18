@@ -64,9 +64,11 @@ public class AdaptadorListaGastos extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.gasto, null);
+            //item = inflater.inflate(R.layout.gasto, null);
 
-            holder.gasto=(TextView)item.findViewById(R.id.textView_gasto);
+            //holder.gasto=(TextView)item.findViewById(R.id.textView_gasto);
+            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
+            holder.gasto = (TextView)item;
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);

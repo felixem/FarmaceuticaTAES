@@ -64,9 +64,11 @@ public class AdaptadorListaLugaresVisita extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.lugar_visita, null);
+            //item = inflater.inflate(R.layout.lugar_visita, null);
 
-            holder.nombre=(TextView)item.findViewById(R.id.textView_nombre_lugar_visita);
+            //holder.nombre=(TextView)item.findViewById(R.id.textView_nombre_lugar_visita);
+            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
+            holder.nombre = (TextView)item;
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);

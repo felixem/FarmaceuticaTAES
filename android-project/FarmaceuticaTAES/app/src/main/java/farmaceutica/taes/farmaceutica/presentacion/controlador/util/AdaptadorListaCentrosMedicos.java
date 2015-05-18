@@ -63,9 +63,11 @@ public class AdaptadorListaCentrosMedicos extends BaseAdapter {
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             holder= new ViewHolder();
-            item = inflater.inflate(R.layout.centro_medico, null);
+            //item = inflater.inflate(R.layout.centro_medico, null);
 
-            holder.nombre=(TextView)item.findViewById(R.id.textView_nombreCentro);
+            //holder.nombre=(TextView)item.findViewById(R.id.textView_nombreCentro);
+            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
+            holder.nombre = (TextView)item;
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
