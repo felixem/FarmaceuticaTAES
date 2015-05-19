@@ -58,15 +58,12 @@ public class CitaRepository {
         }
         return 0;
     }
-    public int delete(Cita data)
-    {
+    public int delete(Cita data) throws SQLException {
         try {
             return mainDao.delete(data);
         } catch (SQLException e) {
-            // TODO: Exception Handling
-            e.printStackTrace();
+            throw e;
         }
-        return 0;
     }
 
     public List<Cita> getAll()

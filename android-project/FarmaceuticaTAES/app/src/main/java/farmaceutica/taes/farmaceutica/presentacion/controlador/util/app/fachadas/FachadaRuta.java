@@ -11,6 +11,7 @@ import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Ruta;
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Model.Visitador;
+import farmaceutica.taes.domainmodel.Repository.CitaRepository;
 import farmaceutica.taes.domainmodel.Repository.RutaRepository;
 import farmaceutica.taes.domainmodel.Repository.VisitaRepository;
 
@@ -29,5 +30,16 @@ public class FachadaRuta {
         return repository.getByVisitador(visitador);
     }
 
+
+    public void crearCita(Context context, Ruta ruta) throws SQLException {
+        RutaRepository repository = new RutaRepository(context);
+        repository.create(ruta);
+    }
+
+
+    public void borrarRuta(Context context, Ruta ruta) throws SQLException {
+        RutaRepository repository = new RutaRepository(context);
+        repository.delete(ruta);
+    }
 
 }

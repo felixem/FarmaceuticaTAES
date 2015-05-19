@@ -29,16 +29,7 @@
                 android:layout_height="wrap_content">
             </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:id="@+id/button_crear_ruta"
-                android:layout_gravity="center"
-                android:layout_weight="0.9"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                />
+
 
         </LinearLayout>
 
@@ -52,6 +43,8 @@
             android:layout_marginTop="15dp"
             android:text="@string/txt_lista_citas"
             />
+
+
 
 
         <LinearLayout
@@ -69,17 +62,42 @@
             </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:id="@+id/button_crear_cita"
-                android:layout_gravity="center"
-                android:layout_weight="0.9"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                />
 
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear ruta"
+            android:id="@+id/button_crear_ruta"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Borrar ruta"
+            android:id="@+id/button_borrar_ruta"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            />
         </LinearLayout>
 
         <TextView
@@ -90,7 +108,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="Inicio de la cita:"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="30dp"/>
 
 
         <LinearLayout
@@ -128,6 +146,7 @@
                 android:layout_marginLeft="40dp"
                 android:textColor="@color/Black"
                 android:hint="Minuto"
+
                 />
 
         </LinearLayout>
@@ -272,15 +291,40 @@
             />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eliminar cita"
+                android:id="@+id/button_borrar_cita"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_weight="0.5"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"/>
+
+
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Guardar modificaciones"
             android:id="@+id/button_guardar_modificaciones"
             android:layout_gravity="center"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:layout_marginTop="15dp"/>
+            android:layout_weight="0.5"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
