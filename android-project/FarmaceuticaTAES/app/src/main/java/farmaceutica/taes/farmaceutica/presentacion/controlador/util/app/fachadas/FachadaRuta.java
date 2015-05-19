@@ -42,4 +42,11 @@ public class FachadaRuta {
         repository.delete(ruta);
     }
 
+    public void crearRuta(Context context, Ruta ruta) throws SQLException {
+        RutaRepository repository = new RutaRepository(context);
+        ruta.setValidada(true);
+
+        repository.create(ruta);
+
+    }
 }

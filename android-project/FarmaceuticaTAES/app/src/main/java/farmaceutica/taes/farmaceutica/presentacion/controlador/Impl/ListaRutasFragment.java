@@ -1,10 +1,8 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -16,48 +14,37 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import farmaceutica.taes.domainmodel.Model.CentroMedico;
+import farmaceutica.taes.domainmodel.Data.Dao.CitaDao;
 import farmaceutica.taes.domainmodel.Model.Cita;
 import farmaceutica.taes.domainmodel.Model.LugarVisita;
-import farmaceutica.taes.domainmodel.Model.MaterialPromocional;
 import farmaceutica.taes.domainmodel.Model.Medico;
-import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.Ruta;
-import farmaceutica.taes.domainmodel.Model.Visita;
-import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaCitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaLugaresVisita;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMateriales;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitasProducto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AlertaDialogo;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaLugarVisita;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMaterialPromocional;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaProducto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaRuta;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaRutas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisitador;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
 /**
@@ -72,7 +59,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
     private SpinnerOnChangeAdapter spinnerRutas, spinnerMedicos;
     private SpinnerOnChangeAdapter spinnerCitas;
-    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtPuntosInicio, txtPuntosFin;
+    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtPuntosInicio, txtPuntosFin, txtDetalleCita;
     private Spinner spinnerLugar;
     private EditText et_hora_inicio, et_hora_fin, et_min_inicio, et_min_fin, et_lugar, et_direccion, et_comentarios;
     private Button btn_guardar, btn_crear_ruta, button_borrar_ruta, btn_borrar_cita;
@@ -95,6 +82,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         et_comentarios = (EditText) view.findViewById(R.id.edit_text_comentarios);
         txtPuntosInicio = (TextView) view.findViewById(R.id.txt_separador_inicio);
         txtPuntosFin = (TextView) view.findViewById(R.id.txt_separador_fin);
+        txtDetalleCita = (TextView) view.findViewById(R.id.txt_titulo_cita);
+
 
         spinnerRutas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_rutas);
         spinnerCitas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_citas);
@@ -163,8 +152,21 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         final Runnable runnableCita = new RunnableAddCita();
 
 
+        final Runnable runnableRuta = new RunnableAddRuta();
 
 
+
+
+        btn_crear_ruta.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        actionHandler.post(runnableRuta);
+
+
+                    }
+                }
+        );
 
 
         spinnerRutas.setOnTouchListener(new View.OnTouchListener() {
@@ -384,28 +386,124 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
     }
 
-    private void actualizarCita() {
-
-
-    }
 
 
     /** Dialog */
-    private void crearMaterialEntregado()
+    private void crearCita()
     {
         // custom dialog
         final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_crear_cita);
         //Configurar la vista
-        configurarVisitaMaterial(dialog);
+        configurarCita(dialog);
 
         dialog.show();
     }
 
 
+    /** Dialog */
+    private void crearRuta()
+    {
+        // custom dialog
+        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_crear_ruta);
+        //Configurar la vista
+        configurarRuta(dialog);
+
+        dialog.show();
+    }
+
+
+
+    private void configurarRuta(final Dialog dialog)
+    {
+        final DatePicker calendario;
+        final Button button_crear_ruta_form;
+
+        calendario = (DatePicker) dialog.findViewById(R.id.calendario);
+
+        button_crear_ruta_form = (Button) dialog.findViewById(R.id.button_crear_ruta_form);
+
+
+
+        button_crear_ruta_form.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int year = calendario.getYear();
+                        int month = calendario.getMonth();
+                        int day = calendario.getDayOfMonth();
+                        Calendar c = Calendar.getInstance();
+                        c.set(year, month, day, 0, 0);
+
+                        Ruta r = new Ruta();
+                        r.setFecha(c.getTime());
+
+                        Visitador visitador1 = new Visitador();
+                        visitador1.setCodigo(1);
+                        r.setVisitador(visitador1);
+                        try {
+                            fachadaRuta.crearRuta(getActivity(),r);
+                        } catch (SQLException e) {
+                            AlertaDialogo ad = new AlertaDialogo();
+                            ad.setMensaje("No se ha podido guardar la ruta");
+                            ad.setTitulo("Error en la creación de la ruta");
+                            ad.setBoton1("OK");
+                            ad.setFlags(true);
+                            ad.show(getFragmentManager(), "FragmentAlert");
+                            return;
+                        }
+
+                        List<Ruta> rutas = fachadaRuta.obtenerRutas(getActivity());
+                        BaseAdapter adapter = new AdaptadorListaRutas(getActivity(),rutas);
+                        spinnerRutas.setAdapter(adapter);
+
+                        cita = (Cita)spinnerCitas.getSelectedItem();
+                        citaDatos(cita);
+                        if(rutas.size()==0)
+                            citaVisible(false);
+
+
+                        List<Cita> citas = null;
+                        try {
+                            citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        adapter = new AdaptadorListaCitas(getActivity(),citas);
+                        spinnerCitas.setAdapter(adapter);
+                        cita = (Cita)spinnerCitas.getSelectedItem();
+                        citaDatos(cita);
+                        if(citas.size()==0)
+                            citaVisible(false);
+
+
+                        dialog.dismiss();
+                        CharSequence text = "Se ha creado la ruta";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                    }
+                }
+        );
+
+
+
+
+    }
+
+
+
+
+
+
     //Configurar el dialog de Visita Material
-    private void configurarVisitaMaterial(final Dialog dialog)
+    private void configurarCita(final Dialog dialog)
     {
         final SpinnerOnChangeAdapter spinnerMedicosForm;
         final TextView txtTitle;
@@ -466,6 +564,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                             cita.setLugar(et_lugarForm.getText().toString());
                             cita.setDireccion(et_direccionForm.getText().toString());
                             //cita.setRuta((Ruta)spinnerRutas.getSelectedItem());
+
+                            cita.setComentario(txtComentarios.getText().toString());
                             try {
                                 cita.setHoraFin(Integer.parseInt(et_hora_finForm.getText().toString()));
                                 cita.setHoraInicio(Integer.parseInt(et_hora_inicioForm.getText().toString()));
@@ -585,6 +685,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             btn_guardar.setVisibility(View.INVISIBLE);
             txtPuntosInicio.setVisibility(View.INVISIBLE);
             txtPuntosFin.setVisibility(View.INVISIBLE);
+            txtDetalleCita.setVisibility(View.INVISIBLE);
 
             et_direccion.setVisibility(View.INVISIBLE);
             et_lugar.setVisibility(View.INVISIBLE);
@@ -607,6 +708,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             btn_guardar.setVisibility(View.VISIBLE);
             txtPuntosInicio.setVisibility(View.VISIBLE);
             txtPuntosFin.setVisibility(View.VISIBLE);
+            txtDetalleCita.setVisibility(View.VISIBLE);
 
             et_direccion.setVisibility(View.VISIBLE);
             et_lugar.setVisibility(View.VISIBLE);
@@ -706,7 +808,32 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogo1, int id) {
                     cita.setRuta((Ruta)spinnerRutas.getSelectedItem());
-                    crearMaterialEntregado();
+                    crearCita();
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    dialogo1.dismiss();
+                }
+            });
+            dialogo1.show();
+        }
+    }
+
+
+    //Clase para el evento de crear una cita
+    private class RunnableAddRuta implements Runnable
+    {
+        @Override
+        public void run() {
+            //Mostrar diálogo de confirmación de operación
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+            dialogo1.setTitle("Añadir ruta");
+            dialogo1.setMessage("¿Desea añadir una ruta nueva?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    crearRuta();
                 }
             });
             dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
