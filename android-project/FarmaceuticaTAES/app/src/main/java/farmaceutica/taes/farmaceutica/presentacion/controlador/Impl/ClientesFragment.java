@@ -47,7 +47,7 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
     Button button_ver_detalles_visita;
 
     /***********************************************/
-    TextView detalles;
+    TextView txt_infoAdicional,txt_tipoCliente,txt_visitable,txt_email,txt_tlf,txt_apellidos,txt_nombre,txt_numeroCorrelativo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,13 +136,33 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_detalles_medico);
 
+        //Recojo al medico
+        Medico mde = (Medico)spinnerMedicos.getSelectedItem();
+
         //Cojo Controladores del Dialog
-        detalles = (TextView) dialog.findViewById(R.id.txt_productos);
+        txt_infoAdicional = (TextView) dialog.findViewById(R.id.txt_infoAdicional);
+        txt_tipoCliente = (TextView) dialog.findViewById(R.id.txt_tipoCliente);
+        txt_visitable = (TextView) dialog.findViewById(R.id.txt_visitable);
+        txt_email = (TextView) dialog.findViewById(R.id.txt_email);
+        txt_tlf = (TextView) dialog.findViewById(R.id.txt_tlf);
+        txt_apellidos = (TextView) dialog.findViewById(R.id.txt_apellidos);
+        txt_nombre = (TextView) dialog.findViewById(R.id.txt_nombre);
+        txt_numeroCorrelativo = (TextView) dialog.findViewById(R.id.txt_numeroCorrelativo);
 
         //Recojo datos
-        Medico mde = (Medico)spinnerMedicos.getSelectedItem();
-        detalles.setText(mde.getNombre());
-        List<Trayectoria> aux = FachadaTrayectoria.obtenerTrayectorias(getActivity(),mde);
+        txt_numeroCorrelativo.setText(""+mde.getNumCorrelativo());
+        txt_nombre.setText(mde.getNombre());
+        txt_apellidos.setText(mde.getApellidos());
+        txt_tlf.setText(mde.getTelefono());
+        txt_email.setText(mde.getEmail());
+
+        if(mde.getVisitable())
+            txt_visitable.setText("Permite");
+        else
+            txt_visitable.setText("No Permite");
+
+        txt_tipoCliente.setText(mde.getTipoCliente().getNombre());
+        txt_infoAdicional.setText(mde.getInformacionAdicional());
 
         dialog.show();
     }
