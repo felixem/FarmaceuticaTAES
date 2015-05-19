@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Valoración Producto"
+            style="@style/TextViewTitleStyle"
              />
 
         </LinearLayout>
