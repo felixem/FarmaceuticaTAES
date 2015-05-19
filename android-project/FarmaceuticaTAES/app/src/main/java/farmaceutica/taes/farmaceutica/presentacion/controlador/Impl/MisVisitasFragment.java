@@ -1,6 +1,8 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaComunicador;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaProducto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
@@ -32,6 +35,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas
 public class MisVisitasFragment extends BaseFragment {
 
     ListView lv;
+    Class<?> destino;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,13 +52,11 @@ public class MisVisitasFragment extends BaseFragment {
         //Obtener la lista de visitas
         BaseAdapter adapter = new AdaptadorListaMisVisitas(getActivity(), FachadaVisita.obtenerVisitasPorVisitador(getActivity(), visitador));
         lv.setAdapter(adapter);
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                try {
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                
             }
         });
     }

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.CrearGastosFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.MisGastosFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.MisVisitasFragment;
 
 /**
  * Created by John on 15/05/2015.
@@ -39,6 +40,11 @@ public class Linker {
 
     public void MisGastos(){
         transaction.replace(KDYNAMICZONE, new MisGastosFragment());
+        transaction.commit();
+    }
+
+    public void MisVisitas(){
+        transaction.replace(KDYNAMICZONE, new MisVisitasFragment());
         transaction.commit();
     }
 
