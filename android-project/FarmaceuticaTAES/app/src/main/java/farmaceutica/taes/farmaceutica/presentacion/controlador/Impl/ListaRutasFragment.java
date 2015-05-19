@@ -47,7 +47,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
 /**
  * Created by Jesus Ortega Mateu on 12/05/2015.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
 public class ListaRutasFragment extends BaseFragment implements OnSpinnerListener
 {
     private FachadaRuta fachadaRuta;
@@ -109,7 +109,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                 "HOSPITAL", "CONSULTA", "CONGRESO", "OTRO"
         };
 
-        ArrayAdapter<String> adapterLugar = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, arraySpinner);
+        ArrayAdapter<String> adapterLugar = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arraySpinner);
         spinnerLugar.setAdapter(adapterLugar);
 
         fachadaMedico = new FachadaMedico();
@@ -130,13 +130,13 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         citaVisible(false);
 
         try {
-            listaRutas = fachadaRuta.obtenerRutasPorVisitador(view.getContext(),visitador);
+            listaRutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
-        BaseAdapter adapter= new AdaptadorListaRutas(view.getContext(), listaRutas);
+        BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutas);
         spinnerRutas.setAdapter(adapter);
 
 
@@ -230,9 +230,9 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                                                android.view.View v, int position, long id) {
 
 
-                        List<Medico> medicos = FachadaMedico.obtenerMedicos(v.getContext());
+                        List<Medico> medicos = FachadaMedico.obtenerMedicos(getActivity());
 
-                        BaseAdapter adapter = new AdaptadorListaMedicos(v.getContext(),medicos);
+                        BaseAdapter adapter = new AdaptadorListaMedicos(getActivity(),medicos);
 
                         spinnerMedicos.setAdapter(adapter);
 
