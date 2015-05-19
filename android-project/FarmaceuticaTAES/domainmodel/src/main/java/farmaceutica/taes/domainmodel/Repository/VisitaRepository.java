@@ -146,25 +146,4 @@ public class VisitaRepository {
         return null;
     }
 
-
-
-
-    public Visita getVisitaById(int id)
-    {
-
-        try
-        {
-            QueryBuilder<Visita,Integer> builder = mainDao.queryBuilder();
-            builder.where().eq(Medico.ID, id);
-            builder.orderBy(Medico.APELLIDOS,true);
-            return builder.query().get(0);
-        }catch(SQLException e){
-            // TODO: Exception Handling
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-
 }
