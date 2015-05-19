@@ -5,6 +5,7 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.domainmodel.Repository.VisitaRepository;
 
 /**
@@ -21,6 +22,12 @@ public class FachadaVisita {
     {
         VisitaRepository repository = new VisitaRepository(context);
         return repository.getAllByMedico(medico);
+    }
+
+    public static List<Visita> obtenerVisitasPorVisitador(Context context, Visitador visita)
+    {
+        VisitaRepository repository = new VisitaRepository(context);
+        return repository.getAllByVisitador(visita);
     }
 
     public static int create(Context context, Visita visita)
