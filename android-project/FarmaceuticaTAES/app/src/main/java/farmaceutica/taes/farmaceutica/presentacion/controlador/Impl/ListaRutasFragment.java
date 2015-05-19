@@ -26,6 +26,7 @@ import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -42,6 +43,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AlertaDialogo;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaLugarVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
@@ -59,7 +61,6 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 {
     private FachadaRuta fachadaRuta;
     private FachadaCita fachadaCita;
-    private Visitador visitador;
 
     private SpinnerOnChangeAdapter spinnerRutas, spinnerMedicos;
     private SpinnerOnChangeAdapter spinnerCitas;
@@ -72,6 +73,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
     private FachadaMedico fachadaMedico;
 
     private Cita cita;
+    private Visitador visitador;
 
 
     @Override
@@ -84,6 +86,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if(listaRutas==null)
+            listaRutas = new ArrayList<Ruta>();
 
         BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutas);
         spinnerRutas.setAdapter(adapter);
@@ -150,10 +154,9 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         spinnerMedicos.setOnSpinnerListener(this);
 
 
-        visitador = new Visitador();
-        visitador.setCodigo(1); //TODO
 
-
+        MySession session = (MySession) getActivity().getApplication();
+        visitador = session.getVisitador();
 
         citaVisible(false);
 
@@ -258,14 +261,15 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                                 } catch (SQLException e) {
 
                                 }
-                                Visitador visitador1 = new Visitador();
-                                visitador1.setCodigo(1);
+
                                 List<Ruta> listaRutasAux = null;
                                 try {
-                                    listaRutasAux = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador1);
+                                    listaRutasAux = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                 }
+                                if(listaRutasAux==null)
+                                    listaRutasAux = new ArrayList<Ruta>();
                                 BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutasAux);
                                 spinnerRutas.setAdapter(adapter);
 
@@ -470,9 +474,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                         Ruta r = new Ruta();
                         r.setFecha(c.getTime());
 
-                        Visitador visitador1 = new Visitador();
-                        visitador1.setCodigo(1);
-                        r.setVisitador(visitador1);
+
+                        r.setVisitador(visitador);
                         try {
                             fachadaRuta.crearRuta(getActivity(),r);
                         } catch (SQLException e) {
@@ -485,7 +488,14 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                             return;
                         }
 
-                        List<Ruta> rutas = fachadaRuta.obtenerRutas(getActivity());
+                        List<Ruta> rutas = null;
+                        try {
+                            rutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(), visitador);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        if(rutas == null)
+                            rutas = new ArrayList<Ruta>();
                         BaseAdapter adapter = new AdaptadorListaRutas(getActivity(),rutas);
                         spinnerRutas.setAdapter(adapter);
 
