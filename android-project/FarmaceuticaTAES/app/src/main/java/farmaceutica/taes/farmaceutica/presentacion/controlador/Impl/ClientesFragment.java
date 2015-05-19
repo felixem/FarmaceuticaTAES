@@ -1,9 +1,11 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import java.util.List;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Medico;
+import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
@@ -25,6 +28,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaTrayectoria;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
@@ -42,13 +46,16 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
     Button button_ver_detalles_medico;
     Button button_ver_detalles_visita;
 
+    /***********************************************/
+    TextView detalles;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_clientes, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
 
         spinnerCentrosMedicos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_centros_medicos);
         spinnerMedicos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_medicos);
@@ -110,6 +117,34 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
         public void onNothingSelected(AdapterView<?> parent) {}
                 });
 
+        //Vincular al botón de crear productos ofertados la creación del dialog
+        button_ver_detalles_medico.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        verDetallesMedico();
+                    }
+                }
+        );
+    }
+
+    /** Dialog */
+    private void verDetallesMedico()
+    {
+        // custom dialog
+        final Dialog dialog = new Dialog(ClientesFragment.this.getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_detalles_medico);
+
+        //Cojo Controladores del Dialog
+        detalles = (TextView) dialog.findViewById(R.id.txt_productos);
+
+        //Recojo datos
+        Medico mde = (Medico)spinnerMedicos.getSelectedItem();
+        detalles.setText(mde.getNombre());
+        List<Trayectoria> aux = FachadaTrayectoria.obtenerTrayectorias(getActivity(),mde);
+
+        dialog.show();
     }
 
     public static ClientesFragment newInstance() {
