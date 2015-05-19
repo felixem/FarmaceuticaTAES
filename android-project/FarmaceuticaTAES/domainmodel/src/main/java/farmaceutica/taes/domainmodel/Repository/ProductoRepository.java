@@ -114,11 +114,11 @@ public class ProductoRepository {
             QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
             builder.where().eq(Producto.ID, idProducto);
             QueryBuilder<VisitaProducto,Integer> builderVisita = visitaProductoDao.queryBuilder();
-            builderVisita.where().eq(VisitaProducto.VALORACION, valoracion.name());
+            builderVisita.where().eq(VisitaProducto.VALORACION, valoracion);
             builder.join(builderVisita);
             return builder.countOf();
 
-        }catch(SQLException e){
+        }catch(Exception e){
             // TODO: Exception Handling
             throw e;
         }
