@@ -196,12 +196,13 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                         List<Cita> citas = null;
                         try {
                             citas = fachadaCita.obtenerCitasByRuta(getActivity(), ruta);
+                            BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
+
+                            spinnerCitas.setAdapter(adapter);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
-                        BaseAdapter adapter = new AdaptadorListaCitas(v.getContext(),citas);
 
-                        spinnerCitas.setAdapter(adapter);
 
 
                         if(citas!=null && citas.size()!=0) {
