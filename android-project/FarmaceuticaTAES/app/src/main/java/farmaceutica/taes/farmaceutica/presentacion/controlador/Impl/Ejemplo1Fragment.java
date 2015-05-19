@@ -15,7 +15,7 @@ public class Ejemplo1Fragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmen_clientes, container, false);
+        return inflater.inflate(R.layout.gasto, container, false);
     }
 
     @Override
