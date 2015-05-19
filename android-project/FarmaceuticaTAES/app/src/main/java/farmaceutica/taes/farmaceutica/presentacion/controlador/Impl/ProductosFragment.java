@@ -82,10 +82,10 @@ public class ProductosFragment extends BaseFragment {
         textView_nombre.setText(prod.getNombre());
         textView_descripcion.setText(prod.getDescripcion());
         try {
-            textView_cantidad1.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(), ValoracionProducto.NADA)));
-            textView_cantidad2.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.POCO)));
-            textView_cantidad3.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MEDIO)));
-            textView_cantidad4.setText(Integer.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MUCHO)));
+            textView_cantidad1.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(), ValoracionProducto.NADA)));
+            textView_cantidad2.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.POCO)));
+            textView_cantidad3.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MEDIO)));
+            textView_cantidad4.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MUCHO)));
 
         } catch (Exception e) {
             e.printStackTrace();
