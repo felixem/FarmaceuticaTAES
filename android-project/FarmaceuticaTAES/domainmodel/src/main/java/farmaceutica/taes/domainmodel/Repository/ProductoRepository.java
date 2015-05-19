@@ -14,6 +14,8 @@ import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.Visita;
+
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
 import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 

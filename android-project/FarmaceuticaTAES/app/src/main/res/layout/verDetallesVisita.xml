@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/ListaDetallesVisita">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Detalles de la visita"
+        android:textSize="@dimen/margin_medium"
+        android:layout_weight="0.09" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:id="@+id/AtritbutoFechaVisita"
+                android:layout_alignParentLeft="true"
+                android:text= "Fecha de la visita :"
+                android:textSize="15dp"
+                android:gravity="center_horizontal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DatoFechaVisita"
+                android:layout_gravity="center_horizontal"
+                android:text="llamar al metodo"
+                android:textSize="12dp"
+                android:layout_marginRight="50dp"
+                android:layout_alignBottom="@+id/AtritbutoFechaVisita"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="50dp" />
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/AtritbutoFechaReporte"
+            android:layout_alignParentLeft="true"
+            android:text= "Fecha del reporte :"
+            android:textSize="15dp"
+            android:gravity="center_horizontal" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DatoFechaReporte"
+            android:layout_gravity="center_horizontal"
+            android:text="llamar al metodo"
+            android:textSize="12dp"
+            android:layout_marginRight="50dp"
+            android:layout_alignBottom="@+id/AtritbutoFechaReporte"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+
+
+        </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/AtributoMinutos"
+            android:layout_alignParentLeft="true"
+            android:text= "Minutos :"
+            android:textSize="15dp"
+            android:gravity="center_horizontal" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DatoMinutos"
+            android:layout_gravity="center_horizontal"
+            android:text="llamar al metodo"
+            android:textSize="12dp"
+            android:layout_marginRight="50dp"
+            android:layout_alignBottom="@+id/AtributoMinutos"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/AtributoLugarVisita"
+            android:layout_alignParentLeft="true"
+            android:text= "Lugar visitado :"
+            android:textSize="15dp"
+            android:gravity="center_horizontal" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DatoLugarVisita"
+            android:layout_gravity="center_horizontal"
+            android:text="llamar al metodo"
+            android:textSize="12dp"
+            android:layout_marginRight="50dp"
+            android:layout_alignBottom="@+id/AtributoLugarVisita"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/AtributoAcompañado"
+            android:layout_alignParentLeft="true"
+            android:text= "Acompañado :"
+            android:textSize="15dp"
+            android:gravity="center_horizontal" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DatoAcompañado"
+            android:layout_gravity="center_horizontal"
+            android:text="llamar al metodo"
+            android:textSize="12dp"
+            android:layout_marginRight="50dp"
+            android:layout_alignBottom="@+id/AtributoAcompañado"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+
+        </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/AtributoObservaciones"
+            android:layout_alignParentLeft="true"
+            android:text= "Observaciones :"
+            android:textSize="15dp"
+            android:gravity="center_horizontal" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DatoObservaciones"
+            android:layout_gravity="center_horizontal"
+            android:text="llamar al metodo"
+            android:textSize="12dp"
+            android:layout_marginRight="50dp"
+            android:layout_alignBottom="@+id/AtributoObservaciones"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.07">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/AtributoProductosPromocionados"
+            android:layout_alignParentLeft="true"
+            android:text= "Productos promocionados :"
+            android:textSize="15dp"
+            android:gravity="center_horizontal" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DatoProductosPromocionados"
+            android:layout_gravity="center_horizontal"
+            android:text="llamar al metodo"
+            android:textSize="12dp"
+            android:layout_marginRight="50dp"
+            android:layout_alignBottom="@+id/AtributoProductosPromocionados"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+        </RelativeLayout>
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/SpinerProductosPromocionados"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:prompt="@string/ProductosPromocionadoss"
+        />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/SpinerProductos"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:prompt="@string/ProductosOfertados"
+        />
+
+
+
+
+</LinearLayout>
