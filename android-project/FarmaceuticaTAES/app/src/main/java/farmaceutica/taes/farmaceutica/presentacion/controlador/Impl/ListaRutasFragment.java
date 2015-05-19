@@ -19,9 +19,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -59,14 +61,32 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
     private SpinnerOnChangeAdapter spinnerRutas, spinnerMedicos;
     private SpinnerOnChangeAdapter spinnerCitas;
-    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtPuntosInicio, txtPuntosFin, txtDetalleCita;
+    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtDetalleCita;
     private Spinner spinnerLugar;
-    private EditText et_hora_inicio, et_hora_fin, et_min_inicio, et_min_fin, et_lugar, et_direccion, et_comentarios;
+    private EditText et_lugar, et_direccion, et_comentarios;
     private Button btn_guardar, btn_crear_ruta, button_borrar_ruta, btn_borrar_cita;
 
+    private TimePicker timePickerInicio, timePickerFin;
     private FachadaMedico fachadaMedico;
 
     private Cita cita;
+
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        List<Ruta> listaRutas = null;
+        try {
+            listaRutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutas);
+        spinnerRutas.setAdapter(adapter);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,10 +98,12 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         super.onViewCreated(view, savedInstanceState);
         cita = new Cita();
 
+
+        timePickerFin = (TimePicker) view.findViewById(R.id.timePickerFin);
+        timePickerInicio = (TimePicker) view.findViewById(R.id.timePickerInicio);
+
         txtComentarios = (TextView) view.findViewById(R.id.txt_comentarios);
         et_comentarios = (EditText) view.findViewById(R.id.edit_text_comentarios);
-        txtPuntosInicio = (TextView) view.findViewById(R.id.txt_separador_inicio);
-        txtPuntosFin = (TextView) view.findViewById(R.id.txt_separador_fin);
         txtDetalleCita = (TextView) view.findViewById(R.id.txt_titulo_cita);
 
 
@@ -99,10 +121,6 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
         spinnerLugar = (Spinner) view.findViewById(R.id.spinner_tipo_lugar);
 
-        et_hora_inicio = (EditText) view.findViewById(R.id.edit_text_hora_inicio);
-        et_hora_fin = (EditText) view.findViewById(R.id.edit_text_hora_fin);
-        et_min_fin = (EditText) view.findViewById(R.id.edit_text_minuto_fin);
-        et_min_inicio=(EditText) view.findViewById(R.id.edit_text_minuto_inicio);
 
         et_lugar = (EditText) view.findViewById(R.id.edit_text_lugar);
         et_direccion = (EditText) view.findViewById(R.id.edit_text_direccion);
@@ -129,7 +147,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         spinnerCitas.setOnSpinnerListener(this);
         spinnerMedicos.setOnSpinnerListener(this);
 
-        List<Ruta> listaRutas = null;
+
         visitador = new Visitador();
         visitador.setCodigo(1); //TODO
 
@@ -137,21 +155,15 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
         citaVisible(false);
 
-        try {
-            listaRutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
 
-        BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutas);
-        spinnerRutas.setAdapter(adapter);
+
 
         //Pulsado largo del spinner de productos ofertados o de materiales entregados
         final Handler actionHandler = new Handler();
         final Runnable runnableCita = new RunnableAddCita();
 
-
+        final Handler actionHandlerRuta = new Handler();
         final Runnable runnableRuta = new RunnableAddRuta();
 
 
@@ -161,7 +173,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        actionHandler.post(runnableRuta);
+                        actionHandlerRuta.post(runnableRuta);
 
 
                     }
@@ -283,10 +295,10 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                     @Override
                     public void onClick(View v) {
                         try {
-                            cita.setHoraFin(Integer.parseInt(et_hora_fin.getText().toString()));
-                            cita.setHoraInicio(Integer.parseInt(et_hora_inicio.getText().toString()));
-                            cita.setMinutoFin(Integer.parseInt(et_min_fin.getText().toString()));
-                            cita.setMinutoInicio(Integer.parseInt(et_min_inicio.getText().toString()));
+                            cita.setHoraFin(timePickerFin.getCurrentHour());
+                            cita.setHoraInicio(timePickerInicio.getCurrentHour());
+                            cita.setMinutoFin(timePickerFin.getCurrentMinute());
+                            cita.setMinutoInicio(timePickerInicio.getCurrentMinute());
 
                             fachadaCita.validarHoras(cita);
                         }catch(Exception e)
@@ -311,9 +323,23 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
                         fachadaCita.modificarCita(getActivity(),cita);
 
+                        int selected = spinnerCitas.getSelectedItemPosition();
+                        List<Cita> citas = null;
+                        try {
+                            citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
+                            BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
+
+                            spinnerCitas.setAdapter(adapter);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        spinnerCitas.setSelection(selected);
 
                         CharSequence text = "Se ha modificado la cita";
                         int duration = Toast.LENGTH_SHORT;
+
+
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
@@ -508,16 +534,15 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         final SpinnerOnChangeAdapter spinnerMedicosForm;
         final TextView txtTitle;
         final Spinner spinnerLugarForm;
-        final EditText et_hora_inicioForm, et_hora_finForm, et_min_inicioForm, et_min_finForm, et_lugarForm, et_direccionForm, et_comentariosForm;
+        final EditText et_lugarForm, et_direccionForm, et_comentariosForm;
+        final TimePicker timePickerInicio, timePickerFin;
         final Button btn_guardarForm;
 
         spinnerMedicosForm = (SpinnerOnChangeAdapter) dialog.findViewById(R.id.spinner_medicos_form);
         spinnerLugarForm = (Spinner) dialog.findViewById(R.id.spinner_tipo_lugar_form);
 
-        et_hora_inicioForm = (EditText) dialog.findViewById(R.id.edit_text_hora_inicio_form);
-        et_hora_finForm = (EditText) dialog.findViewById(R.id.edit_text_hora_fin_form);
-        et_min_inicioForm = (EditText) dialog.findViewById(R.id.edit_text_minuto_inicio_form);
-        et_min_finForm = (EditText) dialog.findViewById(R.id.edit_text_minuto_fin_form);
+        timePickerFin = (TimePicker) dialog.findViewById(R.id.timePickerFin);
+        timePickerInicio = (TimePicker) dialog.findViewById(R.id.timePickerInicio);
 
         et_lugarForm = (EditText) dialog.findViewById(R.id.edit_text_lugar_form);
         et_direccionForm = (EditText) dialog.findViewById(R.id.edit_text_direccion_form);
@@ -526,7 +551,14 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         btn_guardarForm = (Button) dialog.findViewById(R.id.button_crear_cita_form);
 
         txtTitle = (TextView) dialog.findViewById(R.id.txt_titulo_crear_cita);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(((Ruta)spinnerRutas.getSelectedItem()).getFecha());
 
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+
+        String formatted = format1.format(cal.getTime());
+
+        txtTitle.setText("Nueva cita para el " + formatted);
 
 
         //Vincular los productos ofertables
@@ -565,12 +597,12 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                             cita.setDireccion(et_direccionForm.getText().toString());
                             //cita.setRuta((Ruta)spinnerRutas.getSelectedItem());
 
-                            cita.setComentario(txtComentarios.getText().toString());
+                            cita.setComentario(et_comentariosForm.getText().toString());
                             try {
-                                cita.setHoraFin(Integer.parseInt(et_hora_finForm.getText().toString()));
-                                cita.setHoraInicio(Integer.parseInt(et_hora_inicioForm.getText().toString()));
-                                cita.setMinutoFin(Integer.parseInt(et_min_finForm.getText().toString()));
-                                cita.setMinutoInicio(Integer.parseInt(et_min_inicioForm.getText().toString()));
+                                cita.setHoraFin(timePickerFin.getCurrentHour());
+                                cita.setHoraInicio(timePickerInicio.getCurrentHour());
+                                cita.setMinutoFin(timePickerFin.getCurrentMinute());
+                                cita.setMinutoInicio(timePickerInicio.getCurrentMinute());
 
                                 fachadaCita.validarHoras(cita);
                             }catch(Exception e)
@@ -629,10 +661,13 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         this.cita = cita;
         et_direccion.setText(cita.getDireccion());
         et_lugar.setText(cita.getLugar());
-        et_min_inicio.setText(cita.getMinutoInicio().toString());
-        et_min_fin.setText(cita.getMinutoFin().toString());
-        et_hora_fin.setText(cita.getHoraFin().toString());
-        et_hora_inicio.setText(cita.getHoraInicio().toString());
+
+        timePickerFin.setCurrentHour(cita.getHoraFin());
+        timePickerFin.setCurrentMinute(cita.getMinutoFin());
+
+        timePickerInicio.setCurrentHour(cita.getHoraInicio());
+        timePickerInicio.setCurrentMinute(cita.getMinutoInicio());
+
 
         Medico m = FachadaMedico.obtenerMedico(this.getActivity(),cita.getMedico().getId());
 
@@ -683,16 +718,16 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtInicio.setVisibility(View.INVISIBLE);
             txtComentarios.setVisibility(View.INVISIBLE);
             btn_guardar.setVisibility(View.INVISIBLE);
-            txtPuntosInicio.setVisibility(View.INVISIBLE);
-            txtPuntosFin.setVisibility(View.INVISIBLE);
+
+
             txtDetalleCita.setVisibility(View.INVISIBLE);
 
             et_direccion.setVisibility(View.INVISIBLE);
             et_lugar.setVisibility(View.INVISIBLE);
-            et_min_inicio.setVisibility(View.INVISIBLE);
-            et_min_fin.setVisibility(View.INVISIBLE);
-            et_hora_fin.setVisibility(View.INVISIBLE);
-            et_hora_inicio.setVisibility(View.INVISIBLE);
+
+            timePickerFin.setVisibility(View.INVISIBLE);
+            timePickerInicio.setVisibility(View.INVISIBLE);
+
             et_comentarios.setVisibility(View.INVISIBLE);
 
             spinnerMedicos.setVisibility(View.INVISIBLE);
@@ -706,16 +741,15 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtInicio.setVisibility(View.VISIBLE);
             txtComentarios.setVisibility(View.VISIBLE);
             btn_guardar.setVisibility(View.VISIBLE);
-            txtPuntosInicio.setVisibility(View.VISIBLE);
-            txtPuntosFin.setVisibility(View.VISIBLE);
+
             txtDetalleCita.setVisibility(View.VISIBLE);
 
             et_direccion.setVisibility(View.VISIBLE);
             et_lugar.setVisibility(View.VISIBLE);
-            et_min_inicio.setVisibility(View.VISIBLE);
-            et_min_fin.setVisibility(View.VISIBLE);
-            et_hora_fin.setVisibility(View.VISIBLE);
-            et_hora_inicio.setVisibility(View.VISIBLE);
+
+            timePickerFin.setVisibility(View.VISIBLE);
+            timePickerInicio.setVisibility(View.VISIBLE);
+
             et_comentarios.setVisibility(View.VISIBLE);
 
             spinnerMedicos.setVisibility(View.VISIBLE);

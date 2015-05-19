@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/lv_default_dessign"
+
     android:paddingBottom="@dimen/margin_topbot_list_item"
     android:paddingTop="@dimen/margin_topbot_list_item"
     >

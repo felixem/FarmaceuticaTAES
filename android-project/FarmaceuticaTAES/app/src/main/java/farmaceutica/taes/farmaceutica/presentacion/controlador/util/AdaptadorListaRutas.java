@@ -55,10 +55,10 @@ public class AdaptadorListaRutas extends BaseAdapter {
         ViewHolder holder;
         if(item==null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
+            item = inflater.inflate(R.layout.list_item_default, null);
 
             holder= new ViewHolder();
-            holder.txtView= (TextView)item;
+            holder.txtView= (TextView)item.findViewById(R.id.txt_listitem_default);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);
@@ -75,7 +75,7 @@ public class AdaptadorListaRutas extends BaseAdapter {
         Calendar cal = Calendar.getInstance();
         cal.setTime(rutas.get(position).getFecha());
 
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
 
         String formatted = format1.format(cal.getTime());
 
