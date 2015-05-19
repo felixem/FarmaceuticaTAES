@@ -5,9 +5,11 @@
     <string name = "FechaReporte">Fecha del reporte :</string>
     <string name = "Minutos">Minutos :</string>
     <string name = "LugarVisita">Lugar visitado :</string>
-    <string name = "Acompañado">Acompañado :</string>
+    <string name = "Acompañado">Acompanyado :</string>
     <string name = "Observaciones">Observaciones :</string>
     <string name = "ProductosPromocionados">Numero de productos promocionados :</string>
+    <string name = "ProductosPromocionadoss">Productos promocionados</string>
+    <string name = "ProductosOfertados">Productos ofertados</string>
         <![CDATA[
 
 
