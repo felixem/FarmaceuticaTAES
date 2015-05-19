@@ -9,11 +9,13 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Data.Dao.MedicoDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ProductoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaProductoDao;
 import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
+import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 
 /**
  * Created by felix on 28/04/15.
@@ -21,7 +23,9 @@ import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
 
 public class ProductoRepository {
     private DatabaseHelper db;
-    ProductoDao mainDao;
+
+    private ProductoDao mainDao;
+    private VisitaProductoDao visitaProductoDao;
 
     public ProductoRepository(Context ctx)
     {
@@ -30,6 +34,7 @@ public class ProductoRepository {
             db = dbManager.getHelper(ctx);
 
             mainDao = db.getProductoDao();
+            visitaProductoDao = db.getVisitaProductoDao();
 
         } catch (SQLException e) {
             // TODO: Exception Handling
@@ -103,10 +108,19 @@ public class ProductoRepository {
         }
         return null;
     }
-    public int getCantidadValoracionProducto(int idProducto,ValoracionProducto valoracion) throws Exception {
+    public long getCantidadValoracionProducto(int idProducto, ValoracionProducto valoracion) throws SQLException {
 
-       /* //TODO
-        throw new Exception("not implementet yet");*/
-        return 1;
+        try{
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(Producto.ID, idProducto);
+            QueryBuilder<VisitaProducto,Integer> builderVisita = visitaProductoDao.queryBuilder();
+            builderVisita.where().eq(VisitaProducto.VALORACION, valoracion.name());
+            builder.join(builderVisita);
+            return builder.countOf();
+
+        }catch(SQLException e){
+            // TODO: Exception Handling
+            throw e;
+        }
     }
 }

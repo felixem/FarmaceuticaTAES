@@ -26,7 +26,7 @@ public class FachadaProducto {
         return repository.getProductoById(id);
 
     }
-    public int obtenerCantidadValoracionProducto(Context context,int idProducto,ValoracionProducto  valoracion) throws Exception {
+    public long obtenerCantidadValoracionProducto(Context context,int idProducto,ValoracionProducto  valoracion) throws Exception {
 
         ProductoRepository repository= new ProductoRepository(context);
 
