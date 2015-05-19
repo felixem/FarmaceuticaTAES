@@ -40,4 +40,14 @@ public class FachadaVisitador {
         return false;
     }
 
+    public static Visitador obtenerVisitador(Context context, int id)
+    {
+        VisitadorRepository visitadorRepository = new VisitadorRepository(context);
+        try {
+            return visitadorRepository.getByID(id);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
 }

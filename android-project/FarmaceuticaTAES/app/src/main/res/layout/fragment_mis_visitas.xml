@@ -5,25 +5,27 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_titulovisita"
-        android:text="Visitas"
+        android:id="@+id/txt_tituloVisitas"
+        android:text="Mis Visitas"
         android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextViewTitleStyle"/>
+        style="@style/TextViewTitleStyle"
+        />
     <TextView
-        android:id="@+id/txt_visita_elegida"
+        android:id="@+id/txt_seleccioneProductos"
         android:text="Seleccione Visita"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/TextViewSelectionStyle"
         android:layout_marginTop="10dp"
-        style="@style/TextViewSelectionStyle"/>
-
+        />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_listavisitas"
-        android:layout_gravity="center_horizontal"/>
+        android:id="@+id/ListView_listaVisitas"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

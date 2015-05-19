@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Añadir material entregado"
-        android:textSize="25sp"/>
+        style="@style/TextViewTitleStyle"/>
 
     <TextView
         android:id="@+id/txt_productos"
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Selecciona un producto"
         android:layout_marginTop="15dp"
+        android:gravity="center"
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Selecciona un material"
         android:layout_marginTop="15dp"
+        android:gravity="center"
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:text="Cantidad entregada"
         android:layout_marginTop="15dp"
+        android:gravity="center"
         />
 
     <EditText
@@ -60,10 +63,11 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText_cantidad" />
+        android:id="@+id/editText_cantidad"
+        android:gravity="center"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Añadir"
         android:id="@+id/button_crear_visita_material"

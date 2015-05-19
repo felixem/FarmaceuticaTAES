@@ -40,8 +40,6 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
     TextView textView_gastos;
     Button button_ver_detalles;
 
-    private DatePicker date_picker;
-    private int year, month, day;
     private Button btn_reportar;
 
     @Override
@@ -91,17 +89,6 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                     }
                 });
 
-        //Introducimos fecha
-        //En principio inica la vista con la fecha del momento en que se instancia,
-        //pero la instanciamos para asegurarnos.
-        date_picker = (DatePicker) view.findViewById(R.id.date_picker);
-        final Calendar calendar = Calendar.getInstance();
-
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        date_picker.init(year, month, day, null);
         btn_reportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

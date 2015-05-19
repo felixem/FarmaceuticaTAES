@@ -7,16 +7,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import farmaceutica.taes.domainmodel.Model.Visita;
-import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
-import farmaceutica.taes.farmaceutica.R;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import farmaceutica.taes.domainmodel.Model.Medico;
+import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
+
 /**
  * Created by Javi on 12/05/2015.
  */
-public class AdaptadorListaVisitas extends BaseAdapter {
+public class AdaptadorListaMisVisitas extends BaseAdapter {
 
     private Context context;
     private List<Visita> visitas;
@@ -38,7 +39,7 @@ public class AdaptadorListaVisitas extends BaseAdapter {
         TextView txtView;
     }
 
-    public AdaptadorListaVisitas(Context context, List<Visita> datos){
+    public AdaptadorListaMisVisitas(Context context, List<Visita> datos){
         this.context=context;
         visitas=datos;
     }
@@ -64,9 +65,13 @@ public class AdaptadorListaVisitas extends BaseAdapter {
             holder= (ViewHolder)item.getTag();
         }
 
+        Visita visita = visitas.get(position);
+        Medico medico = visita.getMedico();
+        FachadaMedico.refresh(context,medico);
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
-        String date = sdf.format(visitas.get(position).getFechaVisita());
-        holder.txtView.setText("Visita del día " + date);
+        String date = sdf.format(visita.getFechaVisita());
+        holder.txtView.setText("Visita al médico "+medico.getNombre()+" "+medico.getApellidos()+" del día " + date);
 
         return item;
     }

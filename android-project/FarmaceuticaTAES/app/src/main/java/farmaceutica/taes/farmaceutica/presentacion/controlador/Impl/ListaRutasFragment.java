@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,7 +63,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
     private SpinnerOnChangeAdapter spinnerRutas, spinnerMedicos;
     private SpinnerOnChangeAdapter spinnerCitas;
-    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtDetalleCita;
+    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtDetalleCita, txt_hora_cita;
     private Spinner spinnerLugar;
     private EditText et_lugar, et_direccion, et_comentarios;
     private Button btn_guardar, btn_crear_ruta, button_borrar_ruta, btn_borrar_cita;
@@ -105,7 +107,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         txtComentarios = (TextView) view.findViewById(R.id.txt_comentarios);
         et_comentarios = (EditText) view.findViewById(R.id.edit_text_comentarios);
         txtDetalleCita = (TextView) view.findViewById(R.id.txt_titulo_cita);
-
+        txt_hora_cita = (TextView) view.findViewById(R.id.txt_hora_cita);
 
         spinnerRutas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_rutas);
         spinnerCitas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_citas);
@@ -718,7 +720,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtInicio.setVisibility(View.INVISIBLE);
             txtComentarios.setVisibility(View.INVISIBLE);
             btn_guardar.setVisibility(View.INVISIBLE);
-
+            btn_borrar_cita.setVisibility(View.INVISIBLE);
+            txt_hora_cita.setVisibility(View.INVISIBLE);
 
             txtDetalleCita.setVisibility(View.INVISIBLE);
 
@@ -741,6 +744,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtInicio.setVisibility(View.VISIBLE);
             txtComentarios.setVisibility(View.VISIBLE);
             btn_guardar.setVisibility(View.VISIBLE);
+            btn_borrar_cita.setVisibility(View.VISIBLE);
+            txt_hora_cita.setVisibility(View.VISIBLE);
 
             txtDetalleCita.setVisibility(View.VISIBLE);
 
@@ -754,6 +759,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
             spinnerMedicos.setVisibility(View.VISIBLE);
             spinnerLugar.setVisibility(View.VISIBLE);
+
         }
 
     }

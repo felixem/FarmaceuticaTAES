@@ -1,9 +1,13 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import farmaceutica.taes.domainmodel.Data.Dao.RutaDao;
 
@@ -28,6 +32,9 @@ public class Ruta
     //Campos relacionados
     public static final String VISITADOR_CAMPO = "visitador";
 
+    //Campos relacionales
+    public static final String CITAS_CAMPO = "fc_citas";
+
     //Atributos
     @DatabaseField(columnName = ID,generatedId = true, useGetSet = true)
     private int id;
@@ -41,6 +48,12 @@ public class Ruta
     //Relaciones
     @DatabaseField(columnName = VISITADOR, foreign = true, useGetSet = true, canBeNull = false)
     private Visitador visitador;
+
+    @ForeignCollectionField(eager=false, foreignFieldName = Cita.RUTA_CAMPO)
+    private ForeignCollection<Cita> fc_citas;
+    //Lista de citas wrap
+    private List<Cita> citas;
+
 
     public Ruta() {
     }
@@ -81,5 +94,16 @@ public class Ruta
 
     public void setVisitador(Visitador visitador) {
         this.visitador = visitador;
+    }
+
+    public List<Cita> getCitas() {
+        if(citas == null)
+            citas = new ArrayList<Cita>(fc_citas);
+
+        return citas;
+    }
+
+    public void setCitas(List<Cita> citas) {
+        this.citas = citas;
     }
 }

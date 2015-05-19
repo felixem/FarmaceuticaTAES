@@ -1,9 +1,11 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import java.util.List;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
 import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Medico;
+import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
@@ -25,6 +28,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaTrayectoria;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
@@ -42,13 +46,16 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
     Button button_ver_detalles_medico;
     Button button_ver_detalles_visita;
 
+    /***********************************************/
+    TextView txt_infoAdicional,txt_tipoCliente,txt_visitable,txt_email,txt_tlf,txt_apellidos,txt_nombre,txt_numeroCorrelativo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_clientes, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
 
         spinnerCentrosMedicos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_centros_medicos);
         spinnerMedicos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_medicos);
@@ -110,6 +117,54 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
         public void onNothingSelected(AdapterView<?> parent) {}
                 });
 
+        //Vincular al botón de crear productos ofertados la creación del dialog
+        button_ver_detalles_medico.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        verDetallesMedico();
+                    }
+                }
+        );
+    }
+
+    /** Dialog */
+    private void verDetallesMedico()
+    {
+        // custom dialog
+        final Dialog dialog = new Dialog(ClientesFragment.this.getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_detalles_medico);
+
+        //Recojo al medico
+        Medico mde = (Medico)spinnerMedicos.getSelectedItem();
+
+        //Cojo Controladores del Dialog
+        txt_infoAdicional = (TextView) dialog.findViewById(R.id.txt_infoAdicional);
+        txt_tipoCliente = (TextView) dialog.findViewById(R.id.txt_tipoCliente);
+        txt_visitable = (TextView) dialog.findViewById(R.id.txt_visitable);
+        txt_email = (TextView) dialog.findViewById(R.id.txt_email);
+        txt_tlf = (TextView) dialog.findViewById(R.id.txt_tlf);
+        txt_apellidos = (TextView) dialog.findViewById(R.id.txt_apellidos);
+        txt_nombre = (TextView) dialog.findViewById(R.id.txt_nombre);
+        txt_numeroCorrelativo = (TextView) dialog.findViewById(R.id.txt_numeroCorrelativo);
+
+        //Recojo datos
+        txt_numeroCorrelativo.setText(""+mde.getNumCorrelativo());
+        txt_nombre.setText(mde.getNombre());
+        txt_apellidos.setText(mde.getApellidos());
+        txt_tlf.setText(mde.getTelefono());
+        txt_email.setText(mde.getEmail());
+
+        if(mde.getVisitable())
+            txt_visitable.setText("Permite");
+        else
+            txt_visitable.setText("No Permite");
+
+        txt_tipoCliente.setText(mde.getTipoCliente().getNombre());
+        txt_infoAdicional.setText(mde.getInformacionAdicional());
+
+        dialog.show();
     }
 
     public static ClientesFragment newInstance() {

@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 32;
+    private static final int DATABASE_VERSION = 33;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -530,6 +530,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         GastoDao gastoDao = getGastoDao();
         Gasto gasto = new Gasto(33.9f, ConceptoGasto.COMIDA,reporte);
         gastoDao.create(gasto);
+
+        //Crear trayectoria
+        TrayectoriaDao trayectoriaDao = getTrayectoriaDao();
+        Calendar c2 = GregorianCalendar.getInstance();
+        c1.set(2010, Calendar.JANUARY, 14);  //January 30th 2000
+        Date fecha3 = c2.getTime();
+        Trayectoria trayect = new Trayectoria(fecha3,fecha3,medico2,prov);
+        trayectoriaDao.create(trayect);
 
     }
 

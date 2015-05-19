@@ -12,10 +12,11 @@
             android:id="@+id/txt_rutas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:textSize="20sp"
             android:layout_marginTop="15dp"
             android:text="@string/txt_select_ruta"
+            style="@style/TextViewTitleStyle"
             />
 
         <LinearLayout
@@ -38,7 +39,7 @@
             android:id="@+id/txt_citas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:textSize="20sp"
             android:layout_marginTop="15dp"
             android:text="@string/txt_lista_citas"
@@ -107,6 +108,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:textSize="26sp"
+
             android:textStyle="bold"
             android:text="Detalles de la cita:"
             android:layout_marginTop="30dp"/>
@@ -181,7 +183,7 @@
             android:id="@+id/txt_lugar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="Lugar de la cita:"
@@ -230,7 +232,7 @@
             android:id="@+id/txt_medico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="Médico:"
@@ -247,7 +249,7 @@
             android:id="@+id/txt_comentarios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/Black"
             android:text="Comentarios"
