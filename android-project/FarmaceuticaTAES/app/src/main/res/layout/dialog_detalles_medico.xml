@@ -10,11 +10,11 @@
     >
 
     <TextView
-        android:id="@+id/txt_titulo_crear_visita_producto"
+        android:id="@+id/txt_titulo_crear_visita_material"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Añadir producto ofertado"
+        android:text="Detalles Médico"
         android:textSize="25sp"/>
 
     <TextView
@@ -25,31 +25,35 @@
         android:layout_marginTop="15dp"
         />
 
-    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
-        android:id="@+id/spinner_productos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
-
     <TextView
-        android:id="@+id/txt_valoracion"
+        android:id="@+id/txt_materiales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valoración"
+        android:text="Selecciona un material"
         android:layout_marginTop="15dp"
         />
 
-    <RatingBar
+
+    <TextView
+        android:id="@+id/txt_cantidad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rating_bar_valoracion" />
+        android:text="Cantidad entregada"
+        android:layout_marginTop="15dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_cantidad" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Añadir"
-        android:id="@+id/button_crear_visita_producto"
+        android:id="@+id/button_crear_visita_material"
         android:layout_marginTop="15dp"/>
 
 

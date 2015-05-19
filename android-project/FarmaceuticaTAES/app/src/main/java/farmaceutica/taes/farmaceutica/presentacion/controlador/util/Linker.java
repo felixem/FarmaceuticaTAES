@@ -1,5 +1,7 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.util;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -16,6 +18,10 @@ public class Linker {
     private FragmentTransaction transaction;
     private int KDYNAMICZONE = R.id.fragment_dynamic;
 
+    public static String KDAYMONTH = "KDAYMONTH";
+    public static String KMONTH = "KMONTH";
+    public static String KYEAR = "KYEAR";
+
     public Linker(FragmentManager fm ,boolean cacheable){
         transaction = fm.beginTransaction();
         //transaction.replace(R.id.fragment_dynamic, );
@@ -26,7 +32,8 @@ public class Linker {
     }
 
     public void CrearGasto(){
-        transaction.replace(KDYNAMICZONE, new CrearGastosFragment());
+        Fragment fragment = new CrearGastosFragment();
+        transaction.replace(KDYNAMICZONE, fragment);
         transaction.commit();
     }
 
