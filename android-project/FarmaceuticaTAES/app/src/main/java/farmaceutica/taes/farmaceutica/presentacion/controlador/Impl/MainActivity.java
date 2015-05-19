@@ -67,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = ClientesFragment.newInstance();
                     break;
                 case 2:
-                    fragment = Ejemplo3Fragment.newInstance();
+                    fragment =  MainListaVisitas.newInstance();
                     break;
                 case 3:
                     fragment = ListaRutasFragment.newInstance();

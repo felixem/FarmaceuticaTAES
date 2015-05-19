@@ -5,7 +5,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.MainAbstractDynam
 /**
  * Created by Javi on 19/05/2015.
  */
-class MainListaVisitas extends MainAbstractDynamicFragment {
+public class MainListaVisitas extends MainAbstractDynamicFragment {
     @Override
     public void onMainLinkFragment() {
         super.linker.ListaVisitas();

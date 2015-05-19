@@ -41,4 +41,20 @@ public class Linker {
         transaction.replace(KDYNAMICZONE, new MisGastosFragment());
         transaction.commit();
     }
+
+    public void ListaVisitas(){
+        transaction.replace(KDYNAMICZONE, new ListaVisitas());
+        transaction.commit();
+    }
+/*
+    public void VerDetalles(int idVisita){
+        Bundle bundle = new Bundle();
+        bundle.putInt(Visita.ID, idVisita);
+        Activity fragment = new VerDetalles;
+        fragment.setArguments(bundle);
+
+        transaction.replace(KDYNAMICZONE, fragment);
+        transaction.commit();
+    }
+    */
 }
