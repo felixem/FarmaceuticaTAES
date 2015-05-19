@@ -71,6 +71,28 @@ public class MaterialPromocionalRepository {
         return 0;
     }
 
+    public int refresh(MaterialPromocional data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public MaterialPromocional getMaterialById(int id)
+    {
+        try {
+            return mainDao.queryForId(id);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<MaterialPromocional> getAll()
     {
         try {
@@ -95,6 +117,21 @@ public class MaterialPromocionalRepository {
         }
         catch(SQLException e)
         {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<MaterialPromocional> getAllByProducto(Producto prod)
+    {
+        try {
+
+            QueryBuilder<MaterialPromocional,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(MaterialPromocional.PRODUCTO, prod.getCodNacional());
+            builder.orderBy(MaterialPromocional.NOMBRE,true);
+            return builder.query();
+
+        } catch (SQLException e) {
             // TODO: Exception Handling
             e.printStackTrace();
         }

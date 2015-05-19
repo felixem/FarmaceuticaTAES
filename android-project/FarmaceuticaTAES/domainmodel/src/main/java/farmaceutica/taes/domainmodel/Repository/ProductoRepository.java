@@ -9,11 +9,14 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Data.Dao.MedicoDao;
 import farmaceutica.taes.domainmodel.Data.Dao.ProductoDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaProductoDao;
 import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.Visita;
+
+import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
 import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 
 /**
@@ -22,7 +25,9 @@ import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 
 public class ProductoRepository {
     private DatabaseHelper db;
-    ProductoDao mainDao;
+
+    private ProductoDao mainDao;
+    private VisitaProductoDao visitaProductoDao;
 
     public ProductoRepository(Context ctx)
     {
@@ -31,6 +36,7 @@ public class ProductoRepository {
             db = dbManager.getHelper(ctx);
 
             mainDao = db.getProductoDao();
+            visitaProductoDao = db.getVisitaProductoDao();
 
         } catch (SQLException e) {
             // TODO: Exception Handling
@@ -70,6 +76,17 @@ public class ProductoRepository {
         return 0;
     }
 
+    public int refresh(Producto data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public List<Producto> getAll()
     {
         try {
@@ -80,8 +97,32 @@ public class ProductoRepository {
         }
         return null;
     }
+    public Producto getProductoById(int id){
 
+        try{
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(Producto.ID, id);
+            builder.orderBy(Producto.NOMBRE,true);
+            return builder.query().get(0);
+        }catch(SQLException e){
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public long getCantidadValoracionProducto(int idProducto, ValoracionProducto valoracion) throws SQLException {
 
+        try{
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(Producto.ID, idProducto);
+            QueryBuilder<VisitaProducto,Integer> builderVisita = visitaProductoDao.queryBuilder();
+            builderVisita.where().eq(VisitaProducto.VALORACION, valoracion);
+            builder.join(builderVisita);
+            return builder.countOf();
 
-
+        }catch(Exception e){
+            // TODO: Exception Handling
+            throw e;
+        }
+    }
 }

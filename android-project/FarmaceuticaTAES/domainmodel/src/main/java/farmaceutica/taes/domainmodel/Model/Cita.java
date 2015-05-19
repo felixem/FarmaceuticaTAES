@@ -27,6 +27,10 @@ public class Cita {
 
     //Relaciones
     public static final String MEDICO = "fk_medico";
+    public static final String RUTA = "fk_ruta";
+
+    //Campos relacionados
+    public static final String RUTA_CAMPO="ruta";
 
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
@@ -46,6 +50,7 @@ public class Cita {
 
     @DatabaseField(columnName = HORAINICIO, useGetSet = true, canBeNull = false)
     private Integer horaInicio;
+
     @DatabaseField(columnName = MINUTOINICIO, useGetSet = true, canBeNull = false)
     private Integer minutoInicio;
 
@@ -59,10 +64,14 @@ public class Cita {
     @DatabaseField(columnName = MEDICO, foreign = true, useGetSet = true, canBeNull = false)
     private Medico medico;
 
+    @DatabaseField(columnName = RUTA, foreign = true, useGetSet = true, canBeNull = false)
+    private Ruta ruta;
+
+
     public Cita() {
     }
 
-    public Cita(String lugar, LugarVisita tipoLugar, String direccion, Integer horaInicio, Integer minutoInicio, Integer horaFin, Integer minutoFin, Medico medico) {
+    public Cita(String lugar, LugarVisita tipoLugar, String direccion, Integer horaInicio, Integer minutoInicio, Integer horaFin, Integer minutoFin, Medico medico, Ruta ruta) {
         this.lugar = lugar;
         this.tipoLugar = tipoLugar;
         this.direccion = direccion;
@@ -71,6 +80,7 @@ public class Cita {
         this.horaFin = horaFin;
         this.minutoFin = minutoFin;
         this.medico = medico;
+        this.ruta = ruta;
     }
 
     public int getId() {
@@ -153,6 +163,10 @@ public class Cita {
         this.medico = medico;
     }
 
+    public Ruta getRuta() {return ruta;}
+
+    public void setRuta(Ruta ruta) { this.ruta = ruta;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -168,5 +182,22 @@ public class Cita {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    public void setTipoLugar(long lugar) {
+        switch ((int)lugar) {
+            case 0:
+                tipoLugar=LugarVisita.HOSPITAL;
+                break;
+            case 1:
+                tipoLugar = LugarVisita.CONSULTA;
+                break;
+            case 2:
+                tipoLugar = LugarVisita.CONGRESO;
+                break;
+            default:
+                tipoLugar = LugarVisita.OTRO;
+
+        }
     }
 }

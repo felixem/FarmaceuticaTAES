@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
 
 import farmaceutica.taes.farmaceutica.R;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.util.IniciarAsyncDB;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.IniciarAsyncDB;
 
 /**
  * Created by john on 7/05/15.
@@ -27,19 +27,19 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        IniciarAsyncDB.iniciarDB(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
         ViewPager vp = (ViewPager) findViewById(R.id.vp_main);
         fpa = new MainPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(fpa);
-
-        IniciarAsyncDB.iniciarDB(this);
     }
 
     class MainPagerAdapter extends FragmentPagerAdapter {
 
-        private String[] titles = {"Productos", "Clientes", "Valoracion", "Rutas", "Visitas a Medicos"};
+        private String[] titles = {"Productos", "Clientes", "Valoracion", "Rutas", "Mis Gastos", "Realizar Foto", "Registrar Visita"};
 
         public MainPagerAdapter(FragmentManager fm){
             super(fm);
@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return titles.length;
         }
 
         @Override
@@ -61,21 +61,28 @@ public class MainActivity extends ActionBarActivity {
             switch (position) {
                 default:
                 case 0:
-                    fragment = EjemploFragment1.newInstance();
+                    fragment = ProductosFragment.newInstance();
                     break;
                 case 1:
-                    fragment = EjemploFragment2.newInstance();
+                    fragment = ClientesFragment.newInstance();
                     break;
                 case 2:
-                    fragment = EjemploFragment3.newInstance();
+                    fragment = Ejemplo3Fragment.newInstance();
                     break;
                 case 3:
-                    fragment = EjemploFragment4.newInstance();
+                    fragment = ListaRutasFragment.newInstance();
                     break;
                 case 4:
-                    fragment = VisitasFragment.newInstance();
+                    fragment =  MainGastosDynamicFragment.newInstance();
+                    break;
+                case 5:
+                    fragment = RealizarFotoFragment.newInstance();
+                    break;
+                case 6:
+                    fragment = RegistrarVisitaFragment.newInstance();
                     break;
             }
+
             return fragment;
         }
     }

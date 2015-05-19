@@ -19,6 +19,10 @@ public class VisitaMaterial {
     public static final String ID = "_id";
     public static final String CANTIDAD = "cantidad";
 
+    //Campos relacionados
+    public static final String VISITA_CAMPO="visita";
+    public static final String MATERIALPROMOCIONAL_CAMPO="materialPromocional";
+
     //Relaciones
     public static final String VISITA ="fk_visita";
     public static final String MATERIALPROMOCIONAL ="fk_material";

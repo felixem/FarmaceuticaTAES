@@ -16,6 +16,11 @@ public class Gasto
     //Tabla
     public static final String TABLE = "gasto";
 
+    //Carpeta de las imagénes y nombre provisional
+    public static final String DIRECTORIO= "Gastos";
+    public static final String IMGPROVISIONAL= "prov.jpg";
+    public static final String EXT_JPG =".jpg";
+
     //Campos
     public static final String ID = "_id";
     public static final String COSTE = "coste";
@@ -35,8 +40,8 @@ public class Gasto
     @DatabaseField(columnName = COSTE, useGetSet = true, canBeNull = false)
     private float coste;
 
-    @DatabaseField(columnName = IMGFACTURA, dataType = DataType.BYTE_ARRAY, useGetSet = true)
-    private byte[] imgFactura;
+    @DatabaseField(columnName = IMGFACTURA, useGetSet = true)
+    private String imgFactura;
 
     @DatabaseField(columnName = CONCEPTOGASTO, useGetSet = true, canBeNull = false)
     private ConceptoGasto conceptoGasto;
@@ -70,11 +75,11 @@ public class Gasto
         this.coste = coste;
     }
 
-    public byte[] getImgFactura() {
+    public String getImgFactura() {
         return imgFactura;
     }
 
-    public void setImgFactura(byte[] imgFactura) {
+    public void setImgFactura(String imgFactura) {
         this.imgFactura = imgFactura;
     }
 

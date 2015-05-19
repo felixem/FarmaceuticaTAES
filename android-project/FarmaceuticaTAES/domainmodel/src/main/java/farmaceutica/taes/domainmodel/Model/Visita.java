@@ -1,9 +1,13 @@
 package farmaceutica.taes.domainmodel.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import farmaceutica.taes.domainmodel.Data.Dao.VisitaDao;
 
@@ -27,6 +31,10 @@ public class Visita {
     //Relaciones
     public static final String VISITADOR = "fk_visitador";
     public static final String MEDICO = "fk_medico";
+
+    //Foreign collections
+    public static final String FC_VISITAMATERIAL="fc_materialesEntregados";
+    public static final String FC_VISITAPRODUCTO="fc_productosOfertados";
 
     //Campos relacionados
     public static final String VISITADOR_CAMPO = "visitador";
@@ -61,6 +69,16 @@ public class Visita {
 
     @DatabaseField(columnName = MEDICO, foreign = true, useGetSet = true, canBeNull = false)
     private Medico medico;
+
+    @ForeignCollectionField(eager = false, foreignFieldName = VisitaProducto.VISITA_CAMPO)
+    private ForeignCollection<VisitaProducto> fc_productosOfertados;
+    //Lista que encapsula los accesos a los productos ofertados
+    private List<VisitaProducto> productosOfertados;
+
+    @ForeignCollectionField(eager = false, foreignFieldName = VisitaMaterial.VISITA_CAMPO)
+    private ForeignCollection<VisitaMaterial> fc_materialesEntregados;
+    //Lista que encapsula los accesos a materiales entregados
+    private List<VisitaMaterial> materialesEntregados;
 
 
     public Visita() {
@@ -147,6 +165,26 @@ public class Visita {
 
     public void setMedico(Medico medico) {
         this.medico = medico;
+    }
+
+    public List<VisitaProducto> getProductosOfertados() {
+        if(productosOfertados == null)
+            productosOfertados = new ArrayList(fc_productosOfertados);
+        return productosOfertados;
+    }
+
+    public void setProductosOfertados(List<VisitaProducto> productosOfertados) {
+        this.productosOfertados = productosOfertados;
+    }
+
+    public List<VisitaMaterial> getMaterialesEntregados() {
+        if(materialesEntregados == null)
+            materialesEntregados = new ArrayList(fc_materialesEntregados);
+        return materialesEntregados;
+    }
+
+    public void setMaterialesEntregados(List<VisitaMaterial> materialesEntregados) {
+        this.materialesEntregados = materialesEntregados;
     }
 
     @Override

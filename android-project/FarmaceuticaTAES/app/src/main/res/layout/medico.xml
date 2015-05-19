@@ -13,13 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre Apellidos"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/textView_especialidadMedico"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Especialidad"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </LinearLayout>

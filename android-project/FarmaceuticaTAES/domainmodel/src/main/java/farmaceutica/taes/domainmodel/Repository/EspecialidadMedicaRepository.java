@@ -66,6 +66,28 @@ public class EspecialidadMedicaRepository {
         return 0;
     }
 
+    public int refresh(EspecialidadMedica data)
+    {
+        try {
+            return mainDao.refresh(data);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public EspecialidadMedica getEspecialidadMedicaById(int id)
+    {
+        try {
+            return mainDao.queryForId(id);
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<EspecialidadMedica> getAll()
     {
         try {

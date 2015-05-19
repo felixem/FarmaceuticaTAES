@@ -17,4 +17,13 @@
 
         ]]>
     </string>
+
+
+    <string name="title_activity_login">Inicio de sesión</string>
+    <string name="hint_id_login">Código de usuario o email</string>
+    <string name="hint_id_password">Contraseña</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="btn_cancel">Salir</string>
+    <string name="txt_select_ruta">Selecciona una ruta</string>
+    <string name="txt_lista_citas">Selecciona una cita</string>
 </resources>

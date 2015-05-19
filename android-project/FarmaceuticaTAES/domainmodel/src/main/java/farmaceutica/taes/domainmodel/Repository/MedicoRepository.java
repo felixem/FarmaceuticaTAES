@@ -1,6 +1,7 @@
 package farmaceutica.taes.domainmodel.Repository;
 
 import android.content.Context;
+import android.hardware.Camera;
 
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -120,9 +121,32 @@ public class MedicoRepository {
         try {
 
             QueryBuilder<Medico,Integer> builder = mainDao.queryBuilder();
-            builder.join(db.getMedicoLugarTrabajoDao().queryBuilder());
-            builder.join(db.getCentroMedicoDao().queryBuilder());
-            builder.where().eq(MedicoLugarTrabajo.CENTROMEDICO, centroMedico.getId());
+            QueryBuilder<MedicoLugarTrabajo,Integer> builderRelacion = db.getMedicoLugarTrabajoDao().queryBuilder();
+            builderRelacion.where().eq(MedicoLugarTrabajo.CENTROMEDICO, centroMedico.getId());
+            builder.join(builderRelacion);
+            builder.orderBy(Medico.APELLIDOS,true);
+            return builder.query();
+
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Medico> getAllByAreaHospitalaria(AreaHospitalaria area)
+    {
+        try {
+
+            QueryBuilder<Medico,Integer> builder = mainDao.queryBuilder();
+            QueryBuilder<MedicoLugarTrabajo,Integer> builderLugarTrabajo = db.getMedicoLugarTrabajoDao().queryBuilder();
+            QueryBuilder<CentroMedico,Integer> builderCentroMedico = db.getCentroMedicoDao().queryBuilder();
+
+            builderCentroMedico.where().eq(CentroMedico.AREAHOSPITALARIA, area.getCodPostal());
+            builderLugarTrabajo.join(builderCentroMedico);
+
+            builder.join(builderLugarTrabajo);
+
             builder.orderBy(Medico.APELLIDOS,true);
             return builder.query();
 

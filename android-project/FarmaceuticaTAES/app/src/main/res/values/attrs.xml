@@ -10,6 +10,8 @@
 
     </declare-styleable>
 
+    <dimen name="box_diameter">75dip</dimen>
+
     <!-- Borde de EditText crear base de datos Background general-->
     <dimen name="radius1">10dip</dimen>
 

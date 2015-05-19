@@ -5,7 +5,9 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import farmaceutica.taes.domainmodel.Data.Dao.ReporteGastosDao;
 
@@ -29,6 +31,9 @@ public class ReporteGastos
     //Campos relacionados
     public static final String VISITADOR_CAMPO="visitador";
 
+    //Campos relacionales
+    public static final String GASTOS_CAMPO="fc_gastos";
+
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
     private int id;
@@ -45,7 +50,10 @@ public class ReporteGastos
     private Visitador visitador;
 
     @ForeignCollectionField(eager = false , foreignFieldName = Gasto.REPORTEGASTOS_CAMPO)
-    ForeignCollection<Gasto> gastos;
+    private ForeignCollection<Gasto> fc_gastos;
+    //Lista de gastos wrap
+    private List<Gasto> gastos;
+
 
     public ReporteGastos() {
     }
@@ -91,11 +99,14 @@ public class ReporteGastos
         this.visitador = visitador;
     }
 
-    public ForeignCollection<Gasto> getGastos() {
+    public List<Gasto> getGastos() {
+        if(gastos == null)
+            gastos = new ArrayList<Gasto>(fc_gastos);
+
         return gastos;
     }
 
-    public void setGastos(ForeignCollection<Gasto> gastos) {
+    public void setGastos(List<Gasto> gastos) {
         this.gastos = gastos;
     }
 

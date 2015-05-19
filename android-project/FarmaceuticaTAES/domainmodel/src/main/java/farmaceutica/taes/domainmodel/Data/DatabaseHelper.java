@@ -9,6 +9,11 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import farmaceutica.taes.domainmodel.Data.Dao.AmbulatorioDao;
 import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
@@ -41,10 +46,12 @@ import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Cita;
 import farmaceutica.taes.domainmodel.Model.CitaVisita;
 import farmaceutica.taes.domainmodel.Model.ClinicaPrivada;
+import farmaceutica.taes.domainmodel.Model.ConceptoGasto;
 import farmaceutica.taes.domainmodel.Model.DiaVisitable;
 import farmaceutica.taes.domainmodel.Model.EspecialidadMedica;
 import farmaceutica.taes.domainmodel.Model.Gasto;
 import farmaceutica.taes.domainmodel.Model.Hospital;
+import farmaceutica.taes.domainmodel.Model.LugarVisita;
 import farmaceutica.taes.domainmodel.Model.MaterialPromocional;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.MedicoLugarTrabajo;
@@ -52,6 +59,8 @@ import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.Provincia;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.domainmodel.Model.Ruta;
+import farmaceutica.taes.domainmodel.Model.TipoCliente;
+import farmaceutica.taes.domainmodel.Model.TipoMaterial;
 import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.VentaArea;
 import farmaceutica.taes.domainmodel.Model.VentaAreaFecha;
@@ -69,7 +78,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // name of the database file for your application -- change to something appropriate for your app
     private static final String DATABASE_NAME = "localdb.db";
     // any time you make changes to your database objects, you may have to increase the database version
-    private static final int DATABASE_VERSION = 7;
+
+
+    private static final int DATABASE_VERSION = 33;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -384,6 +395,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //Insertar datos en la bd
     private void inicializarDatos() throws SQLException
     {
+        //Crear visitador
+        VisitadorDao visitadorDao = getVisitadorDao();
+        Visitador visitador = new Visitador(1,"pass","Elvis","Sitante","613199111","elvis@sitante.es");
+        visitadorDao.create(visitador);
+
         //Hospitales
         HospitalDao hospitalDao = getHospitalDao();
         Hospital hospital = new Hospital("Hospital General de Alicante", "Calle del Hospital, 5");
@@ -419,13 +435,109 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         //Productos
         ProductoDao productoDao = getProductoDao();
-        Producto prod = new Producto(69,"Viagra","Ideal para venirse arriba");
+        int prod1 = 69;
+        Producto prod = new Producto(prod1,"Viagra","Ideal para venirse arriba");
         productoDao.create(prod);
 
-        prod.setCodNacional(112);
+        int prod2 = 112;
+        prod.setCodNacional(prod2);
         prod.setNombre("Vaginesil");
         prod.setDescripcion("Por si te pica... ya sabes... ahí");
         productoDao.create(prod);
+
+        //Material promocional
+        MaterialPromocionalDao materialDao = getMaterialPromocionalDao();
+        prod.setCodNacional(prod1);
+        MaterialPromocional material = new MaterialPromocional("Boli bic", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material);
+
+        material.setNombre("Folleto de mano");
+        material.setTipoMaterial(TipoMaterial.CATALOGO);
+        materialDao.create(material);
+
+        //Crear médicos
+        MedicoDao medicoDao = getMedicoDao();
+        Medico medico1 = new Medico(32223,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
+        medicoDao.create(medico1);
+        int med1 = medico1.getId();
+
+        Medico medico2 = new Medico(10111, "Agapito", "Di Sousa", true, TipoCliente.B, prov,prov);
+        medicoDao.create(medico2);
+        int med2 = medico2.getId();
+
+        //Crear vinculación entre médico y lugar de trabajo
+        MedicoLugarTrabajoDao medicoLugarTrabajoDao = getMedicoLugarTrabajoDao();
+        MedicoLugarTrabajo medicoLugarTrabajo = new MedicoLugarTrabajo(medico1,hospital);
+        medicoLugarTrabajoDao.create(medicoLugarTrabajo);
+
+
+        MedicoLugarTrabajo medicoLugarTrabajo2 = new MedicoLugarTrabajo(medico2,ambulatorio);
+        medicoLugarTrabajoDao.create(medicoLugarTrabajo2);
+
+
+
+
+        //Crear visitas
+        VisitaDao visitaDao = getVisitaDao();
+        Visita visita = new Visita(new Date(),new Date(), 5, LugarVisita.HOSPITAL, true, visitador, medico2);
+        visitaDao.create(visita);
+
+
+        //Crear rutas
+        RutaDao rutaDao = getRutaDao();
+        Date fecha1 = new Date();
+        Ruta ruta1 = new Ruta(fecha1, true, visitador);
+        rutaDao.create(ruta1);
+
+
+        Calendar c1 = GregorianCalendar.getInstance();
+        c1.set(2010, Calendar.JANUARY, 14);  //January 30th 2000
+        Date fecha2 = c1.getTime();
+        Ruta ruta2 = new Ruta(fecha2, true, visitador);
+        rutaDao.create(ruta2);
+
+
+        //Crear cita
+        CitaDao citaDao = getCitaDao();
+        Cita cita1 = new Cita("Hospital de Alicante", LugarVisita.HOSPITAL, "Av. Pintor Baeza, 12, Alicante", 10, 25, 11, 05, medico1,ruta1);
+        citaDao.create(cita1);
+
+
+        Cita cita2 = new Cita("Hospital de San Juan", LugarVisita.HOSPITAL, "Ctra. Nnal. 332 Alacant-Valencia, s/n, 03550 San Juan de Alicante", 12, 45, 13, 20, medico2,ruta1);
+        citaDao.create(cita2);
+
+
+        //Crear reporte de gastos
+        ReporteGastosDao reporteGastosDao = getReporteGastosDao();
+        ReporteGastos reporte = new ReporteGastos(new Date(),false,visitador);
+        reporteGastosDao.create(reporte);
+        int reporte1 = reporte.getId();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        String dateInString = "31-08-1982 10:20:56";
+        Date date = null;
+        try {
+            date = sdf.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        reporte.setFecha(date);
+        reporteGastosDao.create(reporte);
+        int reporte2 = reporte.getId();
+
+        //Crear gastos
+        GastoDao gastoDao = getGastoDao();
+        Gasto gasto = new Gasto(33.9f, ConceptoGasto.COMIDA,reporte);
+        gastoDao.create(gasto);
+
+        //Crear trayectoria
+        TrayectoriaDao trayectoriaDao = getTrayectoriaDao();
+        Calendar c2 = GregorianCalendar.getInstance();
+        c1.set(2010, Calendar.JANUARY, 14);  //January 30th 2000
+        Date fecha3 = c2.getTime();
+        Trayectoria trayect = new Trayectoria(fecha3,fecha3,medico2,prov);
+        trayectoriaDao.create(trayect);
 
     }
 
