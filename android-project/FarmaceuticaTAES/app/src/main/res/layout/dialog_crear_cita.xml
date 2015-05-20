@@ -16,9 +16,15 @@
         android:id="@+id/txt_titulo_crear_cita"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text=""
-        android:textSize="25sp"/>
+        android:text="Crear Cita"
+        style="@style/TextViewTitleStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
 
     <LinearLayout
@@ -29,11 +35,11 @@
             android:id="@+id/txt_hora_inicio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_weight="0.5"
-            android:text="Inicio de la cita:"
+            android:text="Inicio"
             android:textAlignment="center"
             android:layout_marginTop="15dp"/>
 
@@ -43,12 +49,13 @@
             android:id="@+id/txt_hora_fin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="20sp"
             android:layout_weight="0.5"
-            android:text="Fin de la cita:"
+            android:layout_marginRight="12dp"
+            android:text="Fin"
             android:layout_marginTop="15dp"/>
 
     </LinearLayout>
@@ -88,18 +95,15 @@
         android:layout_marginTop="15dp"/>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
+
+
+        <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
             android:id="@+id/spinner_tipo_lugar_form"
-            ></Spinner>
+            style="@style/SpinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
 
         <EditText
@@ -108,12 +112,9 @@
             android:inputType="text"
             android:ems="10"
             android:id="@+id/edit_text_lugar_form"
-            android:layout_marginLeft="25dp"
             android:textColor="@color/Black"
             android:hint="Lugar"
             />
-
-    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
@@ -170,7 +171,7 @@
         android:text="Añadir"
         android:id="@+id/button_crear_cita_form"
         android:layout_marginTop="15dp"/>
-
+    </LinearLayout>
 
 </LinearLayout>
 </ScrollView>
