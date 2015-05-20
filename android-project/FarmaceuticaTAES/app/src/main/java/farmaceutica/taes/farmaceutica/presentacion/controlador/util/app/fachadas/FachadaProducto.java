@@ -6,6 +6,7 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
+import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.ProductoRepository;
 
 /**
@@ -47,4 +48,6 @@ public class FachadaProducto {
         ProductoRepository repository= new ProductoRepository(context);
         return repository.refresh(producto);
     }
+
+
 }

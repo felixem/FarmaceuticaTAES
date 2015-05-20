@@ -27,19 +27,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Selecciona el médico"
+        android:text="Nombre del médico"
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
-    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
-        android:id="@+id/spinner_medicos"
+
+    <TextView
+        android:id="@+id/txt_medico_dato"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
         style="@style/SpinnerStyle"
-        android:layout_height="wrap_content">
-    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/txt_lugar_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Lugar de la visita"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_lugar_visita_dato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -47,12 +61,6 @@
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
-    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
-        android:id="@+id/spinner_lugar_visita"
-        android:layout_width="match_parent"
-        style="@style/SpinnerStyle"
-        android:layout_height="wrap_content">
-    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
     <TextView
         android:id="@+id/txt_fecha_visita"
@@ -60,13 +68,38 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20sp"
-        android:text="Fecha de la Visita"
-        android:layout_marginTop="15dp"/>
+        android:text="Fecha de la visita"
+        android:layout_marginTop="15dp"
+
+        />
 
     <DatePicker
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/date_picker_fecha_visita" />
+        android:id="@+id/date_picker_fecha_visita"
+        android:clickable="false"
+        android:maxDate="0"
+        />
+
+
+    <TextView
+        android:id="@+id/txt_hora_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Hora de inicio"
+        android:layout_marginTop="15dp"/>
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hora_inicio"
+        >
+
+        </TimePicker>
+
+
 
         <TextView
         android:id="@+id/txt_duracion"
@@ -78,18 +111,20 @@
         android:layout_marginTop="15dp"/>
 
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:gravity="center"
         android:ems="10"
-        android:id="@+id/edit_text_duracion"/>
+        android:id="@+id/txt_duracion_datos"/>
 
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Acompañado"
+        android:textColor="@color/Black"
+        android:clickable="false"
         android:id="@+id/checkBox_acompanyado" />
 
     <TextView
@@ -101,13 +136,13 @@
         android:text="Observaciones"
         android:layout_marginTop="15dp"/>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/edit_text_observaciones" />
+        android:id="@+id/txt_observaciones_dato" />
 
     <TextView
         android:id="@+id/txt_productos_ofertados"
@@ -118,19 +153,19 @@
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
-    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
-        android:id="@+id/spinner_productos_ofertados"
-        android:layout_width="match_parent"
-        style="@style/SpinnerStyle"
-        android:layout_height="wrap_content">
-    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Añadir producto"
-        android:id="@+id/button_crear_visita_producto"
-        android:layout_marginTop="15dp"/>
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id = "@+id/list_productos"
+       >
+
+
+
+       </ListView>
+
+
+
 
     <TextView
         android:id="@+id/txt_materiales_entregados"
@@ -141,25 +176,23 @@
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
-    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
-        android:id="@+id/spinner_materiales_entregados"
+
+    <ListView
         android:layout_width="match_parent"
-        style="@style/SpinnerStyle"
-        android:layout_height="wrap_content">
-    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+        android:layout_height="wrap_content"
+        android:id="@+id/list_materiales">
+
+
+
+        </ListView>
+
+
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Añadir material"
-        android:id="@+id/button_crear_material_entregado"
-        android:layout_marginTop="15dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrar Visita"
-        android:id="@+id/button_crear_visita"
+        android:text="Volver atrás"
+        android:id="@+id/button_volver_atras"
         android:layout_marginTop="15dp"/>
 </LinearLayout>
 </LinearLayout>

@@ -7,12 +7,12 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.MainAbstractDynam
  */
 public class MainClienteDynamicFragment extends MainAbstractDynamicFragment {
 
+
     @Override
     public void onMainLinkFragment() {
         super.linker.VerCliente();    }
 
     public static MainClienteDynamicFragment newInstance() {
-
         // Instantiate a new fragment
         MainClienteDynamicFragment fragment = new MainClienteDynamicFragment();
 
