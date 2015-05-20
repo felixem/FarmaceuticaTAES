@@ -18,8 +18,16 @@ public class FachadaProducto {
         ProductoRepository repository= new ProductoRepository(context);
 
         return repository.getAll();
+    }
+
+    public List<Producto> obtenerProductosNotIn(Context context, List<Integer> ids){
+
+        ProductoRepository repository= new ProductoRepository(context);
+
+        return repository.getAllNotIn(ids);
 
     }
+
     public Producto obtenerProducto(Context context,int id){
         ProductoRepository repository= new ProductoRepository(context);
 

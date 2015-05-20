@@ -97,6 +97,20 @@ public class ProductoRepository {
         }
         return null;
     }
+
+    public List<Producto> getAllNotIn(List<Integer> idProductos)
+    {
+        try {
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.where().notIn(Producto.ID,idProductos);
+            return builder.query();
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Producto getProductoById(int id){
 
         try{

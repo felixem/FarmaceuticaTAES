@@ -71,7 +71,7 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
         spinnerMedicos.setOnSpinnerListener(this);
         spinnerVisitas.setOnSpinnerListener(this);
 
-        //Provisionalmente creado un área hospitalaria que será la del visitador actual
+        //Obtener al area hospitalaria del visitador
         AreaHospitalaria area = new AreaHospitalaria();
         area.setCodPostal(3009);
 
