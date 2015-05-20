@@ -17,6 +17,13 @@
         android:text="Añadir material entregado"
         style="@style/TextViewTitleStyle"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/txt_productos"
         android:layout_width="match_parent"
@@ -73,5 +80,5 @@
         android:id="@+id/button_crear_visita_material"
         android:layout_marginTop="15dp"/>
 
-
+    </LinearLayout>
 </LinearLayout>

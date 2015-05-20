@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         style="@style/TextViewTitleStyle"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -96,5 +103,5 @@
         android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal" />
 
-
+</LinearLayout>
 </LinearLayout>

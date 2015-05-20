@@ -12,6 +12,14 @@
         android:layout_height="wrap_content"
         style="@style/TextViewTitleStyle"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/txt_seleccioneProductos"
         android:text="Seleccione Visita"
@@ -27,5 +35,5 @@
         android:id="@+id/ListView_listaVisitas"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"/>
-
+</LinearLayout>
 </LinearLayout>

@@ -15,6 +15,13 @@
         android:text=""
         style="@style/TextViewTitleStyle"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/txt_medico"
         android:layout_width="match_parent"
@@ -154,6 +161,6 @@
         android:text="Registrar Visita"
         android:id="@+id/button_crear_visita"
         android:layout_marginTop="15dp"/>
-
+</LinearLayout>
 </LinearLayout>
 </ScrollView>

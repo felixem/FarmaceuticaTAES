@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextViewTitleStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/txt_visita_elegida"
         android:text="Seleccione Visita"
@@ -27,3 +35,4 @@
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
+    </LinearLayout>

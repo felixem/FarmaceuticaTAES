@@ -13,6 +13,12 @@
         android:textColor="@color/MidnightBlue"
         android:background="@drawable/tile"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
     <EditText
         android:id="@+id/username"
         android:inputType="textEmailAddress"
@@ -68,5 +74,5 @@
         android:text="INICIO RAPIDO"
         android:id="@+id/btn_inicio_rapido" />
 
-
+</LinearLayout>
 </LinearLayout>
