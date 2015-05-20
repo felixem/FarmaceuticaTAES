@@ -362,7 +362,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                         CharSequence text = "Se ha modificado la cita";
                         int duration = Toast.LENGTH_SHORT;
 
-
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
                     }
@@ -377,6 +377,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                     public void onItemSelected(AdapterView<?> parent,
                                                android.view.View v, int position, long id) {
 
+                        scroll.scrollTo(0,0);
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
                         //Meter en la lista las citas de la ruta
                         Ruta ruta = (Ruta)parent.getItemAtPosition(position);
                         List<Cita> citas = null;
@@ -401,6 +403,9 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                         }
 
 
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
+                        scroll.scrollTo(0,0);
+                        scroll.setEnabled(false);
                     }
 
                     @Override
@@ -415,6 +420,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                     public void onItemSelected(AdapterView<?> parent,
                                                android.view.View v, int position, long id) {
 
+                        scroll.setEnabled(true);
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
 
                         List<Medico> medicos = FachadaMedico.obtenerMedicos(getActivity());
 
@@ -426,6 +433,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
                         citaDatos((Cita) parent.getItemAtPosition(position));
 
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
                     }
 
                     @Override
