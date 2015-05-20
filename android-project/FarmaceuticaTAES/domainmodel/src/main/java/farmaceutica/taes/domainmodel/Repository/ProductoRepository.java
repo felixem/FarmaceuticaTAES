@@ -90,7 +90,27 @@ public class ProductoRepository {
     public List<Producto> getAll()
     {
         try {
-            return mainDao.queryForAll();
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.orderBy(Producto.NOMBRE,true);
+            return builder.query();
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Producto> getAllByVisita(Visita visita)
+    {
+        try {
+
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            QueryBuilder<VisitaProducto, Integer> builderVisitaProducto = visitaProductoDao.queryBuilder();
+            builderVisitaProducto.where().eq(VisitaProducto.VISITA,visita.getId());
+            builder.join(builderVisitaProducto);
+            builder.orderBy(Producto.NOMBRE,true);
+            return builder.query();
+
         } catch (SQLException e) {
             // TODO: Exception Handling
             e.printStackTrace();

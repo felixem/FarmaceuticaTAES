@@ -7,6 +7,7 @@ import java.util.List;
 import farmaceutica.taes.domainmodel.Model.MaterialPromocional;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
+import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.MaterialPromocionalRepository;
 import farmaceutica.taes.domainmodel.Repository.ProductoRepository;
 
@@ -38,6 +39,12 @@ public class FachadaMaterialPromocional {
     public static List<MaterialPromocional> obtenerMaterialesPorProducto(Context context,Producto prod){
         MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
         return repository.getAllByProducto(prod);
+
+    }
+
+    public static List<MaterialPromocional> obtenerMaterialesPorVisita(Context context,Visita visita){
+        MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
+        return repository.getAllByVisita(visita);
 
     }
 

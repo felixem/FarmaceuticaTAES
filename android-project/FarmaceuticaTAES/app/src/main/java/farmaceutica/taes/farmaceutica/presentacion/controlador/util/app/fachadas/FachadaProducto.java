@@ -6,12 +6,20 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
+import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Repository.ProductoRepository;
 
 /**
  * Created by Gio on 13/05/2015.
  */
 public class FachadaProducto {
+
+    public List<Producto> obtenerProductosPorVisita(Context context, Visita visita){
+
+        ProductoRepository repository= new ProductoRepository(context);
+
+        return repository.getAllByVisita(visita);
+    }
 
     public List<Producto> obtenerProductos(Context context){
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Data.Dao.AreaHospitalariaDao;
 import farmaceutica.taes.domainmodel.Data.Dao.MaterialPromocionalDao;
+import farmaceutica.taes.domainmodel.Data.Dao.VisitaMaterialDao;
 import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
@@ -23,7 +24,8 @@ import farmaceutica.taes.domainmodel.Model.VisitaMaterial;
 
 public class MaterialPromocionalRepository {
     private DatabaseHelper db;
-    MaterialPromocionalDao mainDao;
+    private MaterialPromocionalDao mainDao;
+    private VisitaMaterialDao visitaMaterialDao;
 
     public MaterialPromocionalRepository(Context ctx)
     {
@@ -32,6 +34,7 @@ public class MaterialPromocionalRepository {
             db = dbManager.getHelper(ctx);
 
             mainDao = db.getMaterialPromocionalDao();
+            visitaMaterialDao = db.getVisitaMaterialDao();
 
         } catch (SQLException e) {
             // TODO: Exception Handling
@@ -128,6 +131,24 @@ public class MaterialPromocionalRepository {
 
             QueryBuilder<MaterialPromocional,Integer> builder = mainDao.queryBuilder();
             builder.where().eq(MaterialPromocional.PRODUCTO, prod.getCodNacional());
+            builder.orderBy(MaterialPromocional.NOMBRE,true);
+            return builder.query();
+
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<MaterialPromocional> getAllByVisita(Visita visita)
+    {
+        try {
+
+            QueryBuilder<MaterialPromocional,Integer> builder = mainDao.queryBuilder();
+            QueryBuilder<VisitaMaterial,Integer> builderVisitaMaterial = visitaMaterialDao.queryBuilder();
+            builderVisitaMaterial.where().eq(VisitaMaterial.VISITA,visita.getId());
+            builder.join(builderVisitaMaterial);
             builder.orderBy(MaterialPromocional.NOMBRE,true);
             return builder.query();
 
