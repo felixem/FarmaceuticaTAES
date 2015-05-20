@@ -41,6 +41,6 @@ public class RutaDao extends BaseDaoImpl<Ruta,Integer> implements IRutaDao
             citaDao.delete(cita);
         }
 
-        return super.create(data);
+        return super.delete(data);
     }
 }
