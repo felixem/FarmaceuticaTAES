@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear_layout_crear_ruta"
+    android:background="@android:color/darker_gray"
+
+    >
+
+    <TextView
+        android:id="@+id/txt_titulo_crear_cita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir nueva ruta"
+        style="@style/TextViewTitleStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_fecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Fecha de la ruta:"
+        android:layout_marginTop="30dp"/>
+
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendario"
+        android:layout_gravity="center"
+        />
+
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir"
+        android:id="@+id/button_crear_ruta_form"
+        android:layout_marginTop="15dp"/>
+    </LinearLayout>
+
+</LinearLayout>

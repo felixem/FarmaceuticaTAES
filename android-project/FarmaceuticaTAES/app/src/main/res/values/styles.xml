@@ -33,7 +33,9 @@
 
     <style name="TextViewTitleStyle">
         <item name="android:background">@drawable/txt_decoration</item>
+        <item name="android:layout_marginTop">5dp</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/White</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
     </style>

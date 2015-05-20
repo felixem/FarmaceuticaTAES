@@ -1,6 +1,5 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -19,9 +18,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +44,8 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitasProducto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AlertaDialogo;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaAreaHospitalaria;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaLugarVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMaterialPromocional;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
@@ -69,8 +67,10 @@ public class RegistrarVisitaFragment extends BaseFragment{
     //Listas con el contenido de los spinner
     List<Medico> medicos;
     List<LugarVisita> lugaresVisita;
-    List<VisitaProducto> productosOfertados;
-    List<VisitaMaterial> materialesEntregados;
+    List<VisitaProducto> visitaProductos;
+    List<Integer> productosOfertados;
+    List<VisitaMaterial> visitaMateriales;
+    List<Integer> materialesEntregados;
 
     //Campos con información introducida
     DatePicker datepicker_fecha_visita;
@@ -106,9 +106,10 @@ public class RegistrarVisitaFragment extends BaseFragment{
 
         //Vincular los listeners
 
-        //Provisionalmente creado un área hospitalaria que será la del visitador actual
-        AreaHospitalaria area = new AreaHospitalaria();
-        area.setCodPostal(3009);
+        //Obtener al area hospitalaria del visitador
+        final MySession session = (MySession) getActivity().getApplication();
+        final Visitador visitador = session.getVisitador();
+        final AreaHospitalaria area = FachadaAreaHospitalaria.obtenerAreaHospitalariaPorVisitador(getActivity(), visitador);
 
         //Vincular al spinner de médicos
         medicos = FachadaMedico.obtenerMedicosPorAreaHospitalaria(getActivity(), area);
@@ -121,12 +122,14 @@ public class RegistrarVisitaFragment extends BaseFragment{
         spinnerLugarVisita.setAdapter(adapter);
 
         //Inicialización del resto de spinners
+        visitaProductos = new ArrayList<>();
         productosOfertados = new ArrayList<>();
-        adapter = new AdaptadorListaVisitasProducto(getActivity(),productosOfertados);
+        adapter = new AdaptadorListaVisitasProducto(getActivity(), visitaProductos);
         spinnerProductosOfertados.setAdapter(adapter);
 
+        visitaMateriales = new ArrayList<>();
         materialesEntregados = new ArrayList<>();
-        adapter = new AdaptadorListaVisitasMaterial(getActivity(),materialesEntregados);
+        adapter = new AdaptadorListaVisitasMaterial(getActivity(), visitaMateriales);
         spinnerMaterialesEntregados.setAdapter(adapter);
 
         //Vincular al botón de crear productos ofertados la creación del dialog
@@ -227,12 +230,10 @@ public class RegistrarVisitaFragment extends BaseFragment{
                         visita.setMedico((Medico) spinnerMedicos.getSelectedItem());
                         visita.setMinutos(Integer.parseInt(edittext_duracion.getText().toString()));
                         visita.setObservaciones(edittext_observaciones.getText().toString());
-                        visita.setProductosOfertados(productosOfertados);
-                        visita.setMaterialesEntregados(materialesEntregados);
+                        visita.setProductosOfertados(visitaProductos);
+                        visita.setMaterialesEntregados(visitaMateriales);
 
-                        //Crear visitador provisional
-                        Visitador visitador = new Visitador();
-                        visitador.setCodigo(1);
+                        //Vincular visitador
                         visita.setVisitador(visitador);
 
                         //Crear visita en la bd
@@ -246,10 +247,12 @@ public class RegistrarVisitaFragment extends BaseFragment{
                             ad.show(getActivity().getSupportFragmentManager(), "FragmentAlert");
 
                             //Limpiar los spinners de productos ofertados y materiales entregados
+                            visitaMateriales.clear();
                             materialesEntregados.clear();
+                            visitaProductos.clear();
                             productosOfertados.clear();
-                            spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(),materialesEntregados));
-                            spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(),productosOfertados));
+                            spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(), visitaMateriales));
+                            spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(), visitaProductos));
 
                             //Limpiar resto de campos
                             edittext_duracion.setText("");
@@ -312,16 +315,43 @@ public class RegistrarVisitaFragment extends BaseFragment{
     //Configurar el popup de visita producto
     private void configurarVisitaProducto(Dialog dialog)
     {
-        SpinnerOnChangeAdapter spinnerProducto = (SpinnerOnChangeAdapter)dialog.findViewById(R.id.spinner_productos);
-        RatingBar ratingbar_valoracion = (RatingBar) dialog.findViewById(R.id.rating_bar_valoracion);
-        Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_producto);
+        final SpinnerOnChangeAdapter spinnerProducto = (SpinnerOnChangeAdapter)dialog.findViewById(R.id.spinner_productos);
+        final TextView textView_seleccionar_productos = (TextView)dialog.findViewById(R.id.txt_productos);
+        final TextView textView_valoracion = (TextView)dialog.findViewById(R.id.txt_valoracion);
+        final RatingBar ratingbar_valoracion = (RatingBar) dialog.findViewById(R.id.rating_bar_valoracion);
+        final Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_producto);
 
         //Establecer el rating bar adecuado
         ratingbar_valoracion.setNumStars(FachadaValoracionProducto.obtenerCantidadValoraciones() - 1);
         ratingbar_valoracion.setMax(FachadaValoracionProducto.maxValue());
 
+        spinnerProducto.setOnSpinnerListener(new OnSpinnerListener() {
+
+            @Override
+            public void onAdapterChange(View v)
+            {
+                //No se encontraron productos
+                if(spinnerProducto.getAdapter().isEmpty())
+                {
+                    spinnerProducto.setVisibility(View.INVISIBLE);
+                    textView_seleccionar_productos.setText("No se encontraron productos");
+                    textView_valoracion.setVisibility(View.INVISIBLE);
+                    ratingbar_valoracion.setVisibility(View.INVISIBLE);
+                    button_crear.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    spinnerProducto.setVisibility(View.VISIBLE);
+                    textView_seleccionar_productos.setText("Selecciona producto");
+                    textView_valoracion.setVisibility(View.VISIBLE);
+                    ratingbar_valoracion.setVisibility(View.VISIBLE);
+                    button_crear.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         //Vincular los productos ofertables
-        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductos(getActivity()));
+        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosNotIn(getActivity(),productosOfertados));
         spinnerProducto.setAdapter(adapter);
 
         //Modificar el onclick de crear producto visitado
@@ -358,8 +388,9 @@ public class RegistrarVisitaFragment extends BaseFragment{
             visitaProd.setProducto(producto);
 
             //Añadir en la lista de productos ofertados
-            productosOfertados.add(visitaProd);
-            spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(), productosOfertados));
+            visitaProductos.add(visitaProd);
+            productosOfertados.add(producto.getCodNacional());
+            spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(), visitaProductos));
 
             //Cerrar el popup
             dialog.dismiss();
@@ -401,7 +432,7 @@ public class RegistrarVisitaFragment extends BaseFragment{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 Producto prod = (Producto)parent.getItemAtPosition(position);
-                BaseAdapter adapter = new AdaptadorListaMateriales(getActivity(), FachadaMaterialPromocional.obtenerMaterialesPorProducto(getActivity(),prod));
+                BaseAdapter adapter = new AdaptadorListaMateriales(getActivity(), FachadaMaterialPromocional.obtenerMaterialesPorProductoNotIn(getActivity(),prod, materialesEntregados));
                 spinnerMaterial.setAdapter(adapter);
             }
 
@@ -498,8 +529,9 @@ public class RegistrarVisitaFragment extends BaseFragment{
             visitaMaterial.setMaterialPromocional(material);
 
             //Añadir en la lista de materiales entregados
-            materialesEntregados.add(visitaMaterial);
-            spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(), materialesEntregados));
+            visitaMateriales.add(visitaMaterial);
+            materialesEntregados.add(material.getId());
+            spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(), visitaMateriales));
 
             //Cerrar el popup
             dialog.dismiss();
@@ -528,15 +560,16 @@ public class RegistrarVisitaFragment extends BaseFragment{
             dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogo1, int id) {
                     //Borrar producto de la lista
+                    visitaProductos.remove(pos);
                     productosOfertados.remove(pos);
                     //Disminuir el orden de los siguientes
-                    for(int i=pos; i<productosOfertados.size(); i++)
+                    for(int i=pos; i< visitaProductos.size(); i++)
                     {
-                        VisitaProducto vis = productosOfertados.get(i);
+                        VisitaProducto vis = visitaProductos.get(i);
                         vis.setOrden(vis.getOrden()-1);
                     }
                     //Meter la lista de nuevo en el spinner
-                    spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(),productosOfertados));
+                    spinnerProductosOfertados.setAdapter(new AdaptadorListaVisitasProducto(getActivity(), visitaProductos));
                 }
             });
             dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -572,9 +605,10 @@ public class RegistrarVisitaFragment extends BaseFragment{
             dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogo1, int id) {
                     //Borrar material de la lista
+                    visitaMateriales.remove(pos);
                     materialesEntregados.remove(pos);
                     //Meter la lista de nuevo en el spinner
-                    spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(),materialesEntregados));
+                    spinnerMaterialesEntregados.setAdapter(new AdaptadorListaVisitasMaterial(getActivity(), visitaMateriales));
                 }
             });
             dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

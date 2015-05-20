@@ -25,10 +25,12 @@ public class Cita {
     public static final String HORAFIN="hora_fin";
     public static final String MINUTOFIN="minuto_fin";
 
-
     //Relaciones
     public static final String MEDICO = "fk_medico";
-    public static final String RUTA = "ruta";
+    public static final String RUTA = "fk_ruta";
+
+    //Campos relacionados
+    public static final String RUTA_CAMPO="ruta";
 
     //Atributos
     @DatabaseField(columnName = ID, generatedId = true, useGetSet = true)
@@ -48,6 +50,7 @@ public class Cita {
 
     @DatabaseField(columnName = HORAINICIO, useGetSet = true, canBeNull = false)
     private Integer horaInicio;
+
     @DatabaseField(columnName = MINUTOINICIO, useGetSet = true, canBeNull = false)
     private Integer minutoInicio;
 

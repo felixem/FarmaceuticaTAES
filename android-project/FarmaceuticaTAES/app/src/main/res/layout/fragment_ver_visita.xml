@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    >
+    <TextView
+        android:id="@+id/txt_titulo_detalles_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        style="@style/TextViewTitleStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_medico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nombre del médico"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_medico_dato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/txt_lugar_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Lugar de la visita"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_lugar_visita_dato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_fecha_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Fecha de la visita"
+        android:layout_marginTop="15dp"
+
+        />
+
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_picker_fecha_visita"
+        android:clickable="false"
+        android:maxDate="0"
+        />
+
+
+    <TextView
+        android:id="@+id/txt_hora_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Hora de inicio"
+        android:layout_marginTop="15dp"/>
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hora_inicio"
+        >
+
+        </TimePicker>
+
+
+
+        <TextView
+        android:id="@+id/txt_duracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Duración (minutos)"
+        android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:gravity="center"
+        android:ems="10"
+        android:textStyle="bold"
+        android:id="@+id/txt_duracion_datos"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acompañado"
+        android:textColor="@color/Black"
+        android:clickable="false"
+        android:id="@+id/checkBox_acompanyado" />
+
+    <TextView
+        android:id="@+id/txt_observaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Observaciones"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:textStyle="bold"
+        android:id="@+id/txt_observaciones_dato" />
+
+    <TextView
+        android:id="@+id/txt_productos_ofertados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Productos ofertados"
+
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id = "@+id/list_productos"
+       >
+
+
+
+       </ListView>
+
+
+        <TextView
+            android:id="@+id/txt_sin_productos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Materiales entregados"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_materiales_entregados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_materiales">
+
+
+
+        </ListView>
+
+
+        <TextView
+            android:id="@+id/txt_productos_entregados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
+
+
+
+
+        <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver atrás"
+        android:id="@+id/button_volver_atras"
+        android:layout_marginTop="15dp"/>
+</LinearLayout>
+</LinearLayout>
+</ScrollView>

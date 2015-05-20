@@ -12,7 +12,7 @@ import farmaceutica.taes.domainmodel.Repository.VisitadorRepository;
  */
 public class FachadaVisitador {
 
-    public boolean login(Context context, String user, String password) throws Exception {
+    public Visitador login(Context context, String user, String password) throws Exception {
         VisitadorRepository visi = new VisitadorRepository(context);
         Visitador v =null;
 
@@ -20,7 +20,7 @@ public class FachadaVisitador {
             int id = Integer.parseInt(user);
             v = visi.getByID(id);
             if(v!=null && v.getPassword().equals(password))
-                return true;
+                return v;
 
         }catch (Exception e)
         {
@@ -31,13 +31,23 @@ public class FachadaVisitador {
         try {
             v = visi.getByEMAIL(user);
             if (v != null && v.getPassword().equals(password))
-                return true;
+                return v;
         }catch (Exception e)
         {
             throw e;
 
         }
-        return false;
+        return null;
+    }
+
+    public static Visitador obtenerVisitador(Context context, int id)
+    {
+        VisitadorRepository visitadorRepository = new VisitadorRepository(context);
+        try {
+            return visitadorRepository.getByID(id);
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
 }

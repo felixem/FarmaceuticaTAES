@@ -36,7 +36,7 @@ public class ProductosFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState){
         lv = (ListView) view.findViewById(R.id.ListView_listaProductos);
 
         //Obtener la lista de centros medicos
@@ -45,13 +45,16 @@ public class ProductosFragment extends BaseFragment {
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                verValoracionesProducto(view,(Producto)parent.getAdapter().getItem(position));
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                try {
+                    verValoracionesProducto(view,(Producto)parent.getAdapter().getItem(position));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
-    private void verValoracionesProducto(View view,Producto prod)
-    {
+    private void verValoracionesProducto(View view,Producto prod) throws Exception {
         // custom dialog
         final Dialog dialog = new Dialog(ProductosFragment.this.getActivity(), R.style.AppTheme_Dialog);
         //final Dialog dialog = new Dialog(getActivity());
@@ -66,8 +69,7 @@ public class ProductosFragment extends BaseFragment {
     }
 
     //Configurar el popup de visita producto
-    private void configurarValoracionesProducto(Dialog dialog,int codigo)
-    {
+    private void configurarValoracionesProducto(Dialog dialog,int codigo) throws Exception {
         TextView textView_codigo = (TextView) dialog.findViewById(R.id.textView_cod);
         TextView textView_nombre= (TextView) dialog.findViewById(R.id.textView_nombreProd);
         TextView textView_descripcion=(TextView) dialog.findViewById(R.id.textView_descripcion);
@@ -81,15 +83,11 @@ public class ProductosFragment extends BaseFragment {
         textView_codigo.setText(Integer.toString(prod.getCodNacional()));
         textView_nombre.setText(prod.getNombre());
         textView_descripcion.setText(prod.getDescripcion());
-        try {
-            textView_cantidad1.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(), ValoracionProducto.NADA)));
-            textView_cantidad2.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.POCO)));
-            textView_cantidad3.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MEDIO)));
-            textView_cantidad4.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MUCHO)));
+        textView_cantidad1.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(), prod.getCodNacional(), ValoracionProducto.NADA)));
+        textView_cantidad2.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.POCO)));
+        textView_cantidad3.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MEDIO)));
+        textView_cantidad4.setText(Long.toString(fachada.obtenerCantidadValoracionProducto(getActivity(),prod.getCodNacional(),ValoracionProducto.MUCHO)));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
     }

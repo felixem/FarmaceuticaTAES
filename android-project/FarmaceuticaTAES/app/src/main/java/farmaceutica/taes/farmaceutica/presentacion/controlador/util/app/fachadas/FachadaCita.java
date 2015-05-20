@@ -31,6 +31,19 @@ public class FachadaCita {
     }
 
 
+    public void borrarCita(Context context, Cita cita) throws SQLException {
+        CitaRepository repository = new CitaRepository(context);
+        repository.delete(cita);
+
+    }
+
+
+    public void crearCita(Context context, Cita cita) throws SQLException {
+        CitaRepository repository = new CitaRepository(context);
+        repository.create(cita);
+    }
+
+
     private void comprobarHora(int hora) throws Exception {
         if(hora<0 || hora>23)
             throw new Exception("");

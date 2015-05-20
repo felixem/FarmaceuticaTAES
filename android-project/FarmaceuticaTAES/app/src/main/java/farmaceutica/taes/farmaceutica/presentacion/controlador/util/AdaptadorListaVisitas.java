@@ -66,7 +66,7 @@ public class AdaptadorListaVisitas extends BaseAdapter {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         String date = sdf.format(visitas.get(position).getFechaVisita());
-        holder.txtView.setText("Visita a las " + date);
+        holder.txtView.setText("Visita del día " + date);
 
         return item;
     }

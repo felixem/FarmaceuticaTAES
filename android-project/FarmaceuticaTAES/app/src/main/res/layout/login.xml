@@ -13,6 +13,12 @@
         android:textColor="@color/MidnightBlue"
         android:background="@drawable/tile"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
     <EditText
         android:id="@+id/username"
         android:inputType="textEmailAddress"
@@ -22,7 +28,9 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/hint_id_login" />
+        android:hint="@string/hint_id_login"
+        android:textColor="@color/White"
+        />
     <EditText
         android:theme="@style/Widget.AppCompat.EditText"
         android:id="@+id/password"
@@ -34,6 +42,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
+        android:textColor="@color/White"
         android:hint="@string/hint_id_password"/>
 
     <LinearLayout
@@ -65,5 +74,5 @@
         android:text="INICIO RAPIDO"
         android:id="@+id/btn_inicio_rapido" />
 
-
+</LinearLayout>
 </LinearLayout>

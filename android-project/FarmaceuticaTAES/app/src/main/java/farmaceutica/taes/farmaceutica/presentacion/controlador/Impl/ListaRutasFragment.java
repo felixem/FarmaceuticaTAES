@@ -1,29 +1,37 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import farmaceutica.taes.domainmodel.Model.CentroMedico;
+import farmaceutica.taes.domainmodel.Data.Dao.CitaDao;
 import farmaceutica.taes.domainmodel.Model.Cita;
 import farmaceutica.taes.domainmodel.Model.LugarVisita;
 import farmaceutica.taes.domainmodel.Model.Medico;
@@ -33,15 +41,18 @@ import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaCitas;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaLugaresVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
-import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AlertaDialogo;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCita;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaLugarVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaRuta;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaRutas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisita;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisitador;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
 /**
@@ -52,18 +63,40 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 {
     private FachadaRuta fachadaRuta;
     private FachadaCita fachadaCita;
-    private Visitador visitador;
+    private ScrollView scroll;
 
     private SpinnerOnChangeAdapter spinnerRutas, spinnerMedicos;
     private SpinnerOnChangeAdapter spinnerCitas;
-    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios;
+    private TextView txtRutas, txtCitas, txtMedico, txtLugar, txtInicio, txtFin, txtComentarios, txtDetalleCita, txt_hora_cita;
     private Spinner spinnerLugar;
-    private EditText et_hora_inicio, et_hora_fin, et_min_inicio, et_min_fin, et_lugar, et_direccion, et_comentarios;
-    private Button btn_guardar, btn_crear_ruta, btn_crear_cita;
+    private EditText et_lugar, et_direccion, et_comentarios;
+    private Button btn_guardar, btn_crear_ruta, button_borrar_ruta, btn_borrar_cita;
 
+    private TimePicker timePickerInicio, timePickerFin;
     private FachadaMedico fachadaMedico;
 
+
     private Cita cita;
+    private Visitador visitador;
+
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        List<Ruta> listaRutas = null;
+        try {
+            listaRutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(listaRutas==null)
+            listaRutas = new ArrayList<Ruta>();
+
+        BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutas);
+        spinnerRutas.setAdapter(adapter);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,8 +108,14 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         super.onViewCreated(view, savedInstanceState);
         cita = new Cita();
 
+        scroll = (ScrollView) view.findViewById(R.id.scroll);
+        timePickerFin = (TimePicker) view.findViewById(R.id.timePickerFin);
+        timePickerInicio = (TimePicker) view.findViewById(R.id.timePickerInicio);
+
         txtComentarios = (TextView) view.findViewById(R.id.txt_comentarios);
         et_comentarios = (EditText) view.findViewById(R.id.edit_text_comentarios);
+        txtDetalleCita = (TextView) view.findViewById(R.id.txt_titulo_cita);
+        txt_hora_cita = (TextView) view.findViewById(R.id.txt_hora_cita);
 
         spinnerRutas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_rutas);
         spinnerCitas = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_citas);
@@ -92,17 +131,14 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
         spinnerLugar = (Spinner) view.findViewById(R.id.spinner_tipo_lugar);
 
-        et_hora_inicio = (EditText) view.findViewById(R.id.edit_text_hora_inicio);
-        et_hora_fin = (EditText) view.findViewById(R.id.edit_text_hora_fin);
-        et_min_fin = (EditText) view.findViewById(R.id.edit_text_minuto_fin);
-        et_min_inicio=(EditText) view.findViewById(R.id.edit_text_minuto_inicio);
 
         et_lugar = (EditText) view.findViewById(R.id.edit_text_lugar);
         et_direccion = (EditText) view.findViewById(R.id.edit_text_direccion);
 
         btn_guardar = (Button) view.findViewById(R.id.button_guardar_modificaciones);
         btn_crear_ruta = (Button) view.findViewById(R.id.button_crear_ruta);
-        btn_crear_cita = (Button) view.findViewById(R.id.button_crear_cita);
+        button_borrar_ruta = (Button) view.findViewById(R.id.button_borrar_ruta);
+        btn_borrar_cita = (Button) view.findViewById(R.id.button_borrar_cita);
 
 
         String[] arraySpinner = new String[] {
@@ -121,23 +157,159 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         spinnerCitas.setOnSpinnerListener(this);
         spinnerMedicos.setOnSpinnerListener(this);
 
-        List<Ruta> listaRutas = null;
-        visitador = new Visitador();
-        visitador.setCodigo(1); //TODO
 
 
+        MySession session = (MySession) getActivity().getApplication();
+        visitador = session.getVisitador();
 
         citaVisible(false);
 
-        try {
-            listaRutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
 
-        BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutas);
-        spinnerRutas.setAdapter(adapter);
+
+
+        //Pulsado largo del spinner de productos ofertados o de materiales entregados
+        final Handler actionHandler = new Handler();
+        final Runnable runnableCita = new RunnableAddCita();
+
+        final Handler actionHandlerRuta = new Handler();
+        final Runnable runnableRuta = new RunnableAddRuta();
+
+
+
+
+        btn_crear_ruta.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        actionHandlerRuta.post(runnableRuta);
+
+
+                    }
+                }
+        );
+
+
+        spinnerRutas.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    actionHandler.postDelayed(runnableCita, 1000);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    actionHandler.removeCallbacks(runnableCita);
+                }
+                return false;
+            }
+        });
+
+
+
+
+
+
+
+        btn_borrar_cita.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            scroll.fullScroll(ScrollView.FOCUS_UP);
+                            cita = (Cita)spinnerCitas.getSelectedItem();
+                            fachadaCita.borrarCita(getActivity(), cita);
+
+
+                            List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), cita.getRuta());
+                            if(citas==null)
+                                citas = new ArrayList<Cita>();
+
+                            BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
+
+                            citaDatos(cita);
+                            if(citas.size()==0) {
+                                citaVisible(false);
+                            }else
+                            {
+                                spinnerCitas.setAdapter(adapter);
+                                cita = (Cita)spinnerCitas.getSelectedItem();
+                            }
+
+
+                        }catch(SQLException e)
+                        {
+                            AlertaDialogo ad = new AlertaDialogo();
+                            ad.setMensaje("No se ha podido eliminar la cita.");
+                            ad.setTitulo("Información");
+                            ad.setBoton1("OK");
+                            ad.setFlags(true);
+                            ad.show(getFragmentManager(), "FragmentAlert");
+                            return;
+                        }
+
+
+                        CharSequence text = "Se ha eliminado la cita";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                    }
+                }
+        );
+
+
+        button_borrar_ruta.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
+
+                        //Mostrar diálogo de confirmación de operación
+                        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+                        dialogo1.setTitle("Eliminar cita");
+                        dialogo1.setMessage("¿Desea borrar la ruta " + ((Ruta)spinnerRutas.getSelectedItem()).getFecha().toString() + "?");
+                        dialogo1.setCancelable(false);
+                        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogo1, int id) {
+                                Ruta ruta = (Ruta)spinnerRutas.getSelectedItem();
+                                try {
+                                    fachadaRuta.borrarRuta(getActivity(), (Ruta) spinnerRutas.getSelectedItem());
+                                } catch (SQLException e) {
+
+                                }
+
+                                List<Ruta> listaRutasAux = null;
+                                try {
+                                    listaRutasAux = fachadaRuta.obtenerRutasPorVisitador(getActivity(),visitador);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                                if(listaRutasAux==null)
+                                    listaRutasAux = new ArrayList<Ruta>();
+                                BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutasAux);
+                                spinnerRutas.setAdapter(adapter);
+
+
+                            }
+                        });
+                        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogo1, int id) {
+                                dialogo1.dismiss();
+                            }
+                        });
+                        dialogo1.show();
+
+
+                        CharSequence text = "Se ha eliminado la cita";
+                        int duration = Toast.LENGTH_SHORT;
+
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                    }
+                }
+        );
+
+
+
 
 
         btn_guardar.setOnClickListener(
@@ -145,10 +317,11 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                     @Override
                     public void onClick(View v) {
                         try {
-                            cita.setHoraFin(Integer.parseInt(et_hora_fin.getText().toString()));
-                            cita.setHoraInicio(Integer.parseInt(et_hora_inicio.getText().toString()));
-                            cita.setMinutoFin(Integer.parseInt(et_min_fin.getText().toString()));
-                            cita.setMinutoInicio(Integer.parseInt(et_min_inicio.getText().toString()));
+                            scroll.fullScroll(ScrollView.FOCUS_UP);
+                            cita.setHoraFin(timePickerFin.getCurrentHour());
+                            cita.setHoraInicio(timePickerInicio.getCurrentHour());
+                            cita.setMinutoFin(timePickerFin.getCurrentMinute());
+                            cita.setMinutoInicio(timePickerInicio.getCurrentMinute());
 
                             fachadaCita.validarHoras(cita);
                         }catch(Exception e)
@@ -173,9 +346,22 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
                         fachadaCita.modificarCita(getActivity(),cita);
 
+                        int selected = spinnerCitas.getSelectedItemPosition();
+                        List<Cita> citas = null;
+                        try {
+                            citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
+                            BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
+
+                            spinnerCitas.setAdapter(adapter);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        spinnerCitas.setSelection(selected);
 
                         CharSequence text = "Se ha modificado la cita";
                         int duration = Toast.LENGTH_SHORT;
+
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
@@ -250,14 +436,268 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
 
 
+    /** Dialog */
+    private void crearCita()
+    {
+        // custom dialog
+        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_crear_cita);
+        //Configurar la vista
+        configurarCita(dialog);
+
+        dialog.show();
+    }
+
+
+    /** Dialog */
+    private void crearRuta()
+    {
+        // custom dialog
+        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_crear_ruta);
+        //Configurar la vista
+        configurarRuta(dialog);
+
+        dialog.show();
+    }
+
+
+
+    private void configurarRuta(final Dialog dialog)
+    {
+        final DatePicker calendario;
+        final Button button_crear_ruta_form;
+
+        calendario = (DatePicker) dialog.findViewById(R.id.calendario);
+
+        button_crear_ruta_form = (Button) dialog.findViewById(R.id.button_crear_ruta_form);
+
+
+
+        button_crear_ruta_form.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int year = calendario.getYear();
+                        int month = calendario.getMonth();
+                        int day = calendario.getDayOfMonth();
+                        Calendar c = Calendar.getInstance();
+                        c.set(year, month, day, 0, 0);
+
+                        Ruta r = new Ruta();
+                        r.setFecha(c.getTime());
+
+
+                        r.setVisitador(visitador);
+                        try {
+                            fachadaRuta.crearRuta(getActivity(),r);
+                        } catch (SQLException e) {
+                            AlertaDialogo ad = new AlertaDialogo();
+                            ad.setMensaje("No se ha podido guardar la ruta");
+                            ad.setTitulo("Error en la creación de la ruta");
+                            ad.setBoton1("OK");
+                            ad.setFlags(true);
+                            ad.show(getFragmentManager(), "FragmentAlert");
+                            return;
+                        }
+
+                        List<Ruta> rutas = null;
+                        try {
+                            rutas = fachadaRuta.obtenerRutasPorVisitador(getActivity(), visitador);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        if(rutas == null)
+                            rutas = new ArrayList<Ruta>();
+                        BaseAdapter adapter = new AdaptadorListaRutas(getActivity(),rutas);
+                        spinnerRutas.setAdapter(adapter);
+
+                        cita = (Cita)spinnerCitas.getSelectedItem();
+                        citaDatos(cita);
+                        if(rutas.size()==0)
+                            citaVisible(false);
+
+
+                        List<Cita> citas = null;
+                        try {
+                            citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        adapter = new AdaptadorListaCitas(getActivity(),citas);
+                        spinnerCitas.setAdapter(adapter);
+                        cita = (Cita)spinnerCitas.getSelectedItem();
+                        citaDatos(cita);
+                        if(citas.size()==0)
+                            citaVisible(false);
+
+
+                        dialog.dismiss();
+                        CharSequence text = "Se ha creado la ruta";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                    }
+                }
+        );
+
+
+
+
+    }
+
+
+
+
+
+
+    //Configurar el dialog de Visita Material
+    private void configurarCita(final Dialog dialog)
+    {
+        final SpinnerOnChangeAdapter spinnerMedicosForm;
+        final TextView txtTitle;
+        final Spinner spinnerLugarForm;
+        final EditText et_lugarForm, et_direccionForm, et_comentariosForm;
+        final TimePicker timePickerInicio, timePickerFin;
+        final Button btn_guardarForm;
+
+        spinnerMedicosForm = (SpinnerOnChangeAdapter) dialog.findViewById(R.id.spinner_medicos_form);
+        spinnerLugarForm = (Spinner) dialog.findViewById(R.id.spinner_tipo_lugar_form);
+
+        timePickerFin = (TimePicker) dialog.findViewById(R.id.timePickerFin);
+        timePickerInicio = (TimePicker) dialog.findViewById(R.id.timePickerInicio);
+
+        et_lugarForm = (EditText) dialog.findViewById(R.id.edit_text_lugar_form);
+        et_direccionForm = (EditText) dialog.findViewById(R.id.edit_text_direccion_form);
+        et_comentariosForm = (EditText) dialog.findViewById(R.id.edit_text_comentarios_form);
+
+        btn_guardarForm = (Button) dialog.findViewById(R.id.button_crear_cita_form);
+
+        txtTitle = (TextView) dialog.findViewById(R.id.txt_titulo_crear_cita);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(((Ruta)spinnerRutas.getSelectedItem()).getFecha());
+
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+
+        String formatted = format1.format(cal.getTime());
+
+        txtTitle.setText("Nueva cita para el " + formatted);
+
+
+        //Vincular los productos ofertables
+        BaseAdapter adapterMedico = new AdaptadorListaMedicos(getActivity(),FachadaMedico.obtenerMedicos(getActivity()));
+        spinnerMedicosForm.setAdapter(adapterMedico);
+
+        BaseAdapter adapterTipoLugar = new AdaptadorListaLugaresVisita(getActivity(), FachadaLugarVisita.obtenerLugaresVisita());
+        spinnerLugarForm.setAdapter(adapterTipoLugar);
+
+
+
+        //Establecer listener para los materiales entregados
+        spinnerLugarForm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        btn_guardarForm.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            cita.setTipoLugar((LugarVisita)spinnerLugarForm.getSelectedItem());
+                            cita.setMedico((Medico)spinnerMedicosForm.getSelectedItem());
+                            cita.setLugar(et_lugarForm.getText().toString());
+                            cita.setDireccion(et_direccionForm.getText().toString());
+                            //cita.setRuta((Ruta)spinnerRutas.getSelectedItem());
+
+                            cita.setComentario(et_comentariosForm.getText().toString());
+                            try {
+                                cita.setHoraFin(timePickerFin.getCurrentHour());
+                                cita.setHoraInicio(timePickerInicio.getCurrentHour());
+                                cita.setMinutoFin(timePickerFin.getCurrentMinute());
+                                cita.setMinutoInicio(timePickerInicio.getCurrentMinute());
+
+                                fachadaCita.validarHoras(cita);
+                            }catch(Exception e)
+                            {
+                                AlertaDialogo ad = new AlertaDialogo();
+                                ad.setMensaje("La hora de inicio o fin de la cita es incorrecta.");
+                                ad.setTitulo("Hora incorrecta");
+                                ad.setBoton1("OK");
+                                ad.setFlags(true);
+                                ad.show(getFragmentManager(), "FragmentAlert");
+                                return;
+                            }
+
+
+                            fachadaCita.crearCita(getActivity(), cita);
+                            List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
+                            BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
+                            spinnerCitas.setAdapter(adapter);
+
+                            cita = (Cita)spinnerCitas.getSelectedItem();
+                            if(cita == null || citas.size()==0)
+                                citaVisible(false);
+                            else
+                                citaDatos(cita);
+
+                        }catch(SQLException e)
+                        {
+                            AlertaDialogo ad = new AlertaDialogo();
+                            ad.setMensaje("No se ha podido crear la cita. Revise los campos.");
+                            ad.setTitulo("Información");
+                            ad.setBoton1("OK");
+                            ad.setFlags(true);
+                            ad.show(getFragmentManager(), "FragmentAlert");
+                            return;
+                        }
+
+
+
+                        dialog.dismiss();
+                        CharSequence text = "Se ha creado la cita";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                    }
+                }
+        );
+
+
+
+
+    }
+
+
+
     private void citaDatos(Cita cita) {
+        if(cita == null) return;
         this.cita = cita;
         et_direccion.setText(cita.getDireccion());
         et_lugar.setText(cita.getLugar());
-        et_min_inicio.setText(cita.getMinutoInicio().toString());
-        et_min_fin.setText(cita.getMinutoFin().toString());
-        et_hora_fin.setText(cita.getHoraFin().toString());
-        et_hora_inicio.setText(cita.getHoraInicio().toString());
+
+        timePickerFin.setCurrentHour(cita.getHoraFin());
+        timePickerFin.setCurrentMinute(cita.getMinutoFin());
+
+        timePickerInicio.setCurrentHour(cita.getHoraInicio());
+        timePickerInicio.setCurrentMinute(cita.getMinutoInicio());
+
 
         Medico m = FachadaMedico.obtenerMedico(this.getActivity(),cita.getMedico().getId());
 
@@ -308,17 +748,23 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtInicio.setVisibility(View.INVISIBLE);
             txtComentarios.setVisibility(View.INVISIBLE);
             btn_guardar.setVisibility(View.INVISIBLE);
+            btn_borrar_cita.setVisibility(View.INVISIBLE);
+            txt_hora_cita.setVisibility(View.INVISIBLE);
+            txtCitas.setText("No hay citas asignadas a la ruta");
+
+            txtDetalleCita.setVisibility(View.INVISIBLE);
 
             et_direccion.setVisibility(View.INVISIBLE);
             et_lugar.setVisibility(View.INVISIBLE);
-            et_min_inicio.setVisibility(View.INVISIBLE);
-            et_min_fin.setVisibility(View.INVISIBLE);
-            et_hora_fin.setVisibility(View.INVISIBLE);
-            et_hora_inicio.setVisibility(View.INVISIBLE);
+
+            timePickerFin.setVisibility(View.INVISIBLE);
+            timePickerInicio.setVisibility(View.INVISIBLE);
+
             et_comentarios.setVisibility(View.INVISIBLE);
 
             spinnerMedicos.setVisibility(View.INVISIBLE);
             spinnerLugar.setVisibility(View.INVISIBLE);
+            spinnerCitas.setVisibility(View.INVISIBLE);
 
         }else
         {
@@ -327,18 +773,26 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtFin.setVisibility(View.VISIBLE);
             txtInicio.setVisibility(View.VISIBLE);
             txtComentarios.setVisibility(View.VISIBLE);
+            txtCitas.setText("Seleccione una cita");
             btn_guardar.setVisibility(View.VISIBLE);
+            btn_borrar_cita.setVisibility(View.VISIBLE);
+            txt_hora_cita.setVisibility(View.VISIBLE);
+
+            txtDetalleCita.setVisibility(View.VISIBLE);
 
             et_direccion.setVisibility(View.VISIBLE);
             et_lugar.setVisibility(View.VISIBLE);
-            et_min_inicio.setVisibility(View.VISIBLE);
-            et_min_fin.setVisibility(View.VISIBLE);
-            et_hora_fin.setVisibility(View.VISIBLE);
-            et_hora_inicio.setVisibility(View.VISIBLE);
+
+            timePickerFin.setVisibility(View.VISIBLE);
+            timePickerInicio.setVisibility(View.VISIBLE);
+
             et_comentarios.setVisibility(View.VISIBLE);
 
             spinnerMedicos.setVisibility(View.VISIBLE);
             spinnerLugar.setVisibility(View.VISIBLE);
+            spinnerCitas.setVisibility(View.VISIBLE);
+
+
         }
 
     }
@@ -405,6 +859,65 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
     }
 
 
+    //Clase para el evento de crear una cita
+    private class RunnableAddCita implements Runnable
+    {
+        @Override
+        public void run() {
+
+            //Si el spinner está vacío no hacer nada
+            if(spinnerRutas.getAdapter().isEmpty())
+                return;
+
+            //Obtener el producto
+            final int pos = spinnerRutas.getSelectedItemPosition();
+            final Ruta ruta = (Ruta)spinnerRutas.getItemAtPosition(pos);
+
+            //Mostrar diálogo de confirmación de operación
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+            dialogo1.setTitle("Añadir cita");
+            dialogo1.setMessage("¿Desea añadir una cita en la ruta " + ruta.getFecha().toString() + "?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    cita.setRuta((Ruta)spinnerRutas.getSelectedItem());
+                    crearCita();
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    dialogo1.dismiss();
+                }
+            });
+            dialogo1.show();
+        }
+    }
+
+
+    //Clase para el evento de crear una cita
+    private class RunnableAddRuta implements Runnable
+    {
+        @Override
+        public void run() {
+            //Mostrar diálogo de confirmación de operación
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+            dialogo1.setTitle("Añadir ruta");
+            dialogo1.setMessage("¿Desea añadir una ruta nueva?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    crearRuta();
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    dialogo1.dismiss();
+                }
+            });
+            dialogo1.show();
+        }
+    }
+
     // private String[] listaDatos = {};
 
     /*detallesVisita = (ListView)findViewById(R.id.listViewDetallesVisita);
@@ -434,3 +947,6 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
 
 }
+
+
+

@@ -38,15 +38,12 @@ public class RutaRepository {
 
     }
 
-    public int create(Ruta data)
-    {
+    public int create(Ruta data) throws SQLException {
         try {
             return mainDao.create(data);
         } catch (SQLException e) {
-            // TODO: Exception Handling
-            e.printStackTrace();
+            throw e;
         }
-        return 0;
     }
     public int update(Ruta data)
     {

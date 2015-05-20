@@ -14,6 +14,8 @@ import farmaceutica.taes.domainmodel.Data.DatabaseHelper;
 import farmaceutica.taes.domainmodel.Data.DatabaseManager;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
+import farmaceutica.taes.domainmodel.Model.Visita;
+
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
 import farmaceutica.taes.domainmodel.Model.VisitaProducto;
 
@@ -88,13 +90,47 @@ public class ProductoRepository {
     public List<Producto> getAll()
     {
         try {
-            return mainDao.queryForAll();
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.orderBy(Producto.NOMBRE,true);
+            return builder.query();
         } catch (SQLException e) {
             // TODO: Exception Handling
             e.printStackTrace();
         }
         return null;
     }
+
+    public List<Producto> getAllByVisita(Visita visita)
+    {
+        try {
+
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            QueryBuilder<VisitaProducto, Integer> builderVisitaProducto = visitaProductoDao.queryBuilder();
+            builderVisitaProducto.where().eq(VisitaProducto.VISITA,visita.getId());
+            builder.join(builderVisitaProducto);
+            builder.orderBy(Producto.NOMBRE,true);
+            return builder.query();
+
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Producto> getAllNotIn(List<Integer> idProductos)
+    {
+        try {
+            QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
+            builder.where().notIn(Producto.ID,idProductos);
+            return builder.query();
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Producto getProductoById(int id){
 
         try{
@@ -114,13 +150,14 @@ public class ProductoRepository {
             QueryBuilder<Producto,Integer> builder = mainDao.queryBuilder();
             builder.where().eq(Producto.ID, idProducto);
             QueryBuilder<VisitaProducto,Integer> builderVisita = visitaProductoDao.queryBuilder();
-            builderVisita.where().eq(VisitaProducto.VALORACION, valoracion.name());
+            builderVisita.where().eq(VisitaProducto.VALORACION, valoracion);
             builder.join(builderVisita);
             return builder.countOf();
 
-        }catch(SQLException e){
+        }catch(Exception e){
             // TODO: Exception Handling
             throw e;
         }
     }
+
 }
