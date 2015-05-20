@@ -165,7 +165,7 @@ public class VerVisitaFragment extends Dialog {
         if(listaProductos==null || listaProductos.size()==0)
         {
             txt_productos_entregados.setText("Ninguno");
-            productos.setVisibility(View.INVISIBLE);
+            productos.setVisibility(View.GONE);
             txt_productos_entregados.setVisibility(View.VISIBLE);
         }else
         {
@@ -180,7 +180,7 @@ public class VerVisitaFragment extends Dialog {
         if(listaMaterial==null || listaMaterial.size()==0)
         {
             txt_materiales_entregados.setText("Ninguno");
-            materiales.setVisibility(View.INVISIBLE);
+            materiales.setVisibility(View.GONE);
         }else
         {
             txt_productos_entregados.setText("");
