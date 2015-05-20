@@ -71,8 +71,8 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
     private void InflarLayout(Context context){
         LayoutInflater inflater = LayoutInflater.from(context);
         //Infla el layout dentro del groupView de este linearlayout
-        //El tercer parámetro lo vincula como hijo del view group si está true.
-        //Si está a false podemos vinclar el layout inflado mediante un this.addView()
+        //El tercer par�metro lo vincula como hijo del view group si est� true.
+        //Si est� a false podemos vinclar el layout inflado mediante un this.addView()
         inflater.inflate(R.layout.view_crear_gasto, this, true);
     }
 
@@ -137,8 +137,12 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
 
     }
 
-    public void setOnImageButtonClickListener(View.OnClickListener listener){
+    public void setOnImageButtonClickListener(OnClickListener listener){
         img_btn.setOnClickListener(listener);
+    }
+
+    public void setOnImageButtonClickeable(boolean clickeable){
+        img_btn.setClickable(clickeable);
     }
 
     private Bitmap getThumbnail(File file){
@@ -178,7 +182,7 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         builder.setTitle("Seleccion")
                 .setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
-                        Log.i("Dialogos", "Opción elegida: " + items[item]);
+                        Log.i("Dialogos", "Opci�n elegida: " + items[item]);
                     }
                 });
         builder.create().show();
