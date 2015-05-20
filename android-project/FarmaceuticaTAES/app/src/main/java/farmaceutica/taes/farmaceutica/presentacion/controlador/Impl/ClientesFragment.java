@@ -1,6 +1,7 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,12 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
+
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaAreaHospitalaria;
+
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaTrayectoria;
@@ -127,6 +132,20 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
                     @Override
                     public void onClick(View v) {
                         verDetallesMedico();
+                    }
+                }
+        );
+
+        //Vincular al botón de crear productos ofertados la creación del dialog
+        button_ver_detalles_visita.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MySession session = (MySession) getActivity().getApplication();
+                        session.setVisita((Visita)spinnerVisitas.getSelectedItem());
+
+                        Linker linker = new Linker(getFragmentManager(), true);
+                        linker.VerVisita();
                     }
                 }
         );

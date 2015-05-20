@@ -5,16 +5,16 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.MainAbstractDynam
 /**
  * Created by John on 15/05/2015.
  */
-public class MainVisitasDynamicFragment extends MainAbstractDynamicFragment {
+public class MainClienteDynamicFragment extends MainAbstractDynamicFragment {
 
     @Override
     public void onMainLinkFragment() {
-        super.linker.MisVisitas();    }
+        super.linker.VerCliente();    }
 
-    public static MainVisitasDynamicFragment newInstance() {
+    public static MainClienteDynamicFragment newInstance() {
 
         // Instantiate a new fragment
-        MainVisitasDynamicFragment fragment = new MainVisitasDynamicFragment();
+        MainClienteDynamicFragment fragment = new MainClienteDynamicFragment();
 
         return fragment;
 
