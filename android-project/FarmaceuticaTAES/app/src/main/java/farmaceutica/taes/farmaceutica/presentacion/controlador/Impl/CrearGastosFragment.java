@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -105,6 +106,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                 final EditText editText = new EditText(getActivity());
                 editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 editText.setTextColor(Color.WHITE);
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 dialog.setView(editText);
                 dialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
@@ -118,6 +120,13 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                             cgv.setOnImageButtonClickListener(GastosListener);
                             ll_container.addView(cgv);
                             dialog.dismiss();
+
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(getActivity(), "Se ha creado el gasto", duration);
+                            toast.show();
+                            getActivity().onBackPressed();
+
                         } catch (Exception ex) {
                             dialog.dismiss();
                         }
