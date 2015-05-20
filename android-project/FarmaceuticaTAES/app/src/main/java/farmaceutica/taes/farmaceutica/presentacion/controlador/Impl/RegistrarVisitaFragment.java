@@ -314,13 +314,40 @@ public class RegistrarVisitaFragment extends BaseFragment{
     //Configurar el popup de visita producto
     private void configurarVisitaProducto(Dialog dialog)
     {
-        SpinnerOnChangeAdapter spinnerProducto = (SpinnerOnChangeAdapter)dialog.findViewById(R.id.spinner_productos);
-        RatingBar ratingbar_valoracion = (RatingBar) dialog.findViewById(R.id.rating_bar_valoracion);
-        Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_producto);
+        final SpinnerOnChangeAdapter spinnerProducto = (SpinnerOnChangeAdapter)dialog.findViewById(R.id.spinner_productos);
+        final TextView textView_seleccionar_productos = (TextView)dialog.findViewById(R.id.txt_productos);
+        final TextView textView_valoracion = (TextView)dialog.findViewById(R.id.txt_valoracion);
+        final RatingBar ratingbar_valoracion = (RatingBar) dialog.findViewById(R.id.rating_bar_valoracion);
+        final Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_producto);
 
         //Establecer el rating bar adecuado
         ratingbar_valoracion.setNumStars(FachadaValoracionProducto.obtenerCantidadValoraciones() - 1);
         ratingbar_valoracion.setMax(FachadaValoracionProducto.maxValue());
+
+        spinnerProducto.setOnSpinnerListener(new OnSpinnerListener() {
+
+            @Override
+            public void onAdapterChange(View v)
+            {
+                //No se encontraron productos
+                if(spinnerProducto.getAdapter().isEmpty())
+                {
+                    spinnerProducto.setVisibility(View.INVISIBLE);
+                    textView_seleccionar_productos.setText("No se encontraron productos");
+                    textView_valoracion.setVisibility(View.INVISIBLE);
+                    ratingbar_valoracion.setVisibility(View.INVISIBLE);
+                    button_crear.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    spinnerProducto.setVisibility(View.VISIBLE);
+                    textView_seleccionar_productos.setText("Selecciona producto");
+                    textView_valoracion.setVisibility(View.VISIBLE);
+                    ratingbar_valoracion.setVisibility(View.VISIBLE);
+                    button_crear.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         //Vincular los productos ofertables
         BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosNotIn(getActivity(),productosOfertados));
@@ -404,7 +431,7 @@ public class RegistrarVisitaFragment extends BaseFragment{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 Producto prod = (Producto)parent.getItemAtPosition(position);
-                BaseAdapter adapter = new AdaptadorListaMateriales(getActivity(), FachadaMaterialPromocional.obtenerMaterialesPorProducto(getActivity(),prod));
+                BaseAdapter adapter = new AdaptadorListaMateriales(getActivity(), FachadaMaterialPromocional.obtenerMaterialesPorProductoNotIn(getActivity(),prod, materialesEntregados));
                 spinnerMaterial.setAdapter(adapter);
             }
 

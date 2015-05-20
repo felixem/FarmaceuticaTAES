@@ -118,7 +118,7 @@ public class VisitaRepository {
 
             QueryBuilder<Visita,Integer> builder = mainDao.queryBuilder();
             builder.where().eq(Visita.VISITADOR,visitador.getCodigo());
-            builder.orderBy(Visita.ID,true);
+            builder.orderBy(Visita.FECHAVISITA,true);
             return builder.query();
 
         } catch (SQLException e) {

@@ -21,14 +21,19 @@ import farmaceutica.taes.domainmodel.Model.CentroMedico;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Trayectoria;
 import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaCentrosMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaMedicos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
+
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaAreaHospitalaria;
+
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaCentroMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaTrayectoria;
@@ -75,8 +80,9 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
         spinnerVisitas.setOnSpinnerListener(this);
 
         //Obtener al area hospitalaria del visitador
-        AreaHospitalaria area = new AreaHospitalaria();
-        area.setCodPostal(3009);
+        MySession session = (MySession) getActivity().getApplication();
+        Visitador visitador = session.getVisitador();
+        AreaHospitalaria area = FachadaAreaHospitalaria.obtenerAreaHospitalariaPorVisitador(getActivity(),visitador);
 
         //Vincular al spinner de centros médicos los centros médicos
         final BaseAdapter adapter = new AdaptadorListaCentrosMedicos(getActivity(), FachadaCentroMedico.obtenerCentrosMedicosPorArea(getActivity(),area));

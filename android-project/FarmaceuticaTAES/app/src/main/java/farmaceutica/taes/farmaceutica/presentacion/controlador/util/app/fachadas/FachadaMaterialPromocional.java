@@ -21,6 +21,14 @@ public class FachadaMaterialPromocional {
         return repository.getAll();
 
     }
+
+    public static List<MaterialPromocional> obtenerMaterialesPorProductoNotIn(Context context, Producto producto, List<Integer> materiales){
+
+        MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
+        return repository.getAllByProductoNotIn(producto, materiales);
+
+    }
+
     public static MaterialPromocional obtenerMaterial(Context context,int id){
         MaterialPromocionalRepository repository= new MaterialPromocionalRepository(context);
         return repository.getMaterialById(id);

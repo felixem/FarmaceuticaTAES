@@ -58,6 +58,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
 /**
  * Created by John on 12/05/2015.
  */
+
 public class VerVisitaFragment extends BaseFragment{
 
     SpinnerOnChangeAdapter spinnerMedicos;

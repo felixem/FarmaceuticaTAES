@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 40;
+    private static final int DATABASE_VERSION = 41;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -179,6 +179,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.createTable(connectionSource, VentaAreaFecha.class);
         TableUtils.createTable(connectionSource, Visita.class);
         TableUtils.createTable(connectionSource, Visitador.class);
+        TableUtils.createTable(connectionSource, VisitadorAreaHospitalaria.class);
         TableUtils.createTable(connectionSource, VisitaMaterial.class);
         TableUtils.createTable(connectionSource, VisitaProducto.class);
 
@@ -210,6 +211,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         TableUtils.dropTable(connectionSource, VentaAreaFecha.class,true);
         TableUtils.dropTable(connectionSource, Visita.class,true);
         TableUtils.dropTable(connectionSource, Visitador.class,true);
+        TableUtils.dropTable(connectionSource, VisitadorAreaHospitalaria.class, true);
         TableUtils.dropTable(connectionSource, VisitaMaterial.class,true);
         TableUtils.dropTable(connectionSource, VisitaProducto.class,true);
 
@@ -425,6 +427,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         AreaHospitalaria area = new AreaHospitalaria(3009,hospital,prov);
         areaDao.create(area);
 
+        //Vinculador visitador con área hospitalaria
+        VisitadorAreaHospitalariaDao visitadorAreaHospitalariaDao = getVisitadorAreaHospitalariaDao();
+        VisitadorAreaHospitalaria visitadorArea = new VisitadorAreaHospitalaria();
+        visitadorArea.setArea(area);
+        visitadorArea.setVisitador(visitador);
+        visitadorAreaHospitalariaDao.create(visitadorArea);
+
         //Vincular centros médicos con el área
         hospital.setAreaHospitalaria(area);
         hospitalDao.update(hospital);
@@ -473,9 +482,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         MedicoLugarTrabajo medicoLugarTrabajo2 = new MedicoLugarTrabajo(medico2,ambulatorio);
         medicoLugarTrabajoDao.create(medicoLugarTrabajo2);
-
-
-
 
         //Crear visitas
         VisitaDao visitaDao = getVisitaDao();
