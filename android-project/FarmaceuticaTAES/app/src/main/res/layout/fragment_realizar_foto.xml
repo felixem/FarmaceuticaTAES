@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
 
     >
+    <TextView
+        android:id="@+id/txt_tituloVisitas"
+        android:text="Realizar Foto"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextViewTitleStyle"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
