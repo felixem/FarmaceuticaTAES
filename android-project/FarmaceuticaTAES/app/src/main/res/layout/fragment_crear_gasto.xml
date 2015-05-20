@@ -30,7 +30,9 @@
             style="@style/TextViewTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gastos" />
+            android:text="Gastos"
+            android:id = "@+id/txt_titulo_gastos"
+            />
 
         <LinearLayout
             android:id="@+id/ll_main_gasto_container"

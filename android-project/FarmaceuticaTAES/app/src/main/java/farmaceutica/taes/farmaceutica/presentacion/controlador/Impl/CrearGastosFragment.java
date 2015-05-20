@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.Calendar;
@@ -57,6 +61,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
     private Button btn_crear_gasto;
     private Button btn_confirmar_dia;
     private ReporteGastos reporteGastos;
+    private TextView txt_titulo_gastos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +73,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
 
         //Instanciamos vistas
+        txt_titulo_gastos = (TextView) view.findViewById(R.id.txt_titulo_gastos);
         sp = (Spinner) view.findViewById(R.id.sp_dfault);
         date_picker = (DatePicker) view.findViewById(R.id.date_picker);
         ll_container = (LinearLayout) view.findViewById(R.id.ll_container);
@@ -85,6 +91,8 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         day = calendar.get(Calendar.DAY_OF_MONTH);
         date_picker.init(year, month, day, null);
 
+        txt_titulo_gastos.setVisibility(View.INVISIBLE);
+
         ancho = getResources().getDimension(R.dimen.img_btn_factura);
         largo = getResources().getDimension(R.dimen.img_btn_factura);
 
@@ -96,6 +104,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                 dialog.setTitle("Introduce el coste");
                 final EditText editText = new EditText(getActivity());
                 editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                editText.setTextColor(Color.WHITE);
                 dialog.setView(editText);
                 dialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
@@ -132,6 +141,8 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                 Visitador visitador = ((MySession) getActivity().getApplication()).getVisitador();
                 reporteGastos = FachadaReporteGastos.CrearReporteGasto(getActivity(), visitador, c.getTime());
                 ll_main_gasto_container.setVisibility(View.VISIBLE);
+                txt_titulo_gastos.setVisibility(View.VISIBLE);
+
             }
         });
     }
