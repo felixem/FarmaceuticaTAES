@@ -29,8 +29,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Nombre del médico"
-        android:textSize="20sp"
-        android:layout_marginTop="15dp"/>
+        android:textSize="20sp"/>
 
 
     <TextView

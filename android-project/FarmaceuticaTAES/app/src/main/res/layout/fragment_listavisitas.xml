@@ -25,14 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="10dp"
         style="@style/TextViewSelectionStyle"/>
 
     <ListView
+        android:id="@+id/txt_listavisitas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_listavisitas"
-        android:layout_gravity="center_horizontal"/>
+        style="@style/ListViewItem"/>
 
 </LinearLayout>
     </LinearLayout>

@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/txt_tituloVisitas"
-        android:text="Mis Visitas"
+        android:text="Listado de Visitas"
         android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,14 +26,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextViewSelectionStyle"
-        android:layout_marginTop="10dp"
+        android:textSize="20dp"
         />
     <ListView
+        android:id="@+id/ListView_listaVisitas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ListView_listaVisitas"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
+        style="@style/ListViewItem"></ListView>
 </LinearLayout>
 </LinearLayout>
