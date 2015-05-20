@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 40;
+    private static final int DATABASE_VERSION = 41;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
