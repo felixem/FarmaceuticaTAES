@@ -41,7 +41,6 @@ public class Login extends FragmentActivity {
 
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_cancel = (Button) findViewById(R.id.btn_cancel);
-        btn_inicio_rapido = (Button) findViewById(R.id.btn_inicio_rapido);
 
 
         et_usuario = (EditText) findViewById(R.id.username);
@@ -49,25 +48,6 @@ public class Login extends FragmentActivity {
 
         fachadaVisitador = new FachadaVisitador();
 
-
-//TODO
-        btn_inicio_rapido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Visitador visi = null;
-                try {
-                    visi = fachadaVisitador.login(getApplication(),"1","pass");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                MySession session = (MySession) getApplication();
-                    session.setVisitador(visi);
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    finish();
-                    startActivity(intent);
-                }
-
-        });
 
 
 
