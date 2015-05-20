@@ -125,7 +125,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
 
                             Toast toast = Toast.makeText(getActivity(), "Se ha creado el gasto", duration);
                             toast.show();
-                            getActivity().onBackPressed();
+                            
 
                         } catch (Exception ex) {
                             dialog.dismiss();
