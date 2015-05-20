@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:gravity="center">
         <TextView
             android:id="@+id/textView_ValoracionProducto"
             android:layout_width="match_parent"
@@ -18,51 +18,76 @@
             android:text="Valoración Producto"
             style="@style/TextViewTitleStyle"
              />
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        <TextView
+            android:id="@+id/textView_codfijo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Código:"
+            />
         <TextView
             android:id="@+id/textView_cod"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-             />
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+
+            />
+        <TextView
+            android:id="@+id/textView_nombreProdfijo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Nombre:"
+            />
         <TextView
             android:id="@+id/textView_nombreProd"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
              />
-        </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        <TextView
+            android:id="@+id/textView_descripcionfijo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Descripción:"
+            />
         <TextView
             android:id="@+id/textView_descripcion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
              />
+        <TextView
+            android:id="@+id/textView_valoraciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Valoraciones:"
+            />
         </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/textView_nada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NADA"
+            android:textStyle="bold"
              />
         <TextView
             android:id="@+id/textView_totalNada"
@@ -82,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="POCO"
+            android:textStyle="bold"
            />
         <TextView
             android:id="@+id/textView_totalPoco"
@@ -101,6 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MEDIO"
+            android:textStyle="bold"
              />
         <TextView
             android:id="@+id/textView_totalMedio"
@@ -120,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MUCHO"
+            android:textStyle="bold"
            />
         <TextView
             android:id="@+id/textView_totalMucho"
