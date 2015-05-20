@@ -75,13 +75,13 @@ public class AdaptadorListaRutas extends BaseAdapter {
         Calendar cal = Calendar.getInstance();
         cal.setTime(rutas.get(position).getFecha());
 
-        SimpleDateFormat format1 = new SimpleDateFormat("EE dd-MMM-yyyy");
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
 
         String formatted = format1.format(cal.getTime());
 
 
 
-        holder.txtView.setText("" + formatted);
+        holder.txtView.setText("Ruta para el " + formatted);
         holder.txtView.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
         return item;
