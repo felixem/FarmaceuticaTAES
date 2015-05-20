@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = ProductosFragment.newInstance();
                     break;
                 case 1:
-                    fragment = ClientesFragment.newInstance();
+                    fragment = MainClienteDynamicFragment.newInstance();
                     break;
                 case 2:
                     fragment =  Ejemplo3Fragment.newInstance();//MainListaVisitas.newInstance();
@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = RegistrarVisitaFragment.newInstance();
                     break;
                 case 7:
-                    fragment = MisVisitasFragment.newInstance();
+                    fragment = MainListaVisitas.newInstance();
                     break;
             }
 

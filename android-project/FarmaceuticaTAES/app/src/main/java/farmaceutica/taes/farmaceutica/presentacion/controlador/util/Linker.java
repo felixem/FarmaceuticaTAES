@@ -6,9 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import farmaceutica.taes.farmaceutica.R;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.ClientesFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.CrearGastosFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.MisGastosFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.MisVisitasFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.Impl.VerVisitaFragment;
 
 /**
  * Created by John on 15/05/2015.
@@ -52,6 +54,18 @@ public class Linker {
         transaction.replace(KDYNAMICZONE, new ListaVisitas());
         transaction.commit();
     }
+
+    public void VerVisita(){
+        transaction.replace(KDYNAMICZONE, new VerVisitaFragment());
+        transaction.commit();
+    }
+
+    public void VerCliente(){
+        transaction.replace(KDYNAMICZONE, new ClientesFragment());
+        transaction.commit();
+    }
+
+
 /*
     public void VerDetalles(int idVisita){
         Bundle bundle = new Bundle();
