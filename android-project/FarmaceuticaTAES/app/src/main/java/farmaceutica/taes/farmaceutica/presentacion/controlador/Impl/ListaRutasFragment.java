@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import farmaceutica.taes.domainmodel.Model.Cita;
 import farmaceutica.taes.domainmodel.Model.LugarVisita;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Ruta;
+import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
@@ -61,6 +63,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 {
     private FachadaRuta fachadaRuta;
     private FachadaCita fachadaCita;
+    private ScrollView scroll;
 
     private SpinnerOnChangeAdapter spinnerRutas, spinnerMedicos;
     private SpinnerOnChangeAdapter spinnerCitas;
@@ -71,6 +74,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
     private TimePicker timePickerInicio, timePickerFin;
     private FachadaMedico fachadaMedico;
+
 
     private Cita cita;
     private Visitador visitador;
@@ -104,7 +108,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
         super.onViewCreated(view, savedInstanceState);
         cita = new Cita();
 
-
+        scroll = (ScrollView) view.findViewById(R.id.scroll);
         timePickerFin = (TimePicker) view.findViewById(R.id.timePickerFin);
         timePickerInicio = (TimePicker) view.findViewById(R.id.timePickerInicio);
 
@@ -209,17 +213,26 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                     @Override
                     public void onClick(View v) {
                         try {
+                            scroll.fullScroll(ScrollView.FOCUS_UP);
+                            cita = (Cita)spinnerCitas.getSelectedItem();
                             fachadaCita.borrarCita(getActivity(), cita);
 
 
                             List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), cita.getRuta());
+                            if(citas==null)
+                                citas = new ArrayList<Cita>();
 
                             BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
-                            spinnerCitas.setAdapter(adapter);
-                            cita = (Cita)spinnerCitas.getSelectedItem();
+
                             citaDatos(cita);
-                            if(citas.size()==0)
+                            if(citas.size()==0) {
                                 citaVisible(false);
+                            }else
+                            {
+                                spinnerCitas.setAdapter(adapter);
+                                cita = (Cita)spinnerCitas.getSelectedItem();
+                            }
+
 
                         }catch(SQLException e)
                         {
@@ -247,6 +260,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        scroll.fullScroll(ScrollView.FOCUS_UP);
 
                         //Mostrar diálogo de confirmación de operación
                         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
@@ -273,6 +287,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                                 BaseAdapter adapter= new AdaptadorListaRutas(getActivity(), listaRutasAux);
                                 spinnerRutas.setAdapter(adapter);
 
+
                             }
                         });
                         dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -285,6 +300,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
                         CharSequence text = "Se ha eliminado la cita";
                         int duration = Toast.LENGTH_SHORT;
+
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
@@ -301,6 +317,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                     @Override
                     public void onClick(View v) {
                         try {
+                            scroll.fullScroll(ScrollView.FOCUS_UP);
                             cita.setHoraFin(timePickerFin.getCurrentHour());
                             cita.setHoraInicio(timePickerInicio.getCurrentHour());
                             cita.setMinutoFin(timePickerFin.getCurrentMinute());
@@ -344,7 +361,6 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
                         CharSequence text = "Se ha modificado la cita";
                         int duration = Toast.LENGTH_SHORT;
-
 
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
@@ -630,7 +646,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
 
                             fachadaCita.crearCita(getActivity(), cita);
-                            List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), cita.getRuta());
+                            List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
                             BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
                             spinnerCitas.setAdapter(adapter);
 
@@ -732,6 +748,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             btn_guardar.setVisibility(View.INVISIBLE);
             btn_borrar_cita.setVisibility(View.INVISIBLE);
             txt_hora_cita.setVisibility(View.INVISIBLE);
+            txtCitas.setText("No hay citas asignadas a la ruta");
 
             txtDetalleCita.setVisibility(View.INVISIBLE);
 
@@ -745,6 +762,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
             spinnerMedicos.setVisibility(View.INVISIBLE);
             spinnerLugar.setVisibility(View.INVISIBLE);
+            spinnerCitas.setVisibility(View.INVISIBLE);
 
         }else
         {
@@ -753,6 +771,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtFin.setVisibility(View.VISIBLE);
             txtInicio.setVisibility(View.VISIBLE);
             txtComentarios.setVisibility(View.VISIBLE);
+            txtCitas.setText("Seleccione una cita");
             btn_guardar.setVisibility(View.VISIBLE);
             btn_borrar_cita.setVisibility(View.VISIBLE);
             txt_hora_cita.setVisibility(View.VISIBLE);
@@ -769,6 +788,8 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
             spinnerMedicos.setVisibility(View.VISIBLE);
             spinnerLugar.setVisibility(View.VISIBLE);
+            spinnerCitas.setVisibility(View.VISIBLE);
+
 
         }
 

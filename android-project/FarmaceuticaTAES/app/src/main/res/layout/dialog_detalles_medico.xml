@@ -19,7 +19,7 @@
     android:layout_marginTop="10dp"
     android:gravity="center"
     android:text="Detalles Médico"
-    android:textSize="25sp"/>
+    style="@style/TextViewTitleStyle"/>
 
     <TextView
         android:id="@+id/txt_titulo"
