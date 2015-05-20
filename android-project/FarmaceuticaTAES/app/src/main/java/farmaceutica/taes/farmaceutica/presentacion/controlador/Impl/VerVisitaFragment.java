@@ -1,7 +1,9 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,10 +66,18 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
  * Created by John on 12/05/2015.
  */
 
-public class VerVisitaFragment extends BaseFragment{
+public class VerVisitaFragment extends Dialog {
 
     List<VisitaProducto> visitaProductos;
     List<VisitaMaterial> visitaMateriales;
+
+    private Visita visita;
+    private Activity activity;
+    private Context context ;
+
+
+    public void setVisita(Visita v ) {visita = v;}
+    public Visita getVisita(){return visita;}
 
 
     //Campos con información introducida
@@ -85,41 +95,39 @@ public class VerVisitaFragment extends BaseFragment{
 
     Button button_volver_atras;
 
-    private Visita visita;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ver_visita, container, false);
+    public VerVisitaFragment(Context context, int theme, Activity a) {
+        super(context, theme);
+        activity = a;
+        this.context = context;
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.fragment_ver_visita);
     }
 
-    @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
+    public void cargarDialog(){
 
-        MySession session = (MySession)getActivity().getApplication();
-        visita = session.getVisita();
+        txt_materiales_entregados = (TextView) findViewById(R.id.txt_materiales_entregados);
+        txt_productos_entregados = (TextView) findViewById(R.id.txt_productos_entregados);
 
-        txt_materiales_entregados = (TextView) view.findViewById(R.id.txt_materiales_entregados);
-        txt_productos_entregados = (TextView) view.findViewById(R.id.txt_productos_entregados);
+        txt_observaciones_dato = (TextView) findViewById(R.id.txt_observaciones_dato);
+        txt_observaciones = (TextView) findViewById(R.id.txt_observaciones);
+        txt_duracion_datos = (TextView) findViewById(R.id.txt_duracion_datos);
 
-        txt_observaciones_dato = (TextView) view.findViewById(R.id.txt_observaciones_dato);
-        txt_observaciones = (TextView) view.findViewById(R.id.txt_observaciones);
-        txt_duracion_datos = (TextView) view.findViewById(R.id.txt_duracion_datos);
+        txt_titulo_detalles_visita = (TextView) findViewById(R.id.txt_titulo_detalles_visita);
 
-        txt_titulo_detalles_visita = (TextView) view.findViewById(R.id.txt_titulo_detalles_visita);
+        timepicker = (TimePicker) findViewById(R.id.hora_inicio);
 
-        timepicker = (TimePicker) view.findViewById(R.id.hora_inicio);
-
-        button_volver_atras = (Button) view.findViewById(R.id.button_volver_atras);
-        txt_medico = (TextView) view.findViewById(R.id.txt_medico);
-        txt_medico_dato = (TextView) view.findViewById(R.id.txt_medico_dato);
-        txt_lugar_visita = (TextView) view.findViewById(R.id.txt_lugar_visita);
-        txt_lugar_visita_dato = (TextView) view.findViewById(R.id.txt_lugar_visita_dato);
-        txt_fecha_visita = (TextView) view.findViewById(R.id.txt_fecha_visita);
-        txt_hora_inicio = (TextView) view.findViewById(R.id.txt_hora_inicio);
+        button_volver_atras = (Button) findViewById(R.id.button_volver_atras);
+        txt_medico = (TextView) findViewById(R.id.txt_medico);
+        txt_medico_dato = (TextView) findViewById(R.id.txt_medico_dato);
+        txt_lugar_visita = (TextView) findViewById(R.id.txt_lugar_visita);
+        txt_lugar_visita_dato = (TextView) findViewById(R.id.txt_lugar_visita_dato);
+        txt_fecha_visita = (TextView) findViewById(R.id.txt_fecha_visita);
+        txt_hora_inicio = (TextView) findViewById(R.id.txt_hora_inicio);
 
 
-        productos = (ListView) view.findViewById(R.id.list_productos);
-        materiales = (ListView) view.findViewById(R.id.list_materiales);
+        productos = (ListView) findViewById(R.id.list_productos);
+        materiales = (ListView) findViewById(R.id.list_materiales);
 
 
 //TODO
@@ -132,16 +140,16 @@ public class VerVisitaFragment extends BaseFragment{
         //BaseAdapter adapterMateriales = new AdaptadorListaMisVisitas(getActivity(), FachadaVisita.obtenerVisitasPorVisitador(getActivity(), visitador));
        // materiales.setAdapter(adapterMateriales);
 
-        datepicker_fecha_visita = (DatePicker) view.findViewById(R.id.date_picker_fecha_visita);
+        datepicker_fecha_visita = (DatePicker) findViewById(R.id.date_picker_fecha_visita);
 
-        checkbox_acompanyado = (CheckBox) view.findViewById(R.id.checkBox_acompanyado);
+        checkbox_acompanyado = (CheckBox) findViewById(R.id.checkBox_acompanyado);
         checkbox_acompanyado.setEnabled(false);
 
         FachadaMedico fachadaMedico = new FachadaMedico();
-        Medico m = FachadaMedico.obtenerMedico(getActivity(), visita.getMedico().getId());
+        Medico m = FachadaMedico.obtenerMedico(context, visita.getMedico().getId());
 
         FachadaVisita fachadaVisita = new FachadaVisita();
-        visita = fachadaVisita.ObtenerVisitasPorId(getActivity(),visita.getId());
+        visita = fachadaVisita.ObtenerVisitasPorId(context,visita.getId());
 
         txt_medico_dato.setText(m.getNombre() + " " + m.getApellidos());
         txt_lugar_visita_dato.setText(visita.getLugarVisita().toString());
@@ -187,7 +195,7 @@ public class VerVisitaFragment extends BaseFragment{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getActivity().onBackPressed();
+                        dismiss();
 
 
                     }

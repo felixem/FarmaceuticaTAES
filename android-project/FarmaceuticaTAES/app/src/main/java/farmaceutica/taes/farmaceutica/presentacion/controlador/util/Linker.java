@@ -55,11 +55,12 @@ public class Linker {
         transaction.commit();
     }
 
+    /*
     public void VerVisita(){
         transaction.replace(KDYNAMICZONE, new VerVisitaFragment());
         transaction.commit();
     }
-
+*/
     public void VerCliente(){
         transaction.replace(KDYNAMICZONE, new ClientesFragment());
         transaction.commit();
