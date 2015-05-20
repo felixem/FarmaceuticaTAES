@@ -5,21 +5,18 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.MainAbstractDynam
 /**
  * Created by John on 15/05/2015.
  */
-/*
-public class VerVisitaDynamicFragment extends MainAbstractDynamicFragment {
+public class MainMisVisitaDynamicFragment extends MainAbstractDynamicFragment {
+
 
     @Override
     public void onMainLinkFragment() {
-        super.linker.VerVisita();
-    }
+        super.linker.MisVisitas();    }
 
-    public static VerVisitaDynamicFragment newInstance() {
-
+    public static MainMisVisitaDynamicFragment newInstance() {
         // Instantiate a new fragment
-        VerVisitaDynamicFragment fragment = new VerVisitaDynamicFragment();
+        MainMisVisitaDynamicFragment fragment = new MainMisVisitaDynamicFragment();
 
         return fragment;
 
     }
 }
-*/
