@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import farmaceutica.taes.domainmodel.Model.ConceptoGasto;
 import farmaceutica.taes.domainmodel.Model.Gasto;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.domainmodel.Model.Visitador;
@@ -27,6 +29,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaReporteGastos;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.CrearGastoView;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter;
 
 /**
@@ -38,8 +41,9 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
     SpinnerOnChangeAdapter spinnerGastos;
     TextView textView_reportes;
     TextView textView_gastos;
-    Button button_ver_detalles;
+    //Button button_ver_detalles;
 
+    private LinearLayout ll_container;
     private Button btn_reportar;
 
     @Override
@@ -49,12 +53,12 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
+        ll_container = (LinearLayout) view.findViewById(R.id.ll_container);
         spinnerReportes = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_reportes);
         spinnerGastos = (SpinnerOnChangeAdapter) view.findViewById(R.id.spinner_gastos);
         textView_reportes = (TextView) view.findViewById(R.id.txt_reporte);
         textView_gastos = (TextView) view.findViewById(R.id.txt_gasto);
-        button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
+        //button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
         btn_reportar = (Button) view.findViewById(R.id.btn_reportar);
 
                 //Vincular los listeners
@@ -88,6 +92,17 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+        spinnerGastos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CargarLinearLayouContainer();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btn_reportar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,17 +154,33 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                 textView_gastos.setVisibility(View.VISIBLE);
                 spinnerGastos.setVisibility(View.INVISIBLE);
                 textView_gastos.setText("No se encontraron gastos asociados");
-                button_ver_detalles.setVisibility(View.INVISIBLE);
+                //button_ver_detalles.setVisibility(View.INVISIBLE);
             }
             else
             {
                 textView_gastos.setVisibility(View.VISIBLE);
                 spinnerGastos.setVisibility(View.VISIBLE);
                 textView_gastos.setText("Selecciona gasto");
-                button_ver_detalles.setVisibility(View.VISIBLE);
+                //button_ver_detalles.setVisibility(View.VISIBLE);
+                CargarLinearLayouContainer();
             }
 
         }
 
+    }
+
+    private void CargarLinearLayouContainer(){
+        ll_container.removeAllViewsInLayout();
+        ReporteGastos rg = (ReporteGastos)spinnerReportes.getSelectedItem();
+        ConceptoGasto cg = ((Gasto)spinnerGastos.getSelectedItem()).getConceptoGasto();
+        List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), rg);
+        CrearGastoView cgv;
+        for(Gasto g : gastos){
+            if(cg.equals(g.getConceptoGasto())) {
+                cgv = new CrearGastoView(getActivity(), g);
+                cgv.setOnImageButtonClickeable(false);
+                ll_container.addView(cgv);
+            }
+        }
     }
 }

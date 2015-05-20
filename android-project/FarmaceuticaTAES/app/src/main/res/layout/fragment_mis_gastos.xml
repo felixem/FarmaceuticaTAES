@@ -25,8 +25,9 @@
         android:id="@+id/txt_reporte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="20dp"
+        android:gravity="left"
+        style="@style/TextViewSelectionStyle"
+        android:layout_marginTop="15dp"
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
@@ -40,9 +41,9 @@
         android:id="@+id/txt_gasto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
+        android:gravity="left"
+        style="@style/TextViewSelectionStyle"
+        android:layout_marginTop="15dp"
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
@@ -52,12 +53,13 @@
         android:layout_height="wrap_content">
     </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
-    <Button
+    <LinearLayout
+        android:id="@id/ll_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ver detalles"
-        android:id="@+id/button_ver_detalles"
-        android:layout_marginTop="15dp"/>
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_reportar"
