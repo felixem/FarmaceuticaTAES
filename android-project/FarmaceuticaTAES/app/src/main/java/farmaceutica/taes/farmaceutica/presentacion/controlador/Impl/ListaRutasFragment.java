@@ -651,9 +651,10 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
                             spinnerCitas.setAdapter(adapter);
 
                             cita = (Cita)spinnerCitas.getSelectedItem();
-                            citaDatos(cita);
-                            if(citas.size()==0)
+                            if(cita == null || citas.size()==0)
                                 citaVisible(false);
+                            else
+                                citaDatos(cita);
 
                         }catch(SQLException e)
                         {
@@ -686,6 +687,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
 
     private void citaDatos(Cita cita) {
+        if(cita == null) return;
         this.cita = cita;
         et_direccion.setText(cita.getDireccion());
         et_lugar.setText(cita.getLugar());

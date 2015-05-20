@@ -1,6 +1,8 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador;
 
+
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +31,21 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 public abstract class MainAbstractDynamicFragment extends BaseFragment {
 
     protected Linker linker;
+    private FragmentManager fm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dynamic, container, false);
         linker = new Linker(getFragmentManager(), false);
+
         onMainLinkFragment();
+
+
 
         return view;
     }
+
+
 
     public abstract void onMainLinkFragment();
 }
