@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -85,7 +87,7 @@ public class VerVisitaFragment extends Dialog {
     TimePicker timepicker;
 
     CheckBox checkbox_acompanyado;
-    ListView productos, materiales;
+    SpinnerOnChangeAdapter productos, materiales;
 
 
     TextView txt_titulo_detalles_visita,txt_medico,
@@ -94,6 +96,8 @@ public class VerVisitaFragment extends Dialog {
             txt_observaciones,txt_observaciones_dato, txt_productos_entregados, txt_materiales_entregados ;
 
     Button button_volver_atras;
+
+
 
 
     public VerVisitaFragment(Context context, int theme, Activity a) {
@@ -126,24 +130,17 @@ public class VerVisitaFragment extends Dialog {
         txt_hora_inicio = (TextView) findViewById(R.id.txt_hora_inicio);
 
 
-        productos = (ListView) findViewById(R.id.list_productos);
-        materiales = (ListView) findViewById(R.id.list_materiales);
 
-
-//TODO
-
-        //BaseAdapter adapterProductos = new AdaptadorListaProductos(getActivity(), fachadaProducto.obtener(getActivity()));
-        //productos.setAdapter(adapterProductos);
-
-
-        //Obtener la lista de materiales
-        //BaseAdapter adapterMateriales = new AdaptadorListaMisVisitas(getActivity(), FachadaVisita.obtenerVisitasPorVisitador(getActivity(), visitador));
-       // materiales.setAdapter(adapterMateriales);
 
         datepicker_fecha_visita = (DatePicker) findViewById(R.id.date_picker_fecha_visita);
 
         checkbox_acompanyado = (CheckBox) findViewById(R.id.checkBox_acompanyado);
         checkbox_acompanyado.setEnabled(false);
+        productos = (SpinnerOnChangeAdapter) findViewById(R.id.list_productos);
+        materiales = (SpinnerOnChangeAdapter) findViewById(R.id.list_materiales);
+
+        productos.setEnabled(false);
+        materiales.setEnabled(false);
 
         FachadaMedico fachadaMedico = new FachadaMedico();
         Medico m = FachadaMedico.obtenerMedico(context, visita.getMedico().getId());
@@ -159,6 +156,39 @@ public class VerVisitaFragment extends Dialog {
         txt_observaciones_dato.setText(visita.getObservaciones()==""? visita.getObservaciones() : "Sin observaciones");
 
 
+
+        FachadaProducto fachadaProducto = new FachadaProducto();
+        List<Producto>  listaProductos = fachadaProducto.obtenerProductosPorVisita(context, visita);
+
+        FachadaMaterialPromocional fachadaMaterialPromocional = new FachadaMaterialPromocional();
+        List<MaterialPromocional> listaMaterial = fachadaMaterialPromocional.obtenerMaterialesPorVisita(context,visita);
+
+        if(listaProductos==null || listaProductos.size()==0)
+        {
+            txt_productos_entregados.setText("Ninguno");
+            productos.setVisibility(View.INVISIBLE);
+            txt_productos_entregados.setVisibility(View.VISIBLE);
+        }else
+        {
+            txt_productos_entregados.setText("");
+            txt_productos_entregados.setVisibility(View.INVISIBLE);
+            BaseAdapter adapterProductos = new AdaptadorListaProductos(activity, listaProductos);
+            productos.setAdapter(adapterProductos);
+            productos.setVisibility(View.VISIBLE);
+        }
+
+
+        if(listaMaterial==null || listaMaterial.size()==0)
+        {
+            txt_materiales_entregados.setText("Ninguno");
+            materiales.setVisibility(View.INVISIBLE);
+        }else
+        {
+            txt_productos_entregados.setText("");
+            BaseAdapter adaptermateriales = new AdaptadorListaMateriales(activity, listaMaterial);
+            materiales.setAdapter(adaptermateriales);
+            materiales.setVisibility(View.VISIBLE);
+        }
 
 
         Date d = visita.getFechaVisita();

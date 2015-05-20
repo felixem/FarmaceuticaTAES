@@ -159,15 +159,24 @@
         android:layout_marginTop="15dp"/>
 
 
-   <ListView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id = "@+id/list_productos"
-       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+                android:id="@+id/list_productos"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
 
 
-       </ListView>
+        </LinearLayout>
+
+
+
+
 
 
         <TextView
@@ -191,14 +200,17 @@
         android:layout_marginTop="15dp"/>
 
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/list_materiales">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+                android:id="@+id/list_materiales"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
 
-
-
-        </ListView>
+        </LinearLayout>
 
 
         <TextView
