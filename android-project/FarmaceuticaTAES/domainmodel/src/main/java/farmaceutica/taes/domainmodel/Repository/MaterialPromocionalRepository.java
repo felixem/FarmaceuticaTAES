@@ -137,4 +137,18 @@ public class MaterialPromocionalRepository {
         }
         return null;
     }
+
+    public List<MaterialPromocional> getAllByProductoNotIn(Producto prod, List<Integer> idMateriales)
+    {
+        try {
+            QueryBuilder<MaterialPromocional,Integer> builder = mainDao.queryBuilder();
+            builder.where().eq(MaterialPromocional.PRODUCTO, prod.getCodNacional()).and().notIn(MaterialPromocional.ID,idMateriales);
+            builder.orderBy(MaterialPromocional.NOMBRE,true);
+            return builder.query();
+        } catch (SQLException e) {
+            // TODO: Exception Handling
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
