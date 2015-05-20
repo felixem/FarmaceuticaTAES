@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import farmaceutica.taes.domainmodel.Model.ConceptoGasto;
 import farmaceutica.taes.domainmodel.Model.Gasto;
 import farmaceutica.taes.domainmodel.Model.ReporteGastos;
 import farmaceutica.taes.domainmodel.Model.Visitador;
@@ -41,5 +42,12 @@ public class FachadaGasto
     {
         GastoRepository repository = new GastoRepository(context);
         return repository.update(gasto);
+    }
+
+    public static Gasto crearGasto(Context context, float coste, ConceptoGasto conceptoGasto, ReporteGastos reporteGastos){
+        Gasto salida = new Gasto(coste, conceptoGasto, reporteGastos);
+        GastoRepository gastoRepository = new GastoRepository(context);
+        gastoRepository.create(salida);
+        return salida;
     }
 }

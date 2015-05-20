@@ -2,6 +2,7 @@ package farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachada
 
 import android.content.Context;
 
+import java.util.Date;
 import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.AreaHospitalaria;
@@ -24,5 +25,14 @@ public class FachadaReporteGastos
     public static List<ReporteGastos> obtenerReportesGastos(Context context){
         ReporteGastosRepository repository = new ReporteGastosRepository(context);
         return repository.getAll();
+    }
+
+    public static ReporteGastos CrearReporteGasto(Context context, Visitador visitador, Date fecha ) {
+        ReporteGastos rg = new ReporteGastos(fecha, false, visitador);
+        ReporteGastosRepository repository = new ReporteGastosRepository(context);
+
+        repository.create(rg);
+
+        return rg;
     }
 }
