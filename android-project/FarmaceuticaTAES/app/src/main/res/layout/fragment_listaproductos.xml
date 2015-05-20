@@ -6,12 +6,16 @@
 
     <TextView
         android:id="@+id/txt_tituloProductos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Listado de Productos"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/TextViewTitleStyle"
         />
+
+    />
+
+
     <TextView
         android:id="@+id/txt_seleccioneProductos"
         android:text="Seleccione Producto"
@@ -21,6 +25,7 @@
         style="@style/TextViewSelectionStyle"
         android:layout_marginTop="10dp"
         />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
