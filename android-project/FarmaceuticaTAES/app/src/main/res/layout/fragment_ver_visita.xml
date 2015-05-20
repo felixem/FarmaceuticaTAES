@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text=""
-        style="@style/SpinnerStyle"
+        android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
@@ -57,7 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Selecciona el lugar de la visita"
+        android:text=""
+        android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
@@ -117,6 +118,7 @@
         android:inputType="number"
         android:gravity="center"
         android:ems="10"
+        android:textStyle="bold"
         android:id="@+id/txt_duracion_datos"/>
 
     <CheckBox
@@ -142,6 +144,7 @@
         android:gravity="center"
         android:inputType="textMultiLine"
         android:ems="10"
+        android:textStyle="bold"
         android:id="@+id/txt_observaciones_dato" />
 
     <TextView
@@ -150,6 +153,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Productos ofertados"
+
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
 
@@ -165,6 +169,14 @@
        </ListView>
 
 
+        <TextView
+            android:id="@+id/txt_sin_productos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Materiales entregados"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
 
 
     <TextView
@@ -172,8 +184,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Materiales entregados"
+        android:text=""
         android:textSize="20sp"
+        android:textStyle="bold"
         android:layout_marginTop="15dp"/>
 
 
@@ -187,8 +200,19 @@
         </ListView>
 
 
+        <TextView
+            android:id="@+id/txt_productos_entregados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
 
-    <Button
+
+
+
+        <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Volver atrás"

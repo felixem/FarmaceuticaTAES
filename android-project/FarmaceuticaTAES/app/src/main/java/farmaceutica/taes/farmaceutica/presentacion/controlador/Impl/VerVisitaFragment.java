@@ -80,7 +80,8 @@ public class VerVisitaFragment extends BaseFragment{
 
     TextView txt_titulo_detalles_visita,txt_medico,
             txt_medico_dato, txt_lugar_visita,txt_lugar_visita_dato,
-            txt_fecha_visita, txt_hora_inicio, hora_inicio, txt_duracion_datos, txt_observaciones,txt_observaciones_dato ;
+            txt_fecha_visita, txt_hora_inicio, hora_inicio, txt_duracion_datos,
+            txt_observaciones,txt_observaciones_dato, txt_productos_entregados, txt_materiales_entregados ;
 
     Button button_volver_atras;
 
@@ -96,6 +97,9 @@ public class VerVisitaFragment extends BaseFragment{
 
         MySession session = (MySession)getActivity().getApplication();
         visita = session.getVisita();
+
+        txt_materiales_entregados = (TextView) view.findViewById(R.id.txt_materiales_entregados);
+        txt_productos_entregados = (TextView) view.findViewById(R.id.txt_productos_entregados);
 
         txt_observaciones_dato = (TextView) view.findViewById(R.id.txt_observaciones_dato);
         txt_observaciones = (TextView) view.findViewById(R.id.txt_observaciones);
@@ -145,6 +149,7 @@ public class VerVisitaFragment extends BaseFragment{
         checkbox_acompanyado.setChecked(visita.getAcompanyado());
         txt_duracion_datos.setText(""+visita.getMinutos());
         txt_observaciones_dato.setText(visita.getObservaciones()==""? visita.getObservaciones() : "Sin observaciones");
+
 
 
 
