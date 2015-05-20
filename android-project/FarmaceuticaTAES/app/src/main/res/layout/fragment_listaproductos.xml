@@ -28,16 +28,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
         style="@style/TextViewSelectionStyle"
-        android:layout_marginTop="10dp"
         />
 
     <ListView
+        android:id="@+id/ListView_listaProductos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ListView_listaProductos"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
+        style="@style/ListViewItem"/>
 
 </LinearLayout>
     </LinearLayout>

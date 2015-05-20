@@ -12,6 +12,7 @@ import java.util.List;
 
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Visita;
+import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 
 /**
@@ -55,8 +56,8 @@ public class AdaptadorListaMisVisitas extends BaseAdapter {
 
             holder= new ViewHolder();
             //holder.txtView= (TextView)item.findViewById(R.id.txt_listitem_default);
-            item = inflater.inflate(android.R.layout.simple_spinner_item, null);
-            holder.txtView = (TextView)item;
+            item = inflater.inflate(R.layout.producto, null);
+            holder.txtView = (TextView)item.findViewById(R.id.textView_nombre);
 
             //Almacenamos el elemento en como un tag de la View
             item.setTag(holder);

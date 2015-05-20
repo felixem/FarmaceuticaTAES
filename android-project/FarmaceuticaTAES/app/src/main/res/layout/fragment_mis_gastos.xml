@@ -25,9 +25,8 @@
         android:id="@+id/txt_reporte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        style="@style/TextViewSelectionStyle"
-        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
@@ -41,9 +40,9 @@
         android:id="@+id/txt_gasto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        style="@style/TextViewSelectionStyle"
-        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
         />
 
     <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
