@@ -26,7 +26,7 @@
     <string name="hint_id_password">Contraseña</string>
     <string name="btn_login">Iniciar sesión</string>
     <string name="btn_cancel">Salir</string>
-    <string name="txt_select_ruta">Selecciona una ruta</string>
-    <string name="txt_lista_citas">Selecciona una cita</string>
+    <string name="txt_select_ruta">Seleccione una ruta</string>
+    <string name="txt_lista_citas">Seleccione una cita</string>
     <string name="txt_titulo_ruta">Mis rutas</string>
 </resources>

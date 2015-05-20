@@ -646,7 +646,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
 
 
                             fachadaCita.crearCita(getActivity(), cita);
-                            List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), cita.getRuta());
+                            List<Cita> citas = fachadaCita.obtenerCitasByRuta(getActivity(), (Ruta)spinnerRutas.getSelectedItem());
                             BaseAdapter adapter = new AdaptadorListaCitas(getActivity(),citas);
                             spinnerCitas.setAdapter(adapter);
 
@@ -748,7 +748,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             btn_guardar.setVisibility(View.INVISIBLE);
             btn_borrar_cita.setVisibility(View.INVISIBLE);
             txt_hora_cita.setVisibility(View.INVISIBLE);
-            txtCitas.setVisibility(View.INVISIBLE);
+            txtCitas.setText("No hay citas asignadas a la ruta");
 
             txtDetalleCita.setVisibility(View.INVISIBLE);
 
@@ -771,7 +771,7 @@ public class ListaRutasFragment extends BaseFragment implements OnSpinnerListene
             txtFin.setVisibility(View.VISIBLE);
             txtInicio.setVisibility(View.VISIBLE);
             txtComentarios.setVisibility(View.VISIBLE);
-            txtCitas.setVisibility(View.VISIBLE);
+            txtCitas.setText("Seleccione una cita");
             btn_guardar.setVisibility(View.VISIBLE);
             btn_borrar_cita.setVisibility(View.VISIBLE);
             txt_hora_cita.setVisibility(View.VISIBLE);
