@@ -53,6 +53,7 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
     TextView textView_visitas;
     Button button_ver_detalles_medico;
     Button button_ver_detalles_visita;
+    private Visita visita;
 
     /***********************************************/
     TextView txt_infoAdicional,txt_tipoCliente,txt_visitable,txt_email,txt_tlf,txt_apellidos,txt_nombre,txt_numeroCorrelativo;
@@ -144,8 +145,14 @@ public class ClientesFragment extends BaseFragment implements OnSpinnerListener{
                         MySession session = (MySession) getActivity().getApplication();
                         session.setVisita((Visita)spinnerVisitas.getSelectedItem());
 
-                        Linker linker = new Linker(getFragmentManager(), true);
-                        linker.VerVisita();
+
+                        final VerVisitaFragment dialog = new VerVisitaFragment(ClientesFragment.this.getActivity(), R.style.AppTheme_Dialog, getActivity());
+                        dialog.setVisita(session.getVisita());
+                        dialog.cargarDialog();
+                        dialog.show();
+
+                        //Linker linker = new Linker(getFragmentManager(), true);
+                        //linker.VerVisita();
                     }
                 }
         );

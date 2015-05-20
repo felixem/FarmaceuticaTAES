@@ -120,6 +120,7 @@ public class RealizarFotoFragment extends BaseFragment {
         });
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Comprobamos que la foto se a realizado
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {

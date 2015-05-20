@@ -16,6 +16,7 @@ import android.widget.TextView;
 import farmaceutica.taes.domainmodel.Model.Medico;
 import farmaceutica.taes.domainmodel.Model.Producto;
 import farmaceutica.taes.domainmodel.Model.ValoracionProducto;
+import farmaceutica.taes.domainmodel.Model.Visita;
 import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.domainmodel.Repository.MedicoRepository;
 import farmaceutica.taes.farmaceutica.R;
@@ -23,6 +24,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaComunicador;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
@@ -37,6 +39,9 @@ public class MisVisitasFragment extends BaseFragment {
 
     ListView lv;
     Class<?> destino;
+    FachadaVisita fachadaVisita;
+    Visitador visitador;
+    MySession session;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,9 +52,10 @@ public class MisVisitasFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         lv = (ListView) view.findViewById(R.id.ListView_listaVisitas);
 
-        //Obtener al area hospitalaria del visitador
-        MySession session = (MySession) getActivity().getApplication();
-        Visitador visitador = session.getVisitador();
+
+        session = (MySession) getActivity().getApplication();
+        visitador = session.getVisitador();
+
 
         //Obtener la lista de visitas
         BaseAdapter adapter = new AdaptadorListaMisVisitas(getActivity(), FachadaVisita.obtenerVisitasPorVisitador(getActivity(), visitador));
@@ -58,6 +64,14 @@ public class MisVisitasFragment extends BaseFragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Visita v = (Visita)lv.getItemAtPosition(position);
+                session.setVisita(v);
+
+                final VerVisitaFragment dialog = new VerVisitaFragment(MisVisitasFragment.this.getActivity(), R.style.AppTheme_Dialog, getActivity());
+                dialog.setVisita(session.getVisita());
+                dialog.cargarDialog();
+                dialog.show();
+
 
             }
         });
