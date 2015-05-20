@@ -25,6 +25,7 @@ import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.OnSpinnerListener;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaGastos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaReportes;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorSpinnerConceptoGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
@@ -83,7 +84,8 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                         //Meter en el spinner de gastos los gastos del reporte
                         ReporteGastos reporte = (ReporteGastos) parent.getItemAtPosition(position);
                         List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), reporte);
-                        BaseAdapter adapter = new AdaptadorListaGastos(getActivity(), gastos);
+                        //BaseAdapter adapter = new AdaptadorListaGastos(getActivity(), gastos);
+                        BaseAdapter adapter = new AdaptadorSpinnerConceptoGasto(getActivity());
                         spinnerGastos.setAdapter(adapter);
 
                     }
@@ -170,9 +172,12 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
     }
 
     private void CargarLinearLayouContainer(){
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_container.getLayoutParams();
+        params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
         ll_container.removeAllViewsInLayout();
+        ll_container.setLayoutParams(params);
         ReporteGastos rg = (ReporteGastos)spinnerReportes.getSelectedItem();
-        ConceptoGasto cg = ((Gasto)spinnerGastos.getSelectedItem()).getConceptoGasto();
+        ConceptoGasto cg = ((ConceptoGasto)spinnerGastos.getSelectedItem());
         List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), rg);
         CrearGastoView cgv;
         for(Gasto g : gastos){
