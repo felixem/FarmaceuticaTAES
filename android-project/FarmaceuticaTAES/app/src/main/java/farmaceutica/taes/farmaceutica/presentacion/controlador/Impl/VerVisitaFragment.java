@@ -139,8 +139,7 @@ public class VerVisitaFragment extends Dialog {
         productos = (SpinnerOnChangeAdapter) findViewById(R.id.list_productos);
         materiales = (SpinnerOnChangeAdapter) findViewById(R.id.list_materiales);
 
-        productos.setEnabled(false);
-        materiales.setEnabled(false);
+
 
         FachadaMedico fachadaMedico = new FachadaMedico();
         Medico m = FachadaMedico.obtenerMedico(context, visita.getMedico().getId());

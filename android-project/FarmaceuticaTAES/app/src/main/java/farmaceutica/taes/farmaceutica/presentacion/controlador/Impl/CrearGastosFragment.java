@@ -88,7 +88,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         ancho = getResources().getDimension(R.dimen.img_btn_factura);
         largo = getResources().getDimension(R.dimen.img_btn_factura);
 
-        //Evento onClick de el botón CrearGasto
+        //Evento onClick de el botÃ³n CrearGasto
         btn_crear_gasto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +123,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                 dialog.create().show();
             }
         });
-        //Evento onClick del botón ConfirmarDia
+        //Evento onClick del botÃ³n ConfirmarDia
         btn_confirmar_dia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +146,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
             Bitmap bMap = decodeSampledBitmapFromFile(
                     Environment.getExternalStorageDirectory() +
                             "/" + path, ancho, largo);
-            //Añadimos el bitmap al imageView para
+            //AÃ±adimos el bitmap al imageView para
             //mostrarlo por pantalla
             img_btn.setImageBitmap(bMap);
         }
@@ -201,7 +201,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         File imagesFolder = new File(
                 Environment.getExternalStorageDirectory(), Gasto.DIRECTORIO);
         imagesFolder.mkdirs();
-        //añadimos el nombre de la imagen
+        //aÃ±adimos el nombre de la imagen
         File image = new File(imagesFolder, Gasto.IMGPROVISIONAL);
         Uri uriSavedImage = Uri.fromFile(image);
         //Le decimos al Intent que queremos grabar la imagen
