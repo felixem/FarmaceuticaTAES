@@ -23,6 +23,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaProductos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitas;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaComunicador;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaProducto;
@@ -46,8 +47,9 @@ public class MisVisitasFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         lv = (ListView) view.findViewById(R.id.ListView_listaVisitas);
 
-        Visitador visitador = new Visitador();
-        visitador = FachadaVisitador.obtenerVisitador(getActivity(), 1);
+        //Obtener al area hospitalaria del visitador
+        MySession session = (MySession) getActivity().getApplication();
+        Visitador visitador = session.getVisitador();
 
         //Obtener la lista de visitas
         BaseAdapter adapter = new AdaptadorListaMisVisitas(getActivity(), FachadaVisita.obtenerVisitasPorVisitador(getActivity(), visitador));

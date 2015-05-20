@@ -44,6 +44,8 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorListaVisitasProducto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AlertaDialogo;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaAreaHospitalaria;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaLugarVisita;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMaterialPromocional;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaMedico;
@@ -104,9 +106,10 @@ public class RegistrarVisitaFragment extends BaseFragment{
 
         //Vincular los listeners
 
-        //Provisionalmente creado un área hospitalaria que será la del visitador actual
-        AreaHospitalaria area = new AreaHospitalaria();
-        area.setCodPostal(3009);
+        //Obtener al area hospitalaria del visitador
+        final MySession session = (MySession) getActivity().getApplication();
+        final Visitador visitador = session.getVisitador();
+        final AreaHospitalaria area = FachadaAreaHospitalaria.obtenerAreaHospitalariaPorVisitador(getActivity(), visitador);
 
         //Vincular al spinner de médicos
         medicos = FachadaMedico.obtenerMedicosPorAreaHospitalaria(getActivity(), area);
@@ -230,9 +233,7 @@ public class RegistrarVisitaFragment extends BaseFragment{
                         visita.setProductosOfertados(visitaProductos);
                         visita.setMaterialesEntregados(visitaMateriales);
 
-                        //Crear visitador provisional
-                        Visitador visitador = new Visitador();
-                        visitador.setCodigo(1);
+                        //Vincular visitador
                         visita.setVisitador(visitador);
 
                         //Crear visita en la bd
