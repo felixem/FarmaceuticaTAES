@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 41;
+    private static final int DATABASE_VERSION = 45;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -454,6 +454,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         prod.setDescripcion("Por si te pica... ya sabes... ahí");
         productoDao.create(prod);
 
+        int prod3 = 115;
+        prod.setCodNacional(prod3);
+        prod.setNombre("Aspirina");
+        prod.setDescripcion("Para el dolor de cabeza");
+        productoDao.create(prod);
+
+
+        int prod4 = 120;
+        prod.setCodNacional(prod4);
+        prod.setNombre("Ventolín");
+        prod.setDescripcion("Para asmáticos");
+        productoDao.create(prod);
+
+        int prod5 = 130;
+        prod.setCodNacional(prod5);
+        prod.setNombre("Ibuprofeno");
+        prod.setDescripcion("En sobre");
+        productoDao.create(prod);
+
+        int prod6 = 145;
+        prod.setCodNacional(prod6);
+        prod.setNombre("Gelocatil");
+        prod.setDescripcion("Comprimidos");
+        productoDao.create(prod);
+
+
         //Material promocional
         MaterialPromocionalDao materialDao = getMaterialPromocionalDao();
         prod.setCodNacional(prod1);
@@ -463,6 +489,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         material.setNombre("Folleto de mano");
         material.setTipoMaterial(TipoMaterial.CATALOGO);
         materialDao.create(material);
+
+
+        material.setNombre("Gorra");
+        material.setTipoMaterial(TipoMaterial.CATALOGO);
+        materialDao.create(material);
+
+        material.setNombre("Camiseta");
+        material.setTipoMaterial(TipoMaterial.CATALOGO);
+        materialDao.create(material);
+
+
+        material.setNombre("Pulsera");
+        material.setTipoMaterial(TipoMaterial.CATALOGO);
+        materialDao.create(material);
+
 
         //Crear médicos
         MedicoDao medicoDao = getMedicoDao();
@@ -474,6 +515,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         medicoDao.create(medico2);
         int med2 = medico2.getId();
 
+        Medico medico3 = new Medico(12345, "Mortadelo", "Conjamón", true, TipoCliente.B, prov,prov);
+        medicoDao.create(medico3);
+        int med3 = medico3.getId();
+
+        Medico medico4 = new Medico(12345, "Obélix", "Portutatis", true, TipoCliente.B, prov,prov);
+        medicoDao.create(medico4);
+        int med4 = medico4.getId();
+
+
         //Crear vinculación entre médico y lugar de trabajo
         MedicoLugarTrabajoDao medicoLugarTrabajoDao = getMedicoLugarTrabajoDao();
         MedicoLugarTrabajo medicoLugarTrabajo = new MedicoLugarTrabajo(medico1,hospital);
@@ -482,6 +532,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         MedicoLugarTrabajo medicoLugarTrabajo2 = new MedicoLugarTrabajo(medico2,ambulatorio);
         medicoLugarTrabajoDao.create(medicoLugarTrabajo2);
+
+        MedicoLugarTrabajo medicoLugarTrabajo3 = new MedicoLugarTrabajo(medico3,ambulatorio);
+        medicoLugarTrabajoDao.create(medicoLugarTrabajo3);
+
+        MedicoLugarTrabajo medicoLugarTrabajo4 = new MedicoLugarTrabajo(medico4,ambulatorio);
+        medicoLugarTrabajoDao.create(medicoLugarTrabajo4);
 
         //Crear visitas
         VisitaDao visitaDao = getVisitaDao();
