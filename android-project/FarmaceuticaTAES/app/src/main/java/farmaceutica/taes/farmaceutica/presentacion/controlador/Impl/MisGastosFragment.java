@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -61,6 +62,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
     private LinearLayout ll_container;
     private Button btn_reportar;
     private BaseAdapter adapter;
+    private float ancho, largo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
         btn_reportar = (Button) view.findViewById(R.id.btn_reportar);
         btn_borrar_reporte = (Button) view.findViewById(R.id.btn_borrar_reporte);
 
-                //Vincular los listeners
+        //Vincular los listeners
         spinnerReportes.setOnSpinnerListener(this);
         spinnerGastos.setOnSpinnerListener(this);
 
@@ -89,6 +91,10 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
         //Vincular al spinner de reportes los reportes
         adapter = new AdaptadorListaReportes(getActivity(), FachadaReporteGastos.obtenerReportesGastosPorVisitador(getActivity(), visitador));
         spinnerReportes.setAdapter(adapter);
+
+
+        ancho = getResources().getDimension(R.dimen.img_btn_factura);
+        largo = getResources().getDimension(R.dimen.img_btn_factura);
 
         //Establecer eventos en el spinner de centros médicos
         spinnerReportes.setOnItemSelectedListener(
@@ -262,31 +268,73 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Comprobamos que la foto se a realizado
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            //Creamos un bitmap con la imagen recientemente
+            //almacenada en la memoria - Verión a analizar
+            Bitmap bMap = decodeSampledBitmapFromFile(
+                    Environment.getExternalStorageDirectory() +
+                            "/" + path, ancho, largo);
+
+            //Añadimos el bitmap al imageView para
+            //mostrarlo por pantalla
+            img_btn.setImageBitmap(bMap);
 
             //Mover foto desde el path provisional al del gasto
             File sd = Environment.getExternalStorageDirectory();
             // File (or directory) to be moved
             String sourcePath = "/" + path;
 
+            //Vinculamos la imagen al boton
+            //img_btn.setImageResource(R.drawable.img_camara);
+            //img_btn.setImageURI(Uri.fromFile(new File(sd, sourcePath)));
+
             File file = new File(sd, sourcePath);
             // Destination directory
             Gasto gasto = ((CrearGastoView)img_btn.getParent().getParent().getParent()).getGasto();
             String destino = "/" + Gasto.DIRECTORIO + "/" + gasto.getId() + gasto.EXT_JPG;
-
-            File comprobar = new File(sd, destino);
-            if(comprobar.exists())
-                comprobar.delete();
-
             boolean success = file.renameTo(new File(sd, destino));
-
-            //img_btn.setLayoutParams(params);
-            //Vinculamos la imagen al boton
-            img_btn.setImageResource(R.drawable.img_camara);
-            img_btn.setImageURI(Uri.fromFile(new File(sd, destino)));
 
             //Guardar foto
             gasto.setImgFactura(destino);
             FachadaGasto.update(getActivity(), gasto);
         }
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, float reqWidth, float reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromFile(String path, float reqWidth, float reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(path, options);
+
     }
 }

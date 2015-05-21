@@ -175,13 +175,13 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             //Creamos un bitmap con la imagen recientemente
             //almacenada en la memoria - Verión a analizar
-            /*Bitmap bMap = decodeSampledBitmapFromFile(
+            Bitmap bMap = decodeSampledBitmapFromFile(
                     Environment.getExternalStorageDirectory() +
-                            "/" + path, ancho, largo);*/
+                            "/" + path, ancho, largo);
 
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
-            //img_btn.setImageBitmap(bMap);
+            img_btn.setImageBitmap(bMap);
 
             //Mover foto desde el path provisional al del gasto
             File sd = Environment.getExternalStorageDirectory();
@@ -189,8 +189,8 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
             String sourcePath = "/" + path;
 
             //Vinculamos la imagen al boton
-            img_btn.setImageResource(R.drawable.img_camara);
-            img_btn.setImageURI(Uri.fromFile(new File(sd, sourcePath)));
+            //img_btn.setImageResource(R.drawable.img_camara);
+            //img_btn.setImageURI(Uri.fromFile(new File(sd, sourcePath)));
 
             File file = new File(sd, sourcePath);
             // Destination directory
