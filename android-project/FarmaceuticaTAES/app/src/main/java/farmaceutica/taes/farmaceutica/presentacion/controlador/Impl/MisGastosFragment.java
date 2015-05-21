@@ -1,6 +1,13 @@
 package farmaceutica.taes.farmaceutica.presentacion.controlador.Impl;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +16,13 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -36,8 +46,9 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
 /**
  * Created by John on 12/05/2015.
  */
-public class MisGastosFragment extends BaseFragment implements OnSpinnerListener{
-
+public class MisGastosFragment extends BaseFragment implements OnSpinnerListener, View.OnClickListener{
+    private final String path = Gasto.DIRECTORIO + "/" + Gasto.IMGPROVISIONAL;
+    ImageButton img_btn;
     SpinnerOnChangeAdapter spinnerReportes;
     SpinnerOnChangeAdapter spinnerGastos;
     TextView textView_reportes;
@@ -183,9 +194,77 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
         for(Gasto g : gastos){
             if(cg.equals(g.getConceptoGasto())) {
                 cgv = new CrearGastoView(getActivity(), g);
-                cgv.setOnImageButtonClickeable(false);
+                cgv.setOnImageButtonClickListener(this);
                 ll_container.addView(cgv);
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        img_btn = (ImageButton)v;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Selecciona opcion");
+        String[] items = {"Ver en galeria", "Cambiar foto"};
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+                        String factura = ((CrearGastoView)img_btn.getParent().getParent().getParent()).getGasto().getImgFactura();
+                        if(factura != null && factura.length() != 0) {
+                            File imagen = Environment.getExternalStorageDirectory();
+                            imagen = new File(imagen, factura);
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.fromFile(imagen), "image/*");
+                            startActivity(intent);
+                        }else
+                            Toast.makeText(getActivity(), "No hay imagen vinculada", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        //Creamos el Intent para llamar a la Camara
+                        Intent cameraIntent = new Intent(
+                                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        //Creamos una carpeta en la memeria del terminal
+                        File imagesFolder = new File(
+                                Environment.getExternalStorageDirectory(), Gasto.DIRECTORIO);
+                        imagesFolder.mkdirs();
+                        //añadimos el nombre de la imagen
+                        File image = new File(imagesFolder, Gasto.IMGPROVISIONAL);
+                        Uri uriSavedImage = Uri.fromFile(image);
+                        //Le decimos al Intent que queremos grabar la imagen
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+                        //Lanzamos la aplicacion de la camara con retorno (forResult)
+                        startActivityForResult(cameraIntent, 1);
+                        break;
+                }
+            }
+        }).create().show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Comprobamos que la foto se a realizado
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+
+            //Mover foto desde el path provisional al del gasto
+            File sd = Environment.getExternalStorageDirectory();
+            // File (or directory) to be moved
+            String sourcePath = "/" + path;
+
+            //Vinculamos la imagen al boton
+            img_btn.setImageURI(Uri.fromFile(new File(sd, sourcePath)));
+
+            File file = new File(sd, sourcePath);
+            // Destination directory
+            Gasto gasto = ((CrearGastoView)img_btn.getParent().getParent().getParent()).getGasto();
+            String destino = "/" + Gasto.DIRECTORIO + "/" + gasto.getId() + gasto.EXT_JPG;
+            boolean success = file.renameTo(new File(sd, destino));
+
+            //Guardar foto
+            gasto.setImgFactura(destino);
+            FachadaGasto.update(getActivity(), gasto);
         }
     }
 }
