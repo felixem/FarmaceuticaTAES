@@ -189,6 +189,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
             String sourcePath = "/" + path;
 
             //Vinculamos la imagen al boton
+            img_btn.setImageResource(R.drawable.img_camara);
             img_btn.setImageURI(Uri.fromFile(new File(sd, sourcePath)));
 
             File file = new File(sd, sourcePath);

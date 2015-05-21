@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -213,8 +214,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                     case 0:
                         String factura = ((CrearGastoView)img_btn.getParent().getParent().getParent()).getGasto().getImgFactura();
                         if(factura != null && factura.length() != 0) {
-                            File imagen = Environment.getExternalStorageDirectory();
-                            imagen = new File(imagen, factura);
+                            File imagen = new File(Environment.getExternalStorageDirectory(), factura);
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_VIEW);
                             intent.setDataAndType(Uri.fromFile(imagen), "image/*");
@@ -253,14 +253,21 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
             // File (or directory) to be moved
             String sourcePath = "/" + path;
 
-            //Vinculamos la imagen al boton
-            img_btn.setImageURI(Uri.fromFile(new File(sd, sourcePath)));
-
             File file = new File(sd, sourcePath);
             // Destination directory
             Gasto gasto = ((CrearGastoView)img_btn.getParent().getParent().getParent()).getGasto();
             String destino = "/" + Gasto.DIRECTORIO + "/" + gasto.getId() + gasto.EXT_JPG;
+
+            File comprobar = new File(sd, destino);
+            if(comprobar.exists())
+                comprobar.delete();
+
             boolean success = file.renameTo(new File(sd, destino));
+
+            //img_btn.setLayoutParams(params);
+            //Vinculamos la imagen al boton
+            img_btn.setImageResource(R.drawable.img_camara);
+            img_btn.setImageURI(Uri.fromFile(new File(sd, destino)));
 
             //Guardar foto
             gasto.setImgFactura(destino);

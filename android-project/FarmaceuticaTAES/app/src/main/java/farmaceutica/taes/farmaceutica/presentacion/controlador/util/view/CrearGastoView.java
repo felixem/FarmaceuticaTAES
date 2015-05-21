@@ -98,10 +98,12 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         ancho = getResources().getDimension(R.dimen.img_btn_factura);
         largo = getResources().getDimension(R.dimen.img_btn_factura);
         if (mGasto.getImgFactura() != null) {
-            Bitmap bMap = decodeSampledBitmapFromFile(
+            /*Bitmap bMap = decodeSampledBitmapFromFile(
                     Environment.getExternalStorageDirectory() +
-                             mGasto.getImgFactura(), (ancho), (largo));
-            img_btn.setImageBitmap(bMap);
+                             mGasto.getImgFactura(), (ancho), (largo));*/
+            File file = new File(Environment.getExternalStorageDirectory(), mGasto.getImgFactura());
+            //img_btn.setImageBitmap(bMap);
+            img_btn.setImageURI(Uri.fromFile(file));
         }
     }
 
