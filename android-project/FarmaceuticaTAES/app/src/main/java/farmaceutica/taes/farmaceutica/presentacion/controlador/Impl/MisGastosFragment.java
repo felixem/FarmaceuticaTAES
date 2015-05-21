@@ -197,9 +197,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                 //button_ver_detalles.setVisibility(View.VISIBLE);
                 CargarLinearLayouContainer();
             }
-
         }
-
     }
 
     private void CargarLinearLayouContainer(){

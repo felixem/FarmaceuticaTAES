@@ -94,60 +94,21 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
 
         //Cargar Datos
         txt_concepto_gasto.setText(mGasto.getConceptoGasto().getNombre());
-        txt_cantidad.setText(getResources().getString(R.string.txt_coste) +  ' ' + String.valueOf(mGasto.getCoste()));
+        txt_cantidad.setText(getResources().getString(R.string.txt_coste) + ' ' + String.valueOf(mGasto.getCoste()));
         ancho = getResources().getDimension(R.dimen.img_btn_factura);
         largo = getResources().getDimension(R.dimen.img_btn_factura);
         if (mGasto.getImgFactura() != null) {
-            /*Bitmap bMap = decodeSampledBitmapFromFile(
+            Bitmap bMap = decodeSampledBitmapFromFile(
                     Environment.getExternalStorageDirectory() +
-                             mGasto.getImgFactura(), (ancho), (largo));*/
-            File file = new File(Environment.getExternalStorageDirectory(), mGasto.getImgFactura());
-            //img_btn.setImageBitmap(bMap);
-            img_btn.setImageURI(Uri.fromFile(file));
+                             mGasto.getImgFactura(), (ancho), (largo));
+            //File file = new File(Environment.getExternalStorageDirectory(), mGasto.getImgFactura());
+            img_btn.setImageBitmap(bMap);
+            //img_btn.setImageURI(Uri.fromFile(file));
         }
     }
 
     public Gasto getGasto(){
         return mGasto;
-    }
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, float reqWidth, float reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    public static Bitmap decodeSampledBitmapFromFile(String path, float reqWidth, float reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(path, options);
-
     }
 
     public void setOnImageButtonClickListener(OnClickListener listener){
@@ -280,23 +241,42 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         builder.create().show();
     }
 
-    /*@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int action = MotionEventCompat.getActionMasked(event);
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, float reqWidth, float reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
 
-        switch (action) {
-            case (MotionEvent.ACTION_DOWN):
-                setBackgroundResource(R.drawable.pressed_general_selector_background);
-                return true;
-            case (MotionEvent.ACTION_UP):
-                setBackgroundResource(R.drawable.default_general_selector_background);
-                onClick(this);
-                return true;
-            case (MotionEvent.ACTION_MOVE):
-                return true;
-            default:
-                setBackgroundResource(R.drawable.default_general_selector_background);
-                return super.onTouchEvent(event);
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
         }
-    }*/
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromFile(String path, float reqWidth, float reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(path, options);
+
+    }
 }
