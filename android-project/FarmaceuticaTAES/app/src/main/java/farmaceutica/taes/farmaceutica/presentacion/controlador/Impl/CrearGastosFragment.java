@@ -38,6 +38,7 @@ import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorSpinnerConceptoGasto;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaReporteGastos;
@@ -61,6 +62,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
     private LinearLayout ll_main_gasto_container;
     private Button btn_crear_gasto;
     private Button btn_confirmar_dia;
+    private Button btn_terminar_reporte;
     private ReporteGastos reporteGastos;
     private TextView txt_titulo_gastos;
 
@@ -80,6 +82,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         ll_container = (LinearLayout) view.findViewById(R.id.ll_container);
         btn_crear_gasto = (Button) view.findViewById(R.id.btn_crear_gasto);
         btn_confirmar_dia = (Button) view.findViewById(R.id.btn_confirmar_dia);
+        btn_terminar_reporte = (Button) view.findViewById(R.id.btn_terminar_reporte);
         ll_main_gasto_container = (LinearLayout) view.findViewById(R.id.ll_main_gasto_container);
 
         //Instanciamos adaptador en el spinner
@@ -152,6 +155,13 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                 ll_main_gasto_container.setVisibility(View.VISIBLE);
                 txt_titulo_gastos.setVisibility(View.VISIBLE);
 
+            }
+        });
+        btn_terminar_reporte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Linker linker = new Linker(getFragmentManager(), false);
+                linker.MisGastos();
             }
         });
     }

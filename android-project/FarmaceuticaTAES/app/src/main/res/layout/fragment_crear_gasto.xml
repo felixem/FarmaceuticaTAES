@@ -62,12 +62,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"></LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <Button
                 android:id="@+id/btn_crear_gasto"
-                android:layout_width="match_parent"
+                android:layout_weight="0.15"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Crear Gasto" />
+            <Button
+                android:id="@+id/btn_terminar_reporte"
+                android:layout_weight="0.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Crear Gasto"  />
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

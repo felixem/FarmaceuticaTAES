@@ -31,7 +31,8 @@ public class Linker {
         if(cacheable) {
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
-        }
+        }else
+            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     public void CrearGasto(){
