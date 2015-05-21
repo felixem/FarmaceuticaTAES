@@ -41,6 +41,12 @@
             android:orientation="vertical"
             android:visibility="invisible">
 
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
             <TextView
                 style="@style/TextViewSelectionStyle"
                 android:layout_width="match_parent"
@@ -55,12 +61,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"></farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
-
-            <LinearLayout
-                android:id="@+id/ll_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

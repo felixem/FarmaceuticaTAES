@@ -8,20 +8,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.view.MotionEventCompat;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,6 +46,7 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
     //private ConceptoGasto mConGasto;
     //private float mCantidad;
     private Activity activity;
+    private final LinearLayout myLayout = this;
 
     private TextView txt_concepto_gasto;
     private TextView txt_cantidad;
@@ -178,7 +183,7 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        final String[] items = {"Confirmar", "Eliminar", "Modificar"};
+        final String[] items = {"Modificar concepto gasto", "Modificar coste", "Eliminar"};
 
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(activity);
@@ -186,7 +191,86 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         builder.setTitle("Seleccion")
                 .setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
-                        Log.i("Dialogos", "Opci�n elegida: " + items[item]);
+                        switch (item){
+                            case 0:
+                                final String[] items_concepto = {ConceptoGasto.COMIDA.getNombre(), ConceptoGasto.PARKING.getNombre(), ConceptoGasto.TRANSPORTE.getNombre()};
+                                AlertDialog.Builder b =
+                                        new AlertDialog.Builder(activity);
+
+                                b.setTitle("Seleccion Concepto de Gasto")
+                                        .setItems(items_concepto, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                ConceptoGasto cgAntiguo = mGasto.getConceptoGasto();
+                                                switch (which){
+                                                    case 0:
+                                                        mGasto.setConceptoGasto(ConceptoGasto.COMIDA);
+                                                        break;
+                                                    case 1:
+                                                        mGasto.setConceptoGasto(ConceptoGasto.PARKING);
+                                                        break;
+                                                    case 2:
+                                                        mGasto.setConceptoGasto(ConceptoGasto.TRANSPORTE);
+                                                        break;
+                                                }
+                                                FachadaGasto.update(activity, mGasto);
+                                                txt_concepto_gasto.setText(mGasto.getConceptoGasto().getNombre());
+
+                                                if(!cgAntiguo.equals(mGasto.getConceptoGasto())) {
+                                                    LinearLayout ll_parent = (LinearLayout) myLayout.getParent();
+                                                    ll_parent.removeView(myLayout);
+                                                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_parent.getLayoutParams();
+                                                    params.height = LayoutParams.WRAP_CONTENT;
+                                                    ll_parent.setLayoutParams(params);
+                                                }
+                                            }
+                                        }).create().show();
+                                break;
+                            case 1:
+                                AlertDialog.Builder adialog= new AlertDialog.Builder(activity);
+                                adialog.setTitle("Introduce el coste");
+                                final EditText editText = new EditText(activity);
+                                editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                editText.setTextColor(Color.WHITE);
+                                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                adialog.setView(editText);
+                                adialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Tras seleccionar el valor del coste genera el CrearGastoView
+                                        try {
+                                            mGasto.setCoste(Float.valueOf(editText.getText().toString()));
+                                            FachadaGasto.update(activity, mGasto);
+                                            txt_cantidad.setText(mGasto.getCoste() + "");
+                                            dialog.dismiss();
+
+                                            int duration = Toast.LENGTH_SHORT;
+
+                                            Toast toast = Toast.makeText(activity, "Se ha modificado el gasto", duration);
+                                            toast.show();
+
+                                        } catch (Exception ex) {
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
+                                adialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                adialog.create().show();
+                                break;
+                            case 2:
+                                FachadaGasto.delete(activity, mGasto);
+                                LinearLayout ll_parent = (LinearLayout) myLayout.getParent();
+                                ll_parent.removeView(myLayout);
+                                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_parent.getLayoutParams();
+                                params.height = LayoutParams.WRAP_CONTENT;
+                                ll_parent.setLayoutParams(params);
+                                break;
+                        }
                     }
                 });
         builder.create().show();

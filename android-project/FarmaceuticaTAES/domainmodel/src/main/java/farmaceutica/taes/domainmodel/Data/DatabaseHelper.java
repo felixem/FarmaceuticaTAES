@@ -440,7 +440,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         visitadorAreaHospitalariaDao.create(visitadorArea);
 
         visitadorArea.setVisitador(visitador2);
-        visitadorAreaHospitalariaDao.create(visitadorArea);
+        //visitadorAreaHospitalariaDao.create(visitadorArea);
 
 
 

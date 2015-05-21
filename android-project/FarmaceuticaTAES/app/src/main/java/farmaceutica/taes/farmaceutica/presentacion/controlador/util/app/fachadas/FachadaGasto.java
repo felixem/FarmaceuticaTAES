@@ -50,4 +50,9 @@ public class FachadaGasto
         gastoRepository.create(salida);
         return salida;
     }
+
+    public static void delete(Context context, Gasto gasto){
+        GastoRepository gastoRepository = new GastoRepository(context);
+        gastoRepository.delete(gasto);
+    }
 }

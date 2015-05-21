@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import farmaceutica.taes.domainmodel.Model.Visitador;
 import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AlertaDialogo;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.IniciarAsyncDB;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaVisitador;
 
@@ -38,7 +39,6 @@ public class Login extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_cancel = (Button) findViewById(R.id.btn_cancel);
 
@@ -47,9 +47,6 @@ public class Login extends FragmentActivity {
         et_password = (EditText) findViewById(R.id.password);
 
         fachadaVisitador = new FachadaVisitador();
-
-
-
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,14 +84,14 @@ public class Login extends FragmentActivity {
             }
         });
 
-
-
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        IniciarAsyncDB.iniciarDB(this);
     }
 
 
