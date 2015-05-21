@@ -422,10 +422,6 @@ public class RegistrarVisitaFragment extends BaseFragment{
 
         final Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_material);
 
-        //Vincular los productos ofertables
-        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosIn(getActivity(), productosOfertados));
-        spinnerProducto.setAdapter(adapter);
-
         //Establecer listener para los materiales entregados
         spinnerProducto.setOnSpinnerListener(new OnSpinnerListener() {
             @Override
@@ -475,6 +471,10 @@ public class RegistrarVisitaFragment extends BaseFragment{
                 }
             }
         });
+
+        //Vincular los productos ofertables
+        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosIn(getActivity(), productosOfertados));
+        spinnerProducto.setAdapter(adapter);
 
         //Vincular el botón de creación con el listener
         button_crear.setOnClickListener(new CrearVisitaMaterialListener(spinnerMaterial,edit_text_cantidad,dialog));
