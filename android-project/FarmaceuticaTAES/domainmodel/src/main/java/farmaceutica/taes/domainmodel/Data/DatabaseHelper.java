@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 45;
+    private static final int DATABASE_VERSION = 49;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -402,6 +402,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         Visitador visitador = new Visitador(1,"pass","Elvis","Sitante","613199111","elvis@sitante.es");
         visitadorDao.create(visitador);
 
+        visitadorDao = getVisitadorDao();
+        Visitador visitador2 = new Visitador(2,"pass","Filemón","Rompetechos","666542548","filemon@mail.es");
+        visitadorDao.create(visitador2);
+
         //Hospitales
         HospitalDao hospitalDao = getHospitalDao();
         Hospital hospital = new Hospital("Hospital General de Alicante", "Calle del Hospital, 5");
@@ -427,12 +431,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         AreaHospitalaria area = new AreaHospitalaria(3009,hospital,prov);
         areaDao.create(area);
 
+
         //Vinculador visitador con área hospitalaria
         VisitadorAreaHospitalariaDao visitadorAreaHospitalariaDao = getVisitadorAreaHospitalariaDao();
         VisitadorAreaHospitalaria visitadorArea = new VisitadorAreaHospitalaria();
         visitadorArea.setArea(area);
         visitadorArea.setVisitador(visitador);
         visitadorAreaHospitalariaDao.create(visitadorArea);
+
+        visitadorArea.setVisitador(visitador2);
+        visitadorAreaHospitalariaDao.create(visitadorArea);
+
+
 
         //Vincular centros médicos con el área
         hospital.setAreaHospitalaria(area);
