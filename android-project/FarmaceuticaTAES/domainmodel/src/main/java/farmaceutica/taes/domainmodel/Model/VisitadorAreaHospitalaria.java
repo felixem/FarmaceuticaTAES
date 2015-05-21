@@ -29,10 +29,10 @@ public class VisitadorAreaHospitalaria
     private int id;
 
     //Relaciones
-    @DatabaseField(columnName = VISITADOR, foreign = true, useGetSet = true,  unique = true, canBeNull = false)
+    @DatabaseField(columnName = VISITADOR, foreign = true, useGetSet = true, unique=true,  uniqueCombo = true, canBeNull = false)
     private Visitador visitador;
 
-    @DatabaseField(columnName = AREAHOSPITALARIA, foreign = true, useGetSet = true, unique = true, canBeNull = false)
+    @DatabaseField(columnName = AREAHOSPITALARIA, foreign = true, useGetSet = true, uniqueCombo = true, canBeNull = false)
     private AreaHospitalaria area;
 
     public VisitadorAreaHospitalaria() {

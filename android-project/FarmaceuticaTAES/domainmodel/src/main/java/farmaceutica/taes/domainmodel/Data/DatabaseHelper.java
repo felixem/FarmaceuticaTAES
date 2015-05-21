@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 51;
+    private static final int DATABASE_VERSION = 53;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -440,9 +440,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         visitadorAreaHospitalariaDao.create(visitadorArea);
 
         visitadorArea.setVisitador(visitador2);
-        //visitadorAreaHospitalariaDao.create(visitadorArea);
-
-
+        visitadorAreaHospitalariaDao.create(visitadorArea);
 
         //Vincular centros médicos con el área
         hospital.setAreaHospitalaria(area);
@@ -530,18 +528,30 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         //Crear médicos
         MedicoDao medicoDao = getMedicoDao();
         Medico medico1 = new Medico(32223,"Francisco", "Matesanz", true, TipoCliente.A, prov,prov);
+        medico1.setEmail("francis@co.com");
+        medico1.setInformacionAdicional("Buen profesional");
+        medico1.setTelefono("611333222");
         medicoDao.create(medico1);
         int med1 = medico1.getId();
 
         Medico medico2 = new Medico(10111, "Agapito", "Di Sousa", true, TipoCliente.B, prov,prov);
+        medico2.setEmail("agapito@disousa.com");
+        medico2.setInformacionAdicional("Otorrino amateur");
+        medico2.setTelefono("611335522");
         medicoDao.create(medico2);
         int med2 = medico2.getId();
 
         Medico medico3 = new Medico(12345, "Mortadelo", "Conjamón", true, TipoCliente.B, prov,prov);
+        medico3.setEmail("mortadel@ojamon.com");
+        medico3.setInformacionAdicional("Simpatico");
+        medico3.setTelefono("611999922");
         medicoDao.create(medico3);
         int med3 = medico3.getId();
 
         Medico medico4 = new Medico(12345, "Obélix", "Portutatis", true, TipoCliente.B, prov,prov);
+        medico4.setEmail("obelix@galia.es");
+        medico4.setInformacionAdicional("Gerard Depardieu");
+        medico4.setTelefono("613554332");
         medicoDao.create(medico4);
         int med4 = medico4.getId();
 
