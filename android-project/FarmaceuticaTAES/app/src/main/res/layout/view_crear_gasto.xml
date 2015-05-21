@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_main_layout_crear_gasto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/general_selector_bakground"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,6 +20,8 @@
         <ImageButton
             android:id="@+id/imgbtn_factura"
             android:layout_gravity="center"
+            android:src="@drawable/img_camara"
+            android:scaleType="fitXY"
             android:layout_width="@dimen/img_btn_factura"
             android:layout_height="@dimen/img_btn_factura" />
 
@@ -27,6 +35,7 @@
             <TextView
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
+                android:textSize="18sp"
                 android:id="@+id/txt_concpeto_gasto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -34,6 +43,7 @@
             <TextView
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
+                android:textSize="18sp"
                 android:id="@id/txt_cantidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

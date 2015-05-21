@@ -37,6 +37,7 @@ import farmaceutica.taes.farmaceutica.R;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static android.support.v4.content.ContextCompat.getDrawable;
 
 /**
  * Created by John on 19/05/2015.
@@ -88,7 +89,8 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         img_btn = (ImageButton) findViewById(R.id.imgbtn_factura);
 
         //Instanciar listener
-        this.setOnClickListener(this);
+        //this.setOnClickListener(this);
+        findViewById(R.id.ll_main_layout_crear_gasto).setOnClickListener(this);
 
         //Cargar Datos
         txt_concepto_gasto.setText(mGasto.getConceptoGasto().getNombre());
@@ -276,23 +278,23 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         builder.create().show();
     }
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
 
         switch (action) {
             case (MotionEvent.ACTION_DOWN):
-                setBackgroundColor(getResources().getColor(R.color.LightBlue));
+                setBackgroundResource(R.drawable.pressed_general_selector_background);
                 return true;
             case (MotionEvent.ACTION_UP):
-                setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                setBackgroundResource(R.drawable.default_general_selector_background);
                 onClick(this);
                 return true;
             case (MotionEvent.ACTION_MOVE):
                 return true;
             default:
-                setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                setBackgroundResource(R.drawable.default_general_selector_background);
                 return super.onTouchEvent(event);
         }
-    }
+    }*/
 }

@@ -154,6 +154,9 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
                 reporteGastos = FachadaReporteGastos.CrearReporteGasto(getActivity(), visitador, c.getTime());
                 ll_main_gasto_container.setVisibility(View.VISIBLE);
                 txt_titulo_gastos.setVisibility(View.VISIBLE);
+                date_picker.setClickable(false);
+                date_picker.setFocusable(false);
+                btn_confirmar_dia.setClickable(false);
 
             }
         });
