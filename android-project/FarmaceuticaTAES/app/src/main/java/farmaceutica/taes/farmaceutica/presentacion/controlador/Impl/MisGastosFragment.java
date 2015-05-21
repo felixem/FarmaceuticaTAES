@@ -105,7 +105,6 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
 
                         //Meter en el spinner de gastos los gastos del reporte
                         ReporteGastos reporte = (ReporteGastos) parent.getItemAtPosition(position);
-                        List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), reporte);
                         //BaseAdapter adapter = new AdaptadorListaGastos(getActivity(), gastos);
                         BaseAdapter adapter = new AdaptadorSpinnerConceptoGasto(getActivity());
                         spinnerGastos.setAdapter(adapter);
@@ -163,7 +162,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                 textView_reportes.setVisibility(View.VISIBLE);
                 spinnerReportes.setVisibility(View.INVISIBLE);
                 textView_reportes.setText("No se encontraron reportes");
-                spinnerGastos.setAdapter(new AdaptadorListaGastos(getActivity(),new ArrayList<Gasto>()));
+                spinnerGastos.setAdapter(new AdaptadorSpinnerConceptoGasto(getActivity()));
             }
             else
             {
@@ -172,8 +171,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
                 textView_reportes.setText("Selecciona el reporte de gastos");
 
                 ReporteGastos reporte = (ReporteGastos)spinnerReportes.getSelectedItem();
-                List<Gasto> gastos = FachadaGasto.obtenerGastosPorReporteGasto(getActivity(), reporte);
-                BaseAdapter adaptadorbase = new AdaptadorListaGastos(getActivity(),gastos);
+                BaseAdapter adaptadorbase = new AdaptadorSpinnerConceptoGasto(getActivity());
                 spinnerGastos.setAdapter(adaptadorbase);
             }
 

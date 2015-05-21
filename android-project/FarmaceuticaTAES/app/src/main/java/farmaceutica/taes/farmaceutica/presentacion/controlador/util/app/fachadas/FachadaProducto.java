@@ -36,6 +36,14 @@ public class FachadaProducto {
 
     }
 
+    public List<Producto> obtenerProductosIn(Context context, List<Integer> ids){
+
+        ProductoRepository repository= new ProductoRepository(context);
+
+        return repository.getAllIn(ids);
+
+    }
+
     public Producto obtenerProducto(Context context,int id){
         ProductoRepository repository= new ProductoRepository(context);
 

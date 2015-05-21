@@ -351,7 +351,7 @@ public class RegistrarVisitaFragment extends BaseFragment{
         });
 
         //Vincular los productos ofertables
-        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosNotIn(getActivity(),productosOfertados));
+        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosNotIn(getActivity(), productosOfertados));
         spinnerProducto.setAdapter(adapter);
 
         //Modificar el onclick de crear producto visitado
@@ -423,24 +423,25 @@ public class RegistrarVisitaFragment extends BaseFragment{
         final Button button_crear = (Button)dialog.findViewById(R.id.button_crear_visita_material);
 
         //Vincular los productos ofertables
-        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductos(getActivity()));
+        BaseAdapter adapter = new AdaptadorListaProductos(getActivity(),new FachadaProducto().obtenerProductosIn(getActivity(), productosOfertados));
         spinnerProducto.setAdapter(adapter);
 
         //Establecer listener para los materiales entregados
-        spinnerProducto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerProducto.setOnSpinnerListener(new OnSpinnerListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Producto prod = (Producto)parent.getItemAtPosition(position);
-                BaseAdapter adapter = new AdaptadorListaMateriales(getActivity(), FachadaMaterialPromocional.obtenerMaterialesPorProductoNotIn(getActivity(),prod, materialesEntregados));
-                spinnerMaterial.setAdapter(adapter);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                text_view_productos.setText("No se encontraron productos");
-                spinnerProducto.setVisibility(View.INVISIBLE);
-                spinnerMaterial.setAdapter(new AdaptadorListaMateriales(getActivity(),new ArrayList<MaterialPromocional>()));
+            public void onAdapterChange(View v) {
+                if(!spinnerProducto.getAdapter().isEmpty())
+                {
+                    Producto prod = (Producto)spinnerProducto.getSelectedItem();
+                    BaseAdapter adapter = new AdaptadorListaMateriales(getActivity(), FachadaMaterialPromocional.obtenerMaterialesPorProductoNotIn(getActivity(),prod, materialesEntregados));
+                    spinnerMaterial.setAdapter(adapter);
+                }
+                else
+                {
+                    text_view_productos.setText("No se encontraron productos");
+                    spinnerProducto.setVisibility(View.INVISIBLE);
+                    spinnerMaterial.setAdapter(new AdaptadorListaMateriales(getActivity(),new ArrayList<MaterialPromocional>()));
+                }
             }
         });
 
