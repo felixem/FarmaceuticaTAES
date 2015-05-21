@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // any time you make changes to your database objects, you may have to increase the database version
 
 
-    private static final int DATABASE_VERSION = 49;
+    private static final int DATABASE_VERSION = 51;
 
     //Daos utilizados
     private AmbulatorioDao ambulatorioDao;
@@ -498,22 +498,34 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         material.setNombre("Folleto de mano");
         material.setTipoMaterial(TipoMaterial.CATALOGO);
+
         materialDao.create(material);
 
 
-        material.setNombre("Gorra");
-        material.setTipoMaterial(TipoMaterial.CATALOGO);
-        materialDao.create(material);
+        prod.setCodNacional(prod2);
+        MaterialPromocional material2 = new MaterialPromocional("Gorra", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material2);
 
-        material.setNombre("Camiseta");
-        material.setTipoMaterial(TipoMaterial.CATALOGO);
-        materialDao.create(material);
+        prod.setCodNacional(prod2);
+        MaterialPromocional material3 = new MaterialPromocional("Camiseta", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material3);
+
+        prod.setCodNacional(prod3);
+        MaterialPromocional material4 = new MaterialPromocional("Pulsera", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material4);
 
 
-        material.setNombre("Pulsera");
-        material.setTipoMaterial(TipoMaterial.CATALOGO);
-        materialDao.create(material);
+        prod.setCodNacional(prod3);
+        MaterialPromocional material5 = new MaterialPromocional("Reloj", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material5);
 
+        prod.setCodNacional(prod4);
+        MaterialPromocional material6 = new MaterialPromocional("Taza", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material6);
+
+        prod.setCodNacional(prod4);
+        MaterialPromocional material7 = new MaterialPromocional("Pin", TipoMaterial.BOLIGRAFO, prod);
+        materialDao.create(material7);
 
         //Crear médicos
         MedicoDao medicoDao = getMedicoDao();
