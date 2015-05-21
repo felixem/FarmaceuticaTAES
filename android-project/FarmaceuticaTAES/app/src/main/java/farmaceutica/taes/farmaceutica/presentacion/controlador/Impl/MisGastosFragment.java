@@ -39,6 +39,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorLis
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.AdaptadorSpinnerConceptoGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.BaseFragment;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.Linker;
+import farmaceutica.taes.farmaceutica.presentacion.controlador.util.MySession;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaGasto;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.app.fachadas.FachadaReporteGastos;
 import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.CrearGastoView;
@@ -49,6 +50,7 @@ import farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.Spinner
  */
 public class MisGastosFragment extends BaseFragment implements OnSpinnerListener, View.OnClickListener{
     private final String path = Gasto.DIRECTORIO + "/" + Gasto.IMGPROVISIONAL;
+    private Button btn_borrar_reporte;
     ImageButton img_btn;
     SpinnerOnChangeAdapter spinnerReportes;
     SpinnerOnChangeAdapter spinnerGastos;
@@ -58,6 +60,7 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
 
     private LinearLayout ll_container;
     private Button btn_reportar;
+    private BaseAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,17 +76,18 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
         textView_gastos = (TextView) view.findViewById(R.id.txt_gasto);
         //button_ver_detalles = (Button) view.findViewById(R.id.button_ver_detalles);
         btn_reportar = (Button) view.findViewById(R.id.btn_reportar);
+        btn_borrar_reporte = (Button) view.findViewById(R.id.btn_borrar_reporte);
 
                 //Vincular los listeners
         spinnerReportes.setOnSpinnerListener(this);
         spinnerGastos.setOnSpinnerListener(this);
 
         //Creado provisionalmente un visitador
-        Visitador visitador = new Visitador();
-        visitador.setCodigo(1);
+        final Visitador visitador = ((MySession)getActivity().getApplication()).getVisitador();
+        //visitador.setCodigo(1);
 
         //Vincular al spinner de reportes los reportes
-        final BaseAdapter adapter = new AdaptadorListaReportes(getActivity(), FachadaReporteGastos.obtenerReportesGastosPorVisitador(getActivity(), visitador));
+        adapter = new AdaptadorListaReportes(getActivity(), FachadaReporteGastos.obtenerReportesGastosPorVisitador(getActivity(), visitador));
         spinnerReportes.setAdapter(adapter);
 
         //Establecer eventos en el spinner de centros médicos
@@ -123,6 +127,17 @@ public class MisGastosFragment extends BaseFragment implements OnSpinnerListener
             public void onClick(View v) {
                 Linker linker = new Linker(getFragmentManager(), true);
                 linker.CrearGasto();
+            }
+        });
+
+        btn_borrar_reporte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReporteGastos reporteGastos = (ReporteGastos)spinnerReportes.getSelectedItem();
+                FachadaReporteGastos.delete(getActivity(), reporteGastos);
+
+                adapter = new AdaptadorListaReportes(getActivity(), FachadaReporteGastos.obtenerReportesGastosPorVisitador(getActivity(), visitador));
+                spinnerReportes.setAdapter(adapter);
             }
         });
     }

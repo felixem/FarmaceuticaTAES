@@ -35,4 +35,9 @@ public class FachadaReporteGastos
 
         return rg;
     }
+
+    public static void delete(Context context, ReporteGastos rg) {
+        ReporteGastosRepository repository = new ReporteGastosRepository(context);
+        repository.delete(rg);
+    }
 }
