@@ -166,7 +166,7 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Comprobamos que la foto se a realizado
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
@@ -179,6 +179,20 @@ public class CrearGastosFragment extends BaseFragment implements View.OnClickLis
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
             img_btn.setImageBitmap(bMap);
+
+            //Mover foto desde el path provisional al del gasto
+            File sd = Environment.getExternalStorageDirectory();
+            // File (or directory) to be moved
+            String sourcePath = "/" + path;
+            File file = new File(sd, sourcePath);
+            // Destination directory
+            Gasto gasto = ((CrearGastoView)img_btn.getParent().getParent().getParent()).getGasto();
+            String destino = "/" + Gasto.DIRECTORIO + "/" + gasto.getId() + gasto.EXT_JPG;
+            boolean success = file.renameTo(new File(sd, destino));
+
+            //Guardar foto
+            gasto.setImgFactura(destino);
+            FachadaGasto.update(getActivity(), gasto);
         }
     }
 

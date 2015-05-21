@@ -98,6 +98,10 @@ public class CrearGastoView extends LinearLayout implements View.OnClickListener
         }
     }
 
+    public Gasto getGasto(){
+        return mGasto;
+    }
+
     public static int calculateInSampleSize(
             BitmapFactory.Options options, float reqWidth, float reqHeight) {
         // Raw height and width of image
