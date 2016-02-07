@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    >
+    <TextView
+        android:id="@+id/txt_titulo_crear_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Registrar Visita"
+        style="@style/TextViewTitleStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_medico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Selecciona el médico"
+        android:textSize="20sp"/>
+
+        <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+            android:id="@+id/spinner_medicos"
+            android:layout_width="match_parent"
+            style="@style/SpinnerStyle"
+            android:layout_height="wrap_content">
+        </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+
+
+
+    <TextView
+        android:id="@+id/txt_lugar_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Selecciona el lugar de la visita"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        android:id="@+id/spinner_lugar_visita"
+        android:layout_width="match_parent"
+        style="@style/SpinnerStyle"
+        android:layout_height="wrap_content">
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <TextView
+        android:id="@+id/txt_fecha_visita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Fecha de la Visita"
+        android:layout_marginTop="15dp"/>
+
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_picker_fecha_visita" />
+
+        <TextView
+        android:id="@+id/txt_duracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Duración (minutos)"
+        android:layout_marginTop="15dp"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:gravity="center"
+        android:ems="10"
+        android:id="@+id/edit_text_duracion"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acompañado"
+        android:id="@+id/checkBox_acompanyado" />
+
+    <TextView
+        android:id="@+id/txt_observaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Observaciones"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/edit_text_observaciones" />
+
+    <TextView
+        android:id="@+id/txt_productos_ofertados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Productos ofertados"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        android:id="@+id/spinner_productos_ofertados"
+        android:layout_width="match_parent"
+        style="@style/SpinnerStyle"
+        android:layout_height="wrap_content">
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir producto"
+        android:id="@+id/button_crear_visita_producto"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/txt_materiales_entregados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Materiales entregados"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        android:id="@+id/spinner_materiales_entregados"
+        android:layout_width="match_parent"
+        style="@style/SpinnerStyle"
+        android:layout_height="wrap_content">
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir material"
+        android:id="@+id/button_crear_material_entregado"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrar Visita"
+        android:id="@+id/button_crear_visita"
+        android:layout_marginTop="15dp"/>
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

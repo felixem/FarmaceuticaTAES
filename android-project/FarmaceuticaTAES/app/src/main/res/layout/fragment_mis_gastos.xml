@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_titulo_mis_gastos"
+            style="@style/TextViewTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mis gastos" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_reporte"
+                style="@style/TextViewSelectionStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="left" />
+
+            <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+                android:id="@+id/spinner_reportes"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+            <TextView
+                android:id="@+id/txt_gasto"
+                style="@style/TextViewSelectionStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="left" />
+
+            <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+                android:id="@+id/spinner_gastos"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+            <LinearLayout
+                android:id="@id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_reportar"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:text="Crear Reporte Gastos" />
+
+                <Button
+                    android:id="@+id/btn_borrar_reporte"
+                    android:clickable="true"
+                    android:layout_marginTop="10dp"
+                    android:text="Borrar Reporte Gastos"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

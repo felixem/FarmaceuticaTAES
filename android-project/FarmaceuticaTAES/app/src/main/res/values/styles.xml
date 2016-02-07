@@ -1,0 +1,107 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#3498DB</item>
+        <item name="colorPrimaryDark">#2C3E50</item>
+        <item name="colorAccent">#B455B6</item>
+        <item name="android:buttonStyle">@style/AppTheme.Button</item>
+
+        <item name="colorButtonNormal">?attr/colorPrimary</item>
+        <item name="colorControlActivated">?attr/colorPrimaryDark</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+
+        <item name="android:spinnerStyle">@style/AppTheme.Spinner</item>
+        <item name="android:spinnerItemStyle">@style/AppTheme.SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/AppTheme.Spinner</item>
+
+        <item name="android:dialogPreferenceStyle">@style/AppTheme.Dialog</item>
+        <item name="android:alertDialogStyle">@style/AppTheme.AlertDialog</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextView</item>
+
+        <item name="android:editTextStyle">@style/AppTheme.EditText</item>
+    </style>
+
+    <style name="AppTheme.CheckBox" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/Black</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextViewTitleStyle">
+        <item name="android:background">@drawable/txt_decoration</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ListViewItem">
+        <item name="android:background">@color/LightBlue</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:divider">@color/LightGrey</item>
+        <item name="android:dividerHeight">10dp</item>
+    </style>
+
+    <style name="TextViewSelectionStyle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.TextView" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/Black</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="android:Theme.DeviceDefault.Light.Dialog.Alert">
+        <item name="android:textSize">20sp</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/Black</item>
+    </style>
+
+    <style name="AppTheme.Spinner" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:background">@drawable/sp_background</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="android:Widget.Button">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorButtonNormal">?attr/colorPrimary</item>
+        <item name="colorControlActivated">?attr/colorPrimaryDark</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+    </style>
+
+    <!-- Estilo que defina la barra Tab -->
+    <style name="PagerTabStrip">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="indicatorColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:color">@color/Azure</item>
+    </style>
+
+    <style name="SpinnerStyle"><item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
+
+    <!-- Atributo para cambiar el color del pager -->
+    <declare-styleable name="ColoredPagerTabStrip">
+        <attr name="indicatorColor" format="reference|color" />
+        <attr name="textColor" format="reference|color" />
+    </declare-styleable>
+</resources>

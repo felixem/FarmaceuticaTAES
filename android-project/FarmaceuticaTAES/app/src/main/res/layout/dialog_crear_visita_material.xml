@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear_layout_crear_visita_producto"
+    android:background="@color/LightGrey"
+
+    >
+
+    <TextView
+        android:id="@+id/txt_titulo_crear_visita_material"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Añadir material entregado"
+        style="@style/TextViewTitleStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_productos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecciona un producto"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        />
+
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        android:id="@+id/spinner_productos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <TextView
+        android:id="@+id/txt_materiales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecciona un material"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        />
+
+    <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+        android:id="@+id/spinner_materiales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+    <TextView
+        android:id="@+id/txt_cantidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cantidad entregada"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_cantidad"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir"
+        android:id="@+id/button_crear_visita_material"
+        android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+</LinearLayout>

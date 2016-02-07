@@ -1,0 +1,10 @@
+<resources>
+    <style name="AppTheme.Button" parent="Base.Widget.AppCompat.Button">
+        <!-- <item name="android:colorButtonNormal">@color/Blue</item> -->
+        <!-- <item name="android:buttonStyle">@android:style/Widget.Button</item> -->
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorButtonNormal">?attr/colorPrimary</item>
+        <item name="colorControlActivated">?attr/colorPrimaryDark</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+    </style>
+</resources>

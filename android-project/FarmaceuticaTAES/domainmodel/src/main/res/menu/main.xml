@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/productos"
+        android:title="PRODUCTOS"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/clientes"
+        android:title="CLIENTES"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/gastos"
+        android:title="GASTOS"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/visitas"
+        android:title="VISITAS"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/rutas"
+        android:title="RUTAS"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+
+
+</menu>

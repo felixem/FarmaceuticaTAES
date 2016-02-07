@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reportar Gastos" />
+
+        <DatePicker
+            android:id="@+id/date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"></DatePicker>
+
+        <Button
+            android:id="@+id/btn_confirmar_dia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmar Día" />
+
+        <TextView
+            style="@style/TextViewTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gastos"
+            android:id = "@+id/txt_titulo_gastos"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_main_gasto_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                style="@style/TextViewSelectionStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:text="Seleccionar concepto de gasto" />
+
+            <farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter
+                android:id="@+id/sp_dfault"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"></farmaceutica.taes.farmaceutica.presentacion.controlador.util.view.SpinnerOnChangeAdapter>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_crear_gasto"
+                android:layout_weight="0.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Crear Gasto" />
+            <Button
+                android:id="@+id/btn_terminar_reporte"
+                android:layout_weight="0.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Terminar Reporte"  />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
